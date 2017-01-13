@@ -10,7 +10,7 @@ Our software will help students plan and customize their flowcharts. An administ
 ##2.	List of features
 In bullet points: give your proposed software system a name and list the 5-10 key features.
 
-Software System name: **POLY PATH**
+####Software System name: **POLY PATH**
 
 * simplify process of creating flowcharts for administration 
 * Access Cal Poly's database for accurate quarters in which classes will be offered
