@@ -1,5 +1,5 @@
 IDE: IntelliJ 
 UML Drawing: http://draw.io
 Version control: git and github
-Project management: 
+Project management: github projects
 Prototyping: 
