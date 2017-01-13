@@ -1,9 +1,11 @@
-# Team Project <put put project name here...>
+#Cal Poly SLO Flowchart
 Teamname: Avengers 
 
 ##1. Description
 
 Briefly list the purpose of your software system in a few short full sentences.
+
+Our software will help students plan and customize their flowcharts. An administrative version will be availible to allow for the creation of general Student flowcharts.
 
 ##2.	List of features
 
