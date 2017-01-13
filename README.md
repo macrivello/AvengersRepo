@@ -13,11 +13,12 @@ In bullet points: give your proposed software system a name and list the 5-10 ke
 Software System name: **POLY PATH**
 
 * simplify process of creating flowcharts for administration 
-* Access Cal Poly's database for quarters classes are being offered
+* Access Cal Poly's database for accurate quarters in which classes will be offered
   * if a change occurres then flowchart will dynamically reflect changes 
-* student's flowchart's initial creation depends upon:
-  * Freshman student or 
+* student's initial Path created depends upon:
+  * Freshman student **or** 
   * Transfer student
+* Poly Path can easily intergrate minor into students Path
 
 ##3.	Requirements
 
