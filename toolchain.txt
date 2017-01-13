@@ -1,4 +1,4 @@
-IDE: 
+IDE: IntelliJ 
 UML Drawing: http://draw.io
 Version control: git and github
 Project management: 
