@@ -1,4 +1,4 @@
-# Team Project <Cal Poly SLO Flowchart>
+#Cal Poly SLO Flowchart
 Teamname: Avengers 
 
 ##1. Description
