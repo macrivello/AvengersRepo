@@ -1,4 +1,4 @@
-# Team Project <put New PolyPlanner>
+# Team Project <put put project name here...>
 Teamname: Avengers 
 
 ##1. Description
