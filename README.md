@@ -19,6 +19,7 @@ Use a UML deployment diagram to show the overall system architecture and the sys
 
 ##5.	Technologies
 
+Spring Boot
 List the Java technologies and frameworks that you are planning to use.
 
 ##6.	Project Breakdown, Timeline and Milestones
