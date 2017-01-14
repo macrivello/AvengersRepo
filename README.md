@@ -64,3 +64,6 @@ Week 10: Have a working prototype for Poly Path <br />
 ##7.	Risks and Uncertainties
 
 List possible risks and other uncertainties which might delay or stop the proposed project.
+
+- The scope of the project could lead to intigration issues with Cal Poly's server
+- The time frame in producing a working product at the end of next quarter could cause the feature list to be made more realistic
