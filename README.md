@@ -14,16 +14,19 @@ In bullet points: give your proposed software system a name and list the 5-10 ke
 
 * Simplify the process of creating flowcharts for administration
 * Access Cal Poly's database for accurate quarters in which classes will be offered
-  * If a change occurres then flowchart will dynamically reflect changes
+  * If a catalogue change occurres then the flowchart will dynamically reflect changes
 * Student's initial Path created depends upon:
   * Freshman student **or**
   * Transfer student
 * Poly Path can easily intergrate minor into students Path
 * Offers a suggested template, but has a customizable inferface
+* Course Offering History 
+* Planned academic calendar vs actual calendar 
+* Change notifications if class availability changes
 
 ##3.	Requirements
 
-Summarize the major requirements. List as full sentences.
+Using this tool, a Cal Poly student can plan more efficiently for future classes. Its core functionality will be its live itegration with the Poly catalogue. Poly Path will update the users flowcharts according to: the catalogue requirements of that year, the users previous classes taken, and the various paths classes can be taken (technical electives and GEs offer a lot of variety). It will then generate an interactive flowchart, custom to that specific user, to help plan for future classes. 
 
 ##4.	Architecture
 
