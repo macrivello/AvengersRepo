@@ -50,10 +50,8 @@ Using this tool, a Cal Poly student can plan more efficiently for future classes
 
 Estimate workload, define Milestones and a timeline when to complete implementation for the above listed requirements.
 
-Week 1: Select tools and project
-
-Week 2: Design project layout
-
+Week 1: Select tools and project <br />
+Week 2: Design project layout <br />
 Week 3: Create interactive flowchart <br />
 Week 4: Integrate Poly's Catalogue <br />
 Week 5: Creates a temporary template for classes that still need to be taken <br />
