@@ -1,5 +1,5 @@
 #Cal Poly SLO Flowchart
-Teamname: Avengers 
+Teamname: Avengers
 
 ##1. Description
 
@@ -12,11 +12,11 @@ In bullet points: give your proposed software system a name and list the 5-10 ke
 
 ####Software System name: **POLY PATH**
 
-* simplify process of creating flowcharts for administration 
+* simplify process of creating flowcharts for administration
 * Access Cal Poly's database for accurate quarters in which classes will be offered
-  * if a change occurres then flowchart will dynamically reflect changes 
+  * if a change occurres then flowchart will dynamically reflect changes
 * student's initial Path created depends upon:
-  * Freshman student **or** 
+  * Freshman student **or**
   * Transfer student
 * Poly Path can easily intergrate minor into students Path
 
@@ -30,9 +30,17 @@ Use a UML deployment diagram to show the overall system architecture and the sys
 
 ##5.	Technologies
 
-List the Java technologies and frameworks that you are planning to use.
+#### FrontEnd
+
+* Angular2 + Node
+
+#### Backend
 
 * Spring Boot
+
+#### Database
+
+* PostgreSQL
 
 ##6.	Project Breakdown, Timeline and Milestones
 
