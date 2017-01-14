@@ -54,14 +54,14 @@ Week 1: Select tools and project
 
 Week 2: Design project layout
 
-Week 3: Create interactive flowchart
-Week 4: Integrate Poly's Catalogue
-Week 5: Creates a temporary template for classes that still need to be taken
-Week 6: Integrate user's class history
-Week 7: Flowchart editing tools that allow for custom class place holders
-Week 8: Admin class tracking tool
-Week 9: Have a notification element that notifies students of new changes to classes
-Week 10: Have a working prototype for Poly Path
+Week 3: Create interactive flowchart <br />
+Week 4: Integrate Poly's Catalogue <br />
+Week 5: Creates a temporary template for classes that still need to be taken <br />
+Week 6: Integrate user's class history <br />
+Week 7: Flowchart editing tools that allow for custom class place holders <br />
+Week 8: Admin class tracking tool <br />
+Week 9: Have a notification element that notifies students of new changes to classes <br />
+Week 10: Have a working prototype for Poly Path <br />
 
 ##7.	Risks and Uncertainties
 
