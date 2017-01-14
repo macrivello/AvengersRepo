@@ -26,7 +26,7 @@ Summarize the major requirements. List as full sentences.
 
 ##4.	Architecture
 
-Use a UML deployment diagram to show the overall system architecture and the system components. Use draw.io to draw the diagram. For reference check: (https://www.nomagic.com/images/guides/no_magic_quick_reference_guide_uml.pdf)
+![High-level System Overview](https://drive.google.com/open?id=0B9F1DNYCrDCHbjlBLXhYbGd6RnM)
 
 ##5.	Technologies
 
