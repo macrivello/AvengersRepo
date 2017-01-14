@@ -19,7 +19,7 @@ In bullet points: give your proposed software system a name and list the 5-10 ke
   * Freshman student **or**
   * Transfer student
 * Poly Path can easily intergrate minor into students Path
-* Offers a suggested template, but has a customizable inferface 
+* Offers a suggested template, but has a customizable inferface
 
 ##3.	Requirements
 
@@ -27,7 +27,7 @@ Summarize the major requirements. List as full sentences.
 
 ##4.	Architecture
 
-![High-level System Overview](https://drive.google.com/open?id=0B9F1DNYCrDCHbjlBLXhYbGd6RnM)
+![High-level System Overview](https://drive.google.com/uc?export=view&id=0B9F1DNYCrDCHbjlBLXhYbGd6RnM)
 
 ##5.	Technologies
 
