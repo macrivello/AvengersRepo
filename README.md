@@ -5,20 +5,21 @@ Teamname: Avengers
 
 Briefly list the purpose of your software system in a few short full sentences.
 
-Our software will help students plan and customize their flowcharts. An administrative version will be availible to allow for the creation of general Student flowcharts.
+Our software will help students plan for classes by building their own custom and interactive flowchart. An administrative version will be available to help the department plan ahead to see which classes they should offer in future quarters.
 
 ##2.	List of features
 In bullet points: give your proposed software system a name and list the 5-10 key features.
 
 ####Software System name: **POLY PATH**
 
-* simplify process of creating flowcharts for administration
+* Simplify the process of creating flowcharts for administration
 * Access Cal Poly's database for accurate quarters in which classes will be offered
-  * if a change occurres then flowchart will dynamically reflect changes
-* student's initial Path created depends upon:
+  * If a change occurres then flowchart will dynamically reflect changes
+* Student's initial Path created depends upon:
   * Freshman student **or**
   * Transfer student
 * Poly Path can easily intergrate minor into students Path
+* Offers a suggested template, but has a customizable inferface 
 
 ##3.	Requirements
 
