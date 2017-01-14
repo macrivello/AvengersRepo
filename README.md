@@ -67,3 +67,4 @@ List possible risks and other uncertainties which might delay or stop the propos
 
 - The scope of the project could lead to intigration issues with Cal Poly's server
 - The time frame in producing a working product at the end of next quarter could cause the feature list to be made more realistic
+- Lack of experience developing a whole software system and using these tools will come along with a learning curve of its own
