@@ -32,7 +32,7 @@ Use a UML deployment diagram to show the overall system architecture and the sys
 
 #### FrontEnd
 
-* Angular2 + Node
+* Angular2
 
 #### Backend
 
