@@ -36,7 +36,7 @@ Using this tool, a Cal Poly student can plan more efficiently for future classes
 
 #### FrontEnd
 
-* Angular2
+* React.js
 
 #### Backend
 
