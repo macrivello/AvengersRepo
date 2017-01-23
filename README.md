@@ -36,7 +36,7 @@ Using this tool, a Cal Poly student can plan more efficiently for future classes
 
 #### FrontEnd
 
-* Angular2
+* React.js
 
 #### Backend
 
@@ -65,6 +65,6 @@ Week 10: Have a working prototype for Poly Path <br />
 
 List possible risks and other uncertainties which might delay or stop the proposed project.
 
-- The scope of the project could lead to intigration issues with Cal Poly's server
+- The scope of the project could lead to integration issues with Cal Poly's server
 - The time frame in producing a working product at the end of next quarter could cause the feature list to be made more realistic
 - Lack of experience developing a whole software system and using these tools will come along with a learning curve of its own
