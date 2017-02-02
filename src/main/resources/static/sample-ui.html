@@ -9,13 +9,12 @@
 <div class="container mb-5">
   <!-- Content here -->
   <div class="row">
-    <table id="courseTable" class="table">
+    <table id="postTable" class="table">
       <thead>
         <tr>
           <th>#</th>
-          <th>Prefix</th>
-          <th>Number</th>
           <th>Title</th>
+          <th>Post</th>
         </tr>
       </thead>
       <tbody>
@@ -23,34 +22,28 @@
       </tbody>
     </table>
   </div>
-  <button id="getCourses" class="btn btn-primary mt-1">Load Courses</button>
+  <button id="getPosts" class="btn btn-primary mt-1">Load Posts</button>
 </div>
 
 
 <div class="container mt-3">
 <form>
   <div class="form-group row">
-    <label for="prefix-input" class="col-2 col-form-label">Prefix</label>
-    <div class="col-3">
-      <input class="form-control" type="text" id="prefix-input">
-    </div>
-  </div>
-  <div class="form-group row">
-    <label for="number-input" class="col-2 col-form-label">Number</label>
-    <div class="col-3">
-      <input class="form-control" type="text" id="number-input">
-    </div>
-  </div>
-  <div class="form-group row">
     <label for="title-input" class="col-2 col-form-label">Title</label>
-    <div class="col-6">
+    <div class="col-3">
       <input class="form-control" type="text" id="title-input">
     </div>
   </div>
+  <div class="form-group row">
+    <label for="post-input" class="col-2 col-form-label">Post</label>
+    <div class="col-6">
+      <input class="form-control" type="text" id="post-input">
+    </div>
+  </div>
   <div class="row justify-content-md-left offset-2 mt-3">
-      <button id="deleteCourse" class="btn btn-danger ">Delete</button>
-      <button id="updateCourse"  class="btn btn-success mr-2 ml-2">Update</button>
-      <button id="createCourse"  class="btn btn-warning">Create</button>
+      <button id="deletePost" class="btn btn-danger ">Delete</button>
+      <button id="updatePost"  class="btn btn-success mr-2 ml-2">Update</button>
+      <button id="createPost"  class="btn btn-warning">Create</button>
   </div>
 </form>
 </div>
@@ -71,17 +64,16 @@
 
 $(function() {
 
-  let courseStore = {};
+  let postStore = {};
 
   var SERVER_ROOT = "https://cp-avengers.herokuapp.com/";
   //var SERVER_ROOT = "http://localhost:8080/";
-  var COURSE_RESOURCE = "course";
-  var COURSE_API_ENDPOINT = SERVER_ROOT + COURSE_RESOURCE;
+  var POST_RESOURCE = "post";
+  var POST_API_ENDPOINT = SERVER_ROOT + POST_RESOURCE;
 
-  const table = $("#courseTable tbody");
-  const prefixInput = $("#prefix-input");
-  const numberInput = $("#number-input");
+  const table = $("#postTable tbody");
   const titleInput = $("#title-input");
+  const postInput = $("#post-input");
 
   const serverInput = $("#server-input");
 
@@ -90,19 +82,19 @@ $(function() {
   updateServerUrl();
 
   function updateServerUrl() {
-    serverInput.val(COURSE_API_ENDPOINT);
+    serverInput.val(POST_API_ENDPOINT);
   }
 
   function clearTable(){
     table.empty();
   }
 
-  function loadCoursesIntoTable(courses) {
-    if (Array.isArray(courses)){
-      courseStore = {};
-      for (let course of courses) {
-          courseStore[course.id] = course;
-          var row = "<tr class=\"course-row\" data-id="+course.id+"><td>"+course.id+"</td><td>"+course.prefix+"</td><td>"+course.number+"</td><td>"+course.title+"</td</tr>";
+  function loadPostsIntoTable(posts) {
+    if (Array.isArray(posts)){
+      postStore = {};
+      for (let post of posts) {
+          postStore[post.id] = post;
+          var row = "<tr class=\"post-row\" data-id="+post.id+"><td>"+post.id+"</td><td>"+post.title+"</td><td>"+post.post+"</td</tr>";
           table.append(row);
       }
     }
@@ -111,118 +103,115 @@ $(function() {
   }
 
   function setTableClickHandler() {
-    $(".course-row").click(function() {
+    $(".post-row").click(function() {
         var id = $(this).data("id");
-        $(this).addClass('table-active').siblings().removeClass('table-active');
-        loadCourseIntoForm(id);
+        $(this).addPost('table-active').siblings().removePost('table-active');
+        loadPostIntoForm(id);
     });
   }
 
-  function loadCourseIntoForm(id){
-    var course = courseStore[id];
+  function loadPostIntoForm(id){
+    var post = postStore[id];
 
-    if (course) {
-      prefixInput.val(course.prefix);
-      numberInput.val(course.number);
-      titleInput.val(course.title);
+    if (post) {
+      titleInput.val(post.title);
+      postInput.val(post.post);
     }
   }
 
-  function clearCourseForm(){
-     prefixInput.empty();
-     numberInput.empty();
+  function clearPostForm(){
      titleInput.empty();
+     postInput.empty();
   }
 
   function clearActiveRow(){
-    $(".table-active").removeClass("table-active");
+    $(".table-active").removePost("table-active");
   }
 
-  function fetchCourses() {
+  function fetchPosts() {
     $.ajax({
       method: "GET",
-      url: COURSE_API_ENDPOINT
+      url: POST_API_ENDPOINT
       })
       .done(function( data ) {
         clearTable();
-        loadCoursesIntoTable(data);
+        loadPostsIntoTable(data);
         clearActiveRow();
-        clearCourseForm();
+        clearPostForm();
     });
   }
 
-  function getCourseFormData() {
-    return { prefix: prefixInput.val(),
-             number: numberInput.val(),
-             title: titleInput.val()}
+  function getPostFormData() {
+    return { title: titleInput.val(),
+             post: postInput.val()}
   }
 
   function addClickHandlers(){
 
-    $("#getCourses").click(function(e){
+    $("#getPosts").click(function(e){
         e.preventDefault();
 
-        fetchCourses();
+        fetchPosts();
     });
 
-    $("#updateCourse").click(function(e){
+    $("#updatePost").click(function(e){
       e.preventDefault();
 
       var id = $(".table-active").data("id");
-      var data = getCourseFormData();
+      var data = getPostFormData();
       console.log(data);
 
       $.ajax({
         method: "PUT",
-        url: COURSE_API_ENDPOINT + "/" + id,
+        url: POST_API_ENDPOINT + "/" + id,
         data: JSON.stringify(data),
         contentType: "application/json",
         dataType: "json"
       })
       .done(function (data) {
         console.log(data);
-        fetchCourses();
+        fetchPosts();
       })
       .fail(function (msg) {
         console.log(msg);
       });
     });
 
-    $("#deleteCourse").click(function(e){
+    $("#deletePost").click(function(e){
       e.preventDefault();
 
       var id = $(".table-active").data("id");
 
       $.ajax({
         method: "DELETE",
-        url: COURSE_API_ENDPOINT + "/" + id
+        url: POST_API_ENDPOINT + "/" + id
       })
       .done(function (data) {
         console.log(data);
 
-        fetchCourses();
+        fetchPosts();
       })
       .fail(function (msg) {
         console.log(msg);
       });
     });
 
-    $("#createCourse").click(function(e){
+    $("#createPost").click(function(e){
       e.preventDefault();
 
-      var data = getCourseFormData();
+      var data = getPostFormData();
       console.log(data);
 
       $.ajax({
         method: "POST",
-        url: COURSE_API_ENDPOINT,
+        url: POST_API_ENDPOINT,
         data: JSON.stringify(data),
         contentType: "application/json",
         dataType: "json"
       })
       .done(function (data) {
         console.log(data);
-        fetchCourses();
+        fetchPosts();
       })
       .fail(function (msg) {
         console.log(msg);
@@ -233,7 +222,7 @@ $(function() {
     $("#setServer").click(function(e){
       e.preventDefault();
 
-      COURSE_API_ENDPOINT = serverInput.val();
+      POST_API_ENDPOINT = serverInput.val();
       updateServerUrl();
     })
   }
