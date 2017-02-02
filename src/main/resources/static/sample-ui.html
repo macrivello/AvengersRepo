@@ -105,7 +105,7 @@ $(function() {
   function setTableClickHandler() {
     $(".post-row").click(function() {
         var id = $(this).data("id");
-        $(this).addPost('table-active').siblings().removePost('table-active');
+        $(this).addClass('table-active').siblings().removeClass('table-active');
         loadPostIntoForm(id);
     });
   }
@@ -125,7 +125,7 @@ $(function() {
   }
 
   function clearActiveRow(){
-    $(".table-active").removePost("table-active");
+    $(".table-active").removeClass("table-active");
   }
 
   function fetchPosts() {
