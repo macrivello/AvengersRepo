@@ -1,12 +1,16 @@
 package base.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 
+@Entity
 public class Course implements Serializable {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String prefix;
     private String number;

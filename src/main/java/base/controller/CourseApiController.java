@@ -25,7 +25,7 @@ public class CourseApiController {
 
     @GetMapping("{id}")
     public Course read(@PathVariable Long id) {
-        return courseRepository.find(id);
+        return courseRepository.findOne(id);
     }
 
     @PostMapping
@@ -34,13 +34,13 @@ public class CourseApiController {
     }
 
     @DeleteMapping("{id}")
-    public Course destroy(@PathVariable Long id) {
-        return courseRepository.delete(id);
+    public void destroy(@PathVariable Long id) {
+        courseRepository.delete(id);
     }
 
     @PutMapping("{id}")
     public Course update(@PathVariable Long id, @RequestBody Course input) {
-        Course course = courseRepository.find(id);
+        Course course = courseRepository.findOne(id);
         if (course == null) {
             return null;
         } else {

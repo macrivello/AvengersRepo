@@ -14,19 +14,9 @@
 package base.data;
 
 import base.model.Course;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface CourseRepository {
-
-	Iterable<Course> findAll();
-
-	Course save(Course course);
-
-	List<Course> save(List<Course> courses);
-
-	Course find(Long id);
-
-	Course delete(Long id);
-
+public interface CourseRepository extends JpaRepository<Course, Long> {
 }

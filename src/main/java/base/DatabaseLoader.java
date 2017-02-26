@@ -30,12 +30,12 @@ public class DatabaseLoader implements CommandLineRunner {
         sampleCourseList.add(new Course("CPE", "103", "Fundamentals of Computer Science III"));
 
         this.courseRepository.save(sampleCourseList);
-
-        ArrayList<Post> samplePosts = new ArrayList<>();
-        samplePosts.add(new Post("Hello" , "Hello Guys"));
-        samplePosts.add(new Post("Beer" , "Lets get some beer"));
-        samplePosts.add(new Post("IPA", "Double IPAs are the best"));
-
-        this.postRepository.save(samplePosts);
+//
+//        ArrayList<Post> samplePosts = new ArrayList<>();
+//        samplePosts.add(new Post("Hello" , "Hello Guys"));
+//        samplePosts.add(new Post("Beer" , "Lets get some beer"));
+//        samplePosts.add(new Post("IPA", "Double IPAs are the best"));
+//
+//        this.postRepository.save(samplePosts);
     }
 }
