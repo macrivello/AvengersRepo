@@ -1,8 +1,4 @@
-# Allow Thymeleaf templates to be reloaded at dev time
-spring.thymeleaf.cache: false
-server.tomcat.access_log_enabled: true
-server.tomcat.basedir: target/tomcat
-
+## MAKE A COPY OF THIS CALLED application.properties in src/resources ##
 
 # Database Config
 # Un-comment these lines to connect to a database. When commented out, you automatically get an in-memory-database.
