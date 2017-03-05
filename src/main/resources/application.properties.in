@@ -1,9 +1,0 @@
-## MAKE A COPY OF THIS CALLED application.properties in src/resources ##
-
-# Database Config
-# Un-comment these lines to connect to a database. When commented out, you automatically get an in-memory-database.
-spring.jpa.hibernate.ddl-auto=update
-spring.datasource.url=
-spring.datasource.username=
-spring.datasource.password=
-spring.datasource.driver-class-name=org.postgresql.Driver

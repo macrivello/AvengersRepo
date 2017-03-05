@@ -61,6 +61,7 @@ app.controller('EditCourseCtrl', function ($scope, $http, course, dialog) {
     	method : 'PUT',
        	url : 'http://test-api-308.herokuapp.com/course/'+ $scope.course.id ,
        	data: {
+       			id: $scope.course.id,
   				prefix: $scope.course.prefix,
   				number: $scope.course.number,
   				title: $scope.course.title

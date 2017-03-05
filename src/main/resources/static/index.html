@@ -171,6 +171,7 @@ $(function() {
       var id = $(".table-active").data("id");
       var data = getCourseFormData();
       console.log(data);
+      fetchCourses();
 
       $.ajax({
         method: "PUT",
@@ -185,6 +186,7 @@ $(function() {
       })
       .fail(function (msg) {
         console.log(msg);
+        fetchCourses();
       });
     });
 
@@ -192,6 +194,7 @@ $(function() {
       e.preventDefault();
 
       var id = $(".table-active").data("id");
+      fetchCourses();
 
       $.ajax({
         method: "DELETE",
@@ -199,11 +202,11 @@ $(function() {
       })
       .done(function (data) {
         console.log(data);
-
         fetchCourses();
       })
       .fail(function (msg) {
         console.log(msg);
+        fetchCourses();
       });
     });
 
@@ -212,6 +215,7 @@ $(function() {
 
       var data = getCourseFormData();
       console.log(data);
+      fetchCourses();
 
       $.ajax({
         method: "POST",
@@ -226,6 +230,7 @@ $(function() {
       })
       .fail(function (msg) {
         console.log(msg);
+        fetchCourses();
       });
     });
 
