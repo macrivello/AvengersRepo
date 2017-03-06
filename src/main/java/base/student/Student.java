@@ -1,9 +1,13 @@
 package base.student;
 
+import base.flowchart.Flowchart;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Student implements Serializable{
@@ -15,8 +19,18 @@ public class Student implements Serializable{
     private String fname;
     private String lname;
 
+    private List<Flowchart> flowchart = new ArrayList<>();
+
     public Student(){
 
+    }
+
+    public List<Flowchart> getFlowchart() {
+        return flowchart;
+    }
+
+    public void setFlowchart(List<Flowchart> flowchart) {
+        this.flowchart = flowchart;
     }
 
     public Long getId() {
