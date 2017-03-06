@@ -34,11 +34,14 @@ public class FlowchartService {
             return;
         }
         else {
+            //Flowchart
             temp.setId(flowchart.getId());
+            //Student
             temp.getStudent().setId(flowchart.getStudent().getId());
             temp.getStudent().setNumber(flowchart.getStudent().getNumber());
             temp.getStudent().setLname(flowchart.getStudent().getLname());
             temp.getStudent().setFname(flowchart.getStudent().getFname());
+            //Save
             flowchartRepository.save(temp);
         }
     }
