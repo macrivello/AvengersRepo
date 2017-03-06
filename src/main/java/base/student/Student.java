@@ -14,7 +14,7 @@ public class Student implements Serializable{
     private String fname;
     private String lname;
 
-    private List<Flowchart> flowchart;
+    private List<Flowchart> flowcharts;
 
     public Student(){
 
@@ -23,11 +23,11 @@ public class Student implements Serializable{
     @OneToMany(targetEntity = Flowchart.class, mappedBy = "student",
     cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<Flowchart> getFlowcharts() {
-        return flowchart;
+        return flowcharts;
     }
 
-    public void setFlowcharts(List<Flowchart> flowchart) {
-        this.flowchart = flowchart;
+    public void setFlowcharts(List<Flowchart> flowcharts) {
+        this.flowcharts = flowcharts;
     }
 
     @Id

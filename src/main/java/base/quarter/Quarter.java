@@ -1,8 +1,9 @@
 package base.quarter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import base.entry.Entry;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Quarter {
@@ -10,6 +11,7 @@ public class Quarter {
     private Long id;
     private String term;
     private int year;
+    private List<Entry> entries;
 
     public Quarter(){
 
@@ -39,5 +41,16 @@ public class Quarter {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    //TODO Mapping
+    @OneToMany(targetEntity = Entry.class, mappedBy = "quarter",
+    cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Entry> getEntries() {
+        return entries;
+    }
+
+    public void setEntries(List<Entry> entries) {
+        this.entries = entries;
     }
 }

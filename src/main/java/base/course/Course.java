@@ -1,9 +1,10 @@
 package base.course;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import base.entry.Entry;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Course implements Serializable {
@@ -12,6 +13,7 @@ public class Course implements Serializable {
 	private String prefix;
 	private int number;
 	private String title;
+	private List<Entry> entries;
 
 
 	public Course() {
@@ -52,6 +54,16 @@ public class Course implements Serializable {
 		this.title = title;
 	}
 
+	//TODO Mapping
+	@OneToMany(targetEntity = Entry.class, mappedBy = "course",
+			cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	public List<Entry> getEntries() {
+		return entries;
+	}
+
+	public void setEntries(List<Entry> entries) {
+		this.entries = entries;
+	}
 }
 
 
