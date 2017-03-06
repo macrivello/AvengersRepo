@@ -1,8 +1,18 @@
+Postman collection: https://www.getpostman.com/collections/58f033d960931c2d0c56  
+Heroku app url: http://cp-avengers.herokuapp.com/
+=======
 #Cal Poly SLO Flowchart
 Teamname: Avengers
 
-##1. Description
+This Spring Boot application is rebuilt and deployed on Heroku with every new commit to this branch.  
+  
+To build and run locally run the following command: 
+./gradlew clean build && java -jar build/libs/gs-spring-boot-0.1.0.jar
+or
+mvn clean install && java -jar target/gs-spring-boot-0.1.0.jar
 
+when running locally, then the app url is http://localhost:8080/
+=======
 Briefly list the purpose of your software system in a few short full sentences.
 
 Our software will help students plan for classes by building their own custom and interactive flowchart. An administrative version will be available to help the department plan ahead to see which classes they should offer in future quarters.
@@ -68,5 +78,3 @@ List possible risks and other uncertainties which might delay or stop the propos
 - The scope of the project could lead to integration issues with Cal Poly's server
 - The time frame in producing a working product at the end of next quarter could cause the feature list to be made more realistic
 - Lack of experience developing a whole software system and using these tools will come along with a learning curve of its own
-
-

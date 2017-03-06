@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html ng-app="CourseApp">
+<head>
+<title>Course App</title>
+<meta charset="utf-8">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script
+	src="http://angular-ui.github.com/bootstrap/ui-bootstrap-tpls-0.1.0.js"></script>
+<link
+	href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="table.css" />
+
+
+<script>
+var app = angular.module('CourseApp', ['ui.bootstrap']);
+
+	function loadCourses ($scope, $http){
+		$http({
+       		 method : 'GET',
+       		 url : 'http://test-api-308.herokuapp.com/course'
+    		}).then(function (response) {
+     			 $scope.courses = response.data;
+  		});
+  	}
+
+app.controller('CourseCtrl', function ($scope, $http, $dialog) {
+  	
+  	loadCourses($scope, $http);
+  
+		  
+  	var addDialogOptions = {
+    	controller: 'AddCourseCtrl',
+    	templateUrl: './courseAdd.html'
+  	};
+  	
+  	$scope.add = function(course){
+    	$dialog.dialog(angular.extend(addDialogOptions, {})).open()
+  	};
+  	
+  	var editDialogOptions = {
+	    controller: 'EditCourseCtrl',
+	    templateUrl: './courseEdit.html',
+	};
+
+  	$scope.edit = function(course){
+   	 	var courseToEdit = course;
+    	$dialog.dialog(angular.extend(editDialogOptions, {resolve: {course: angular.copy(courseToEdit)}})).open();
+  	};
+  	
+});
+
+app.controller('EditCourseCtrl', function ($scope, $http, course, dialog) {
+  
+	$scope.course = course;
+
+  	$scope.save = function($course) {
+  	    var putRequest = {
+    	method : 'PUT',
+       	url : 'http://test-api-308.herokuapp.com/course/'+ $scope.course.id ,
+       	data: {
+       			id: $scope.course.id,
+  				prefix: $scope.course.prefix,
+  				number: $scope.course.number,
+  				title: $scope.course.title
+			  }
+		}  
+		
+  		$http(putRequest).then(function (response) {
+  		    $scope.course = response.data;
+  		});
+  		//todo handle error
+    	$scope.close();
+  	};
+  
+  	$scope.close = function(){
+  		loadCourses($scope, $http);
+    	dialog.close();
+  	};
+});
+
+
+app.controller('AddCourseCtrl', function($scope, $http, dialog){
+  
+  	$scope.save = function(course) {
+  	
+    	dialog.close();
+  	};
+  
+  	$scope.close = function(){
+    	dialog.close(undefined);
+  	};
+});
+
+app.controller('DeleteCourseCtrl', function($scope, course){
+//delete
+});
+
+
+</script>
+</head>
+<body>
+	<div ng-controller="CourseCtrl">
+		<h3>Courses:</h3>
+		<table>
+			<tr>
+				<td colspan=3>&nbsp;</td>
+				<td><button ng-click="add()">add course</button></td>
+			</tr>
+			<tr ng-repeat="c in courses">
+				<td>{{c.prefix}}</td>
+				<td>{{c.number}}</td>
+				<td>{{c.title}}</td>
+				<td><button ng-click="edit(c)">edit</button>
+					<button ng-click="delete(c)">delete</button></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

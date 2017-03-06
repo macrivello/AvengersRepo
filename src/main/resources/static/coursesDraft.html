@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html ng-app="CourseApp">
+<head>
+<title>Course App</title>
+<meta charset="utf-8">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script
+	src="http://angular-ui.github.com/bootstrap/ui-bootstrap-tpls-0.1.0.js"></script>
+<link
+	href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css"
+	rel="stylesheet">
+
+
+<script>
+var app = angular.module('CourseApp', ['ui.bootstrap']);
+
+app.controller('CourseCtrl', function ($scope, $dialog) {
+
+	$scope.courses = [
+	  {
+	    "id": 1,
+	    "prefix": "CPE",
+	    "number": "101",
+	    "title": "Fundamentals of Computer Science I"
+	  },
+	  {
+	    "id": 2,
+	    "prefix": "CPE",
+	    "number": "102",
+	    "title": "Fundamentals of Computer Science II"
+	  },
+	  {
+	    "id": 3,
+	    "prefix": "CPE",
+	    "number": "103",
+	    "title": "Fundamentals of Computer Science III"
+	  }
+		];
+		  
+  	var addDialogOptions = {
+    	controller: 'AddCourseCtrl',
+    	templateUrl: 'courseAdd.html'
+  	};
+  	
+  	$scope.add = function(course){
+    	$dialog.dialog(angular.extend(addDialogOptions, {})).open()
+  	};
+  	
+  	var editDialogOptions = {
+	    controller: 'EditCourseCtrl',
+	    templateUrl: 'courseEdit.html'
+	};
+
+  	$scope.edit = function(course){
+   	 	var courseToEdit = course;
+    	$dialog.dialog(angular.extend(editDialogOptions, {resolve: {course: angular.copy(courseToEdit)}})).open()
+  	};
+});
+
+app.controller('EditCourseCtrl', function ($scope, course, dialog) {
+  
+	$scope.course = course;
+  
+  	$scope.save = function() {
+    	dialog.close($scope.course);
+  	};
+  
+  	$scope.close = function(){
+    	dialog.close(undefined);
+  	};
+});
+
+
+app.controller('AddCourseCtrl', function($scope, dialog){
+  
+  	$scope.save = function(course) {
+    	dialog.close();
+  	};
+  
+  	$scope.close = function(){
+    	dialog.close(undefined);
+  	};
+});
+
+app.controller('DeleteCourseCtrl', function($scope, course){
+//delete
+});
+
+
+</script>
+<link rel="stylesheet" type="text/css" href="table.css" />
+
+</head>
+<body>
+	<div ng-controller="CourseCtrl">
+		<h3>Courses:</h3>
+		<table>
+			<tr>
+				<td colspan=3>&nbsp;</td>
+				<td><button ng-click="add()">add course</button></td>
+			</tr>
+			<tr ng-repeat="c in courses">
+				<td>{{c.prefix}}</td>
+				<td>{{c.number}}</td>
+				<td>{{c.title}}</td>
+				<td><button ng-click="edit(c)">edit</button>
+					<button ng-click="delete(c)">delete</button></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<div class="modal-header">
+	<h1>Add</h1>
+</div>
+<div class="modal-body">
+	<p>
+		Prefix <input ng-model="course.prefix" size="40"/>
+	</p>
+	<p>
+		Number <input ng-model="course.number" size="40"/>
+	</p>
+	<p>
+		Title <input ng-model="course.title" size="40"/>
+	</p>
+</div>
+<div class="modal-footer">
+	<button ng-click="save(course)">Save</button>
+	<button ng-click="close()">Close</button>
+</div>
