@@ -2,37 +2,36 @@ package base.student;
 
 import base.flowchart.Flowchart;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Student implements Serializable{
 
-    @Id
-    @GeneratedValue
     private Long id;
     private int number;
     private String fname;
     private String lname;
 
-    private List<Flowchart> flowchart = new ArrayList<>();
+    private List<Flowchart> flowchart;
 
     public Student(){
 
     }
 
-    public List<Flowchart> getFlowchart() {
+    @OneToMany(targetEntity = Flowchart.class, mappedBy = "student",
+    cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public List<Flowchart> getFlowcharts() {
         return flowchart;
     }
 
-    public void setFlowchart(List<Flowchart> flowchart) {
+    public void setFlowcharts(List<Flowchart> flowchart) {
         this.flowchart = flowchart;
     }
 
+    @Id
+    @GeneratedValue
     public Long getId() {
         return id;
     }

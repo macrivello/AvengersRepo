@@ -2,10 +2,11 @@ package base.flowchart;
 
 import base.student.Student;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 public class Flowchart {
+
 
     private Long id;
     private Student student;
@@ -14,6 +15,8 @@ public class Flowchart {
 
     }
 
+    @Id
+    @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -22,6 +25,8 @@ public class Flowchart {
         this.id = id;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "student_id")
     public Student getStudent() {
         return student;
     }

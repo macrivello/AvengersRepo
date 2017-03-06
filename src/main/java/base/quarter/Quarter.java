@@ -7,7 +7,6 @@ import javax.persistence.Id;
 @Entity
 public class Quarter {
 
-    @Id @GeneratedValue
     private Long id;
     private String term;
     private int year;
@@ -16,6 +15,8 @@ public class Quarter {
 
     }
 
+    @Id
+    @GeneratedValue
     public Long getId() {
         return id;
     }
