@@ -38,8 +38,6 @@ public class Flowchart {
         this.student = student;
     }
 
-
-    //TODO Mapping
     @OneToMany(targetEntity = Entry.class, mappedBy = "flowchart",
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Entry> getEntries() {

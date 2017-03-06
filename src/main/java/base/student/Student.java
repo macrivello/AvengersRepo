@@ -20,16 +20,6 @@ public class Student implements Serializable{
 
     }
 
-    @OneToMany(targetEntity = Flowchart.class, mappedBy = "student",
-    cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public List<Flowchart> getFlowcharts() {
-        return flowcharts;
-    }
-
-    public void setFlowcharts(List<Flowchart> flowcharts) {
-        this.flowcharts = flowcharts;
-    }
-
     @Id
     @GeneratedValue
     public Long getId() {
@@ -62,5 +52,15 @@ public class Student implements Serializable{
 
     public void setLname(String lname) {
         this.lname = lname;
+    }
+
+    @OneToMany(targetEntity = Flowchart.class, mappedBy = "student",
+            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public List<Flowchart> getFlowcharts() {
+        return flowcharts;
+    }
+
+    public void setFlowcharts(List<Flowchart> flowcharts) {
+        this.flowcharts = flowcharts;
     }
 }

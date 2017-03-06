@@ -54,7 +54,6 @@ public class Course implements Serializable {
 		this.title = title;
 	}
 
-	//TODO Mapping
 	@OneToMany(targetEntity = Entry.class, mappedBy = "course",
 			cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	public List<Entry> getEntries() {

@@ -43,9 +43,8 @@ public class Quarter {
         this.year = year;
     }
 
-    //TODO Mapping
     @OneToMany(targetEntity = Entry.class, mappedBy = "quarter",
-    cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+            cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Entry> getEntries() {
         return entries;
     }
