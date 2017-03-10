@@ -57,7 +57,7 @@ public class Course implements Serializable {
 		this.entries = entries;
 	}
 
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "department_id")
 	public Department getDepartment() {
 		return department;
