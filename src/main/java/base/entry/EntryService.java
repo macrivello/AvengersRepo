@@ -39,8 +39,10 @@ public class EntryService {
             //Course
             temp.getCourse().setId(entry.getCourse().getId());
             temp.getCourse().setNumber(entry.getCourse().getNumber());
-            temp.getCourse().setPrefix(entry.getCourse().getPrefix());
             temp.getCourse().setTitle(entry.getCourse().getTitle());
+            //Course -> Department
+            temp.getCourse().getDepartment().setId(entry.getCourse().getDepartment().getId());
+            temp.getCourse().getDepartment().setPrefix(entry.getCourse().getDepartment().getPrefix());
             //Flowchart -> Student
             temp.getFlowchart().setId(entry.getFlowchart().getId());
             temp.getFlowchart().getStudent().setId(entry.getFlowchart().getStudent().getId());

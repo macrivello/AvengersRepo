@@ -11,7 +11,6 @@ import java.util.List;
 public class Course implements Serializable {
 
 		private Long id;
-		private String prefix;
 		private int number;
 		private String title;
 		private List<Entry> entries;
@@ -30,14 +29,6 @@ public class Course implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getPrefix() {
-		return prefix;
-	}
-
-	public void setPrefix(String prefix) {
-		this.prefix = prefix;
 	}
 
 	public int getNumber() {

@@ -33,9 +33,11 @@ public class CourseService {
 			return;
 		}
 		else {
+			temp.setId(course.getId());
 			temp.setNumber(course.getNumber());
-			temp.setPrefix(course.getPrefix());
 			temp.setTitle(course.getTitle());
+			temp.getDepartment().setId(course.getDepartment().getId());
+			temp.getDepartment().setPrefix(course.getDepartment().getPrefix());
 			courseRepository.save(temp);
 		}
 	}
