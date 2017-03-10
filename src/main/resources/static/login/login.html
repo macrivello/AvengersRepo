@@ -1,26 +1,41 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" href="login.css">
-</head>
-<body>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="wrap">
-                <h1 class="form-title">
-                    Poly Path</h1>
-                <form class="login">
-                    <input type="text" placeholder="Username" />
-                    <input type="password" placeholder="Password" />
-                    <input type="submit" value="Sign In" class="btn btn-success btn-sm" />
-                </form>
+    <head>
+        <title>Log In Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://use.fontawesome.com/3533cc454b.js"></script> <!-- For thumbnail symbols -->
+        <link rel="stylesheet" href="login.css">
+    </head>
+
+    <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="wrap">
+                    <!-- <img src="../../images/PolyPathGrayBox.png" alt="title" style="width:100%; height:40%;"> -->
+                    <h1 class="form-title">
+                        <img src="../../images/PolyPathTitle.png" alt="title" style="width:600px; height:100px;">
+                    </h1>
+                    <form class="login">
+
+                        <div class = "search">
+                            <span class="fa fa-user" aria-hidden="true"></span>
+                            <input type="text" placeholder="Username"/>
+                        </div>
+                        <div class = "search">
+                            <span class="fa fa-lock" aria-hidden="true"></span>
+                            <input type="password" placeholder="Password"/>
+                         </div>
+
+                        <input type="submit" value="Log In" class="btn btn-success btn-sm" />
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    </body>
 
-</body>
 </html>
 

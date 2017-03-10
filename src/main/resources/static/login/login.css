@@ -1,6 +1,6 @@
 body
 {
-    background: url('../../images/CalPolyLandscape.jpg') fixed;
+    background: url('../../images/PolyPathBGResized.png') fixed;
     background-size: cover;
     padding: 0;
     margin: 0;
@@ -8,6 +8,7 @@ body
 
 .wrap
 {
+    /*background: url("../../images/PolyPathGrayBox.png") fixed;*/
     width: 100%;
     height: 100%;
     min-height: 100%;
@@ -19,16 +20,35 @@ body
 
 h1.form-title
 {
-    font-family: 'Palatino Black' , serif;
-    font-size: 80px;
-    font-weight: 600;
     text-align: center;
-    color: #035642;
     margin-top: 10%;
-    text-transform: uppercase;
-    letter-spacing: 4px;
+}
+.search
+{
+    position: relative;
 }
 
+.search input
+{
+    text-indent: 30px;
+    margin: 10px 0px;
+}
+
+.search .fa-user
+{
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  font-size: 20px;
+}
+
+.search .fa-lock
+{
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  font-size: 20px;
+}
 
 form
 {
@@ -36,21 +56,26 @@ form
     margin: 0 auto;
 }
 
+form.login input[type="text"]:focus, form.login input[type="password"]:focus
+{
+    background-color: white;
+}
+
 form.login input[type="text"], form.login input[type="password"]
 {
+    text-align: center;
+    background-color: gray;
     width: 100%;
-    margin: 0;
-    padding: 5px 10px;
-    background: 0;
-    border: 0;
-    border-bottom: 1px solid #FFFFFF;
+    margin: 10px, 0px;
+    padding: 10px 20px;
+    border: 2px;
+    border-radius: 4px;
     outline: 0;
     font-style: italic;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 400;
     letter-spacing: 1px;
-    margin-bottom: 5px;
-    color: #FFFFFF;
+    color: black;
     outline: 0;
 }
 
