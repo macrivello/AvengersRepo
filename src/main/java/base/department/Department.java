@@ -5,9 +5,6 @@ import base.course.Course;
 import javax.persistence.*;
 import java.util.*;
 
-/**
- * Created by Husane on 3/10/17.
- */
 @Entity
 public class Department {
 
