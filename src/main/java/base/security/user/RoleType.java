@@ -1,4 +1,4 @@
-package base.security;
+package base.security.user;
 
 public enum RoleType {
     ADMIN, STUDENT, CATALOG_ADMIN;

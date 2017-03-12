@@ -1,7 +1,7 @@
 package base.user;
 
-/**
- * Created by macrivel on 3/11/17.
- */
-public class UserRepository {
+import org.springframework.data.repository.CrudRepository;
+
+public interface UserRepository extends CrudRepository<User,Long> {
+    User findByEmail(String email);
 }
