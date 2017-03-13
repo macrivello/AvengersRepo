@@ -2,6 +2,7 @@
 1) Font icons are resized responsively but have a funny value due to parent positioning
 2) Cannot add an <hr> to module?
 3) Some elements only padding-"" works (opposed to padding px px px px)?
+4)green on login button looks different
 */
 
 body {
