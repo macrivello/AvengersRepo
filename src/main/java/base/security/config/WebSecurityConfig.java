@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/html/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/js/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/images/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/UserManHelpPAge/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/UserManHelpPage/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/favicon.ico").permitAll()
                 .antMatchers(HttpMethod.GET, "/").permitAll()
                 .antMatchers(HttpMethod.GET, "/login").permitAll() // to get auth token
