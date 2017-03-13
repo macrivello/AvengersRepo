@@ -6,22 +6,26 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ *  Currently not using student class for first prototype
+ */
 @Entity
 public class Student implements Serializable{
-
+    @Id
+    @GeneratedValue
     private Long id;
     private int number;
     private String fname;
     private String lname;
 
-    private List<Flowchart> flowcharts;
+//    @OneToMany(targetEntity = Flowchart.class, mappedBy = "student",
+//            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private List<Flowchart> flowcharts;
 
     public Student(){
 
     }
 
-    @Id
-    @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -54,13 +58,11 @@ public class Student implements Serializable{
         this.lname = lname;
     }
 
-    @OneToMany(targetEntity = Flowchart.class, mappedBy = "student",
-            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public List<Flowchart> getFlowcharts() {
-        return flowcharts;
-    }
+//    public List<Flowchart> getFlowcharts() {
+//        return flowcharts;
+//    }
 
-    public void setFlowcharts(List<Flowchart> flowcharts) {
-        this.flowcharts = flowcharts;
-    }
+//    public void setFlowcharts(List<Flowchart> flowcharts) {
+//        this.flowcharts = flowcharts;
+//    }
 }

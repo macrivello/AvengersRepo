@@ -43,12 +43,14 @@ public class EntryService {
             //Course -> Department
             temp.getCourse().getDepartment().setId(entry.getCourse().getDepartment().getId());
             temp.getCourse().getDepartment().setPrefix(entry.getCourse().getDepartment().getPrefix());
-            //Flowchart -> Student
+            //Flowchart -> User
             temp.getFlowchart().setId(entry.getFlowchart().getId());
-            temp.getFlowchart().getStudent().setId(entry.getFlowchart().getStudent().getId());
-            temp.getFlowchart().getStudent().setNumber(entry.getFlowchart().getStudent().getNumber());
-            temp.getFlowchart().getStudent().setLname(entry.getFlowchart().getStudent().getLname());
-            temp.getFlowchart().getStudent().setFname(entry.getFlowchart().getStudent().getFname());
+
+            // TODO: Just set user as current user in request.
+            temp.getFlowchart().getUser().setId(entry.getFlowchart().getUser().getId());
+//            temp.getFlowchart().getUser().setNumber(entry.getFlowchart().getUser().getNumber());
+//            temp.getFlowchart().getUser().setLname(entry.getFlowchart().getUser().getLname());
+//            temp.getFlowchart().getUser().setFname(entry.getFlowchart().getUser().getFname());
             //Quarter
             temp.getQuarter().setId(entry.getQuarter().getId());
             temp.getQuarter().setTerm(entry.getQuarter().getTerm());

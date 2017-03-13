@@ -36,11 +36,11 @@ public class FlowchartService {
         else {
             //Flowchart
             temp.setId(flowchart.getId());
-            //Student
-            temp.getStudent().setId(flowchart.getStudent().getId());
-            temp.getStudent().setNumber(flowchart.getStudent().getNumber());
-            temp.getStudent().setLname(flowchart.getStudent().getLname());
-            temp.getStudent().setFname(flowchart.getStudent().getFname());
+            //TODO: just set User from current request
+            temp.getUser().setId(flowchart.getUser().getId());
+//            temp.getUser().setNumber(flowchart.getUser().getNumber());
+//            temp.getUser().setLname(flowchart.getUser().getLname());
+//            temp.getUser().setFname(flowchart.getUser().getFname());
             //Save
             flowchartRepository.save(temp);
         }

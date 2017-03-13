@@ -1,7 +1,7 @@
 package base.flowchart;
 
 import base.entry.Entry;
-import base.student.Student;
+import base.user.User;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +11,7 @@ public class Flowchart {
 
 
     private Long id;
-    private Student student;
+    private User user;
     private List<Entry> entries;
 
     public Flowchart(){
@@ -29,13 +29,13 @@ public class Flowchart {
     }
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
-    public Student getStudent() {
-        return student;
+    @JoinColumn(name = "user_id")
+    public User getUser() {
+        return user;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @OneToMany(targetEntity = Entry.class, mappedBy = "flowchart",

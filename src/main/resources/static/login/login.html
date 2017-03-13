@@ -17,7 +17,13 @@
         <link rel="icon" href="https://s-media-cache-ak0.pinimg.com/originals/84/12/c0/8412c0e289628de0db61e015344223d2.jpg" type="image/png">
         <script src="https://use.fontawesome.com/3533cc454b.js"></script> <!-- For thumbnail symbols -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
         <link rel="stylesheet" href="login.css">
+
+        <script
+                src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     </head>
 
     <body>
@@ -35,7 +41,7 @@
                     </div>
                     -->
                     <div class="form-title">
-                        <img src="../../images/PolyPathTitle.png" alt="title" style="width:600px; height:100px;">
+                        <img src="../images/PolyPathTitle.png" alt="title" style="width:600px; height:100px;">
                     </div>
 
                         <form class="select-chart" action="">
@@ -62,19 +68,19 @@
                             <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
 
                         <!-- Modal Content -->
-                        <form class="modal-content animate" action="">
+                        <form id="signInForm" class="modal-content animate" action="/login">
                             <div class="container" style="text-align: center">
                                 <div class = "search">
                                     <span class="fa fa-user" aria-hidden="true"></span>
-                                    <input type="text" placeholder="Username"/>
+                                    <input id="usernameInput" type="text" placeholder="Username" />
                                 </div>
 
                                 <div class = "search">
                                     <span class="fa fa-lock" aria-hidden="true"></span>
-                                    <input type="password" placeholder="Password"/>
+                                    <input id="passwordInput" type="password" placeholder="Password"/>
                                 </div>
 
-                                <input type="submit" value="Sign In" class="btn polybutton" style="width: 40%"/>
+                                <input type="submit" value="Sign In" class="btn polybutton" id="signInButton" style="width: 40%"/>
                             </div>
 
                                 <span class="psw">Forgot <a href="#">password?</a></span>
@@ -95,10 +101,34 @@
                 modal.style.display = "none";
             }
         }
+
+        $(function () {
+           // jQuery callback for document loaded
+            $("#signInForm").submit(function(event) {
+                event.preventDefault();
+
+                var username = $("#usernameInput").val();
+                var password = $("#passwordInput").val();
+                var loginDetails = {username: username, password: password};
+
+                $.ajax({
+                    type: "POST",
+                    url: "/login",
+                    data: loginDetails,
+                    contentType:"application/json",
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data)
+                    },
+                    fail: function(data) {
+                        console.log(data)
+                    }
+                });
+            });
+
+
+        });
     </script>
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
     </body>
 

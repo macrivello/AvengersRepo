@@ -1,5 +1,6 @@
 package base.user;
 
+import base.flowchart.Flowchart;
 import base.security.user.RoleType;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -7,6 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,6 +40,10 @@ public class User implements Serializable {
     @Column(name = "roles")
     private Set<RoleType> roles;
 
+    @OneToMany(targetEntity = Flowchart.class, mappedBy = "user",
+            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Flowchart> flowcharts;
+
     public User() {}
 
     public User(User user) {
@@ -47,6 +53,7 @@ public class User implements Serializable {
         this.email = user.email;
         this.password = user.password;
         this.roles = user.roles;
+        this.flowcharts = user.flowcharts;
     }
 
     @PrePersist
