@@ -13,9 +13,7 @@ public class Flowchart {
     private User user;
     private List<Entry> entries;
 
-    public Flowchart(){
-
-    }
+    public Flowchart(){}
 
     @Id
     @GeneratedValue
