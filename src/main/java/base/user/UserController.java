@@ -31,12 +31,7 @@ public class UserController {
 
     @PostMapping
     public User create(@Valid @RequestBody User reqUser) {
-        User user = new User();
-        user.setEmail(reqUser.getEmail());
-        user.setFirstName(reqUser.getFirstName());
-        user.setLastName(reqUser.getLastName());
-        user.setPassword(new BCryptPasswordEncoder().encode(reqUser.getPassword()));
-        return userService.createNewUser(user);
+        return userService.createNewUser(reqUser);
     }
 
 //    @DeleteMapping("{id}")
