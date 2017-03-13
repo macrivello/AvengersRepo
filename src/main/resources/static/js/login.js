@@ -26,19 +26,11 @@ $(function () {
             url: "/login",
             data: JSON.stringify(loginDetails),
             contentType:"application/json",
-            dataType: "json",
-            done: function(data) {
-                console.log(data)
-            },
-            success: function(data) {
-                console.log(data)
-
-                //TODO: Store JWT Token
-                //TODO: Redirect to Home
-            },
-            fail: function(data) {
-                console.log(data)
-            }
+            dataType: "json"
+        }).done(function (data, textStatus, jqXHR) {
+            $(location).attr('href', '/')
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.status);
         });
     }
 

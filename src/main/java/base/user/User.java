@@ -2,6 +2,7 @@ package base.user;
 
 import base.flowchart.Flowchart;
 import base.security.user.RoleType;
+import org.hibernate.annotations.Proxy;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -32,7 +33,7 @@ public class User implements Serializable {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection(targetClass = RoleType.class)
+    @ElementCollection(targetClass = RoleType.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "users_id"))
     @Column(name = "roles")

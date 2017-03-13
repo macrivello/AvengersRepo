@@ -1,6 +1,8 @@
 package base.user;
 
+import base.security.user.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +17,10 @@ public class UserController {
     private UserService userService;
 
     // Return only logged in user
-//    @GetMapping("/me")
-//    public UserDetails getCurrentUser(@CurrentUser UserDetails currentUser) {
-//        return currentUser;
-//    }
+    @GetMapping("/me")
+    public UserDetails getCurrentUser(@CurrentUser UserDetails currentUser) {
+        return currentUser;
+    }
 
 //    @RequestMapping("/all")
 //    public List<User> getUsers(@CurrentUser UserDetails currentUser) {
