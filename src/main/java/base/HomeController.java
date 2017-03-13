@@ -13,5 +13,5 @@ public class HomeController {
     public String index() {
         //TODO Check for auth token, show index, otherwise redirect
 
-        return "redirect:/login"; }
+        return "index.html"; }
 }

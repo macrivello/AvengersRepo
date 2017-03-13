@@ -9,7 +9,6 @@ import java.util.List;
 @Entity
 public class Flowchart {
 
-
     private Long id;
     private User user;
     private List<Entry> entries;

@@ -21,12 +21,12 @@
         <script src="https://use.fontawesome.com/3533cc454b.js"></script> <!-- For thumbnail symbols -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
-        <link rel="stylesheet" href="login.css">
 
         <script
                 src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <script src="login/login.js"></script> <!-- For thumbnail symbols -->
     </head>
 
     <body>
@@ -89,7 +89,7 @@
                                     <input id="passwordInput" type="password" placeholder="Password"/>
                                 </div>
 
-                                <input type="submit" value="Sign In" class="btn polybutton" id="signInButton" style="width: 40%"/>
+                                <input id="signInButton" type="submit" value="Sign In" class="btn polybutton"  style="width: 40%"/>
                             </div>
 
                                 <span class="psw">Forgot <a href="https://myportal.calpoly.edu/f/u36l1s55/p/AccountActivationRecoveryPortlet.u36l1n69/max/render.uP?pCm=view">password?</a></span>
@@ -101,19 +101,21 @@
         </div>
     </div>
 
+    <!--TODO: Put this in a seprate js file-->
     <script>
-        var modal = document.getElementById('id01');
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
+        // jQuery callback for document loaded
         $(function () {
-           // jQuery callback for document loaded
-            $("#signInForm").submit(function(event) {
+            var modal = document.getElementById('id01');
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+
+
+            $("#signInButton").click(function(event) {
                 event.preventDefault();
 
                 var username = $("#usernameInput").val();
