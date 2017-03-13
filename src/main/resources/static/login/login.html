@@ -4,6 +4,9 @@
 3)Registering for account?
 4) Add CP logo?
 5) Add dark BG?
+6) Remember me button?
+7) User picture?
+8) Everytime you leave log in panel, it should clear data
 -->
 
 <!DOCTYPE html>
@@ -31,10 +34,16 @@
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="wrap">
+                    <div>
+                        <div>
+                            <button class="btn polybutton" style="width: 15%; float: left" onclick="window.location.href='../UserManHelpPage/html/User_Man_Help.html'">Help</button>
+                        </div>
 
-                    <div  align="right">
-                        <button class="btn polybutton" style="width: 10%" onclick="document.getElementById('id01').style.display='block'">Login</button>
+                        <div align="right">
+                            <button class="btn polybutton" style="width: 15%; float: right" onclick="document.getElementById('id01').style.display='block'">Login</button>
+                        </div>
                     </div>
+
                     <!--
                     <div>
                         <img src="../../images/CPLogo.png" alt="Cal Poly Logo" style="width:200px; height:200px;">
@@ -83,7 +92,7 @@
                                 <input type="submit" value="Sign In" class="btn polybutton" id="signInButton" style="width: 40%"/>
                             </div>
 
-                                <span class="psw">Forgot <a href="#">password?</a></span>
+                                <span class="psw">Forgot <a href="https://myportal.calpoly.edu/f/u36l1s55/p/AccountActivationRecoveryPortlet.u36l1n69/max/render.uP?pCm=view">password?</a></span>
                         </form>
                     </div>
 
