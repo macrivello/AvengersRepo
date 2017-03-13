@@ -25,7 +25,7 @@ public final class PolyPathUserDetails extends User implements UserDetails {
 
         ArrayList<String> authorities = new ArrayList<>();
         this.getRoles().forEach(r -> authorities.add(r.getRole()));
-        return AuthorityUtils.createAuthorityList((String[]) authorities.toArray());
+        return AuthorityUtils.createAuthorityList(authorities.toArray(new String[0]));
     }
 
     @Override

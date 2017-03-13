@@ -1,6 +1,7 @@
 package base;
 
 import base.security.jwt.JwtAuthenticationRequest;
+import base.security.jwt.JwtTokenResponse;
 import base.security.jwt.JwtTokenUtil;
 import base.security.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +46,7 @@ public class LoginController {
     private String secure;
     @Value("${server.cookie.path}")
     private String path;
-    @Value("${server.cookie.path}")
+    @Value("${server.cookie.max-age}")
     private String maxAge;
     @Value("${server.cookie.name}")
     private String cookieName;
@@ -66,9 +68,9 @@ public class LoginController {
 
         final String token = jwtTokenUtil.generateToken(userDetails, device);
 
-        CookieUtil.create(httpServletResponse, cookieName, token, Boolean.getBoolean(secure), Integer.getInteger(maxAge), domain);
+        CookieUtil.create(httpServletResponse, cookieName, token, Boolean.getBoolean(secure), Integer.parseInt(maxAge), domain);
 
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(new JwtTokenResponse(token));
     }
 
     @RequestMapping(value = "/refresh", method = RequestMethod.GET)

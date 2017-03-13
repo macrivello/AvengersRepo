@@ -7,9 +7,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name="users") // 'user' is a keyword in Postgres
@@ -54,6 +52,13 @@ public class User implements Serializable {
         this.password = user.password;
         this.roles = user.roles;
         this.flowcharts = user.flowcharts;
+    }
+
+    public User(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
     }
 
     @PrePersist
