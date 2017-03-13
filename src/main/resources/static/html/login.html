@@ -27,6 +27,8 @@
                 src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+        <script src="js/login.js"></script> <!-- For thumbnail symbols -->
     </head>
 
     <body>
@@ -100,46 +102,6 @@
             </div>
         </div>
     </div>
-
-    <!--TODO: Put this in a seprate js file-->
-    <script>
-        // jQuery callback for document loaded
-        $(function () {
-            var modal = document.getElementById('id01');
-
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            };
-
-
-            $("#signInButton").click(function(event) {
-                event.preventDefault();
-
-                var username = $("#usernameInput").val();
-                var password = $("#passwordInput").val();
-                var loginDetails = {username: username, password: password};
-
-                $.ajax({
-                    type: "POST",
-                    url: "/login",
-                    data: loginDetails,
-                    contentType:"application/json",
-                    dataType: "json",
-                    success: function(data) {
-                        console.log(data)
-                    },
-                    fail: function(data) {
-                        console.log(data)
-                    }
-                });
-            });
-
-
-        });
-    </script>
 
     </body>
 
