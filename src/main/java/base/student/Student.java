@@ -1,10 +1,10 @@
 package base.student;
 
-import base.flowchart.Flowchart;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  *  Currently not using student class for first prototype
@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 public class Student implements Serializable{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int number;
     private String fname;

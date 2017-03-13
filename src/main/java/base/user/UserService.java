@@ -10,6 +10,10 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public User getUser(long id){
+        return userRepository.findOne(id);
+    }
+
     public User createNewUser(User reqUser) {
         User user = new User();
         user.setEmail(reqUser.getEmail());

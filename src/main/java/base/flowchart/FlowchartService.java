@@ -51,4 +51,9 @@ public class FlowchartService {
         flowchartRepository.delete(id);
     }
 
+    public void removeAllFlowcharts()
+    {
+        flowchartRepository.deleteAll();
+    }
+
 }

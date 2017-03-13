@@ -45,5 +45,8 @@ public class DepartmentService {
         departmentRepository.delete(id);
     }
 
-
+    public void removeAllDepartments()
+    {
+        departmentRepository.deleteAll();
+    }
 }

@@ -44,5 +44,10 @@ public class QuarterService {
     {
         quarterRepository.delete(id);
     }
+
+    public void removeAllQuarters()
+    {
+        quarterRepository.deleteAll();
+    }
     
 }

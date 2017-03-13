@@ -21,8 +21,22 @@ public class Course implements Serializable {
 		
 	}
 
+	public Course(int number, String title, Department department) {
+		this.number = number;
+		this.title = title;
+		this.department = department;
+	}
+
+	public Course(Course course) {
+		this.id = course.id;
+		this.number = course.number;
+		this.title = course.title;
+		this.entries = course.entries;
+		this.department = course.department;
+	}
+
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}

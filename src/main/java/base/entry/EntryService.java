@@ -49,7 +49,7 @@ public class EntryService {
             // TODO: Just set user as current user in request.
             temp.getFlowchart().getUser().setId(entry.getFlowchart().getUser().getId());
 //            temp.getFlowchart().getUser().setNumber(entry.getFlowchart().getUser().getNumber());
-//            temp.getFlowchart().getUser().setLname(entry.getFlowchart().getUser().getLname());
+//           temp.getFlowchart().getUser().setLname(entry.getFlowchart().getUser().getLname());
 //            temp.getFlowchart().getUser().setFname(entry.getFlowchart().getUser().getFname());
             //Quarter
             temp.getQuarter().setId(entry.getQuarter().getId());
@@ -63,6 +63,11 @@ public class EntryService {
     public void deleteEntry(Long id)
     {
         entryRepository.delete(id);
+    }
+
+    public void removeAllEntries()
+    {
+        entryRepository.deleteAll();
     }
     
 }

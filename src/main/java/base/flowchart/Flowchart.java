@@ -15,8 +15,18 @@ public class Flowchart {
 
     public Flowchart(){}
 
+    public Flowchart(User user) {
+        this.user = user;
+    }
+
+    public Flowchart(Flowchart flowchart) {
+        this.id = flowchart.id;
+        this.user = flowchart.user;
+        this.entries = flowchart.entries;
+    }
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }

@@ -18,8 +18,21 @@ public class Entry {
 
     }
 
+    public Entry(Course course, Flowchart flowchart, Quarter quarter) {
+        this.course = course;
+        this.flowchart = flowchart;
+        this.quarter = quarter;
+    }
+
+    public Entry(Entry entry) {
+        this.id = entry.id;
+        this.course = entry.course;
+        this.flowchart = entry.flowchart;
+        this.quarter = entry.quarter;
+    }
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
