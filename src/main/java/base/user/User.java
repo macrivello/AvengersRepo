@@ -62,6 +62,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public User(String firstName, String lastName, String email, String password, Set<RoleType> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
+
     @PrePersist
     void preInsert() {
         if (roles == null || roles.isEmpty()) {

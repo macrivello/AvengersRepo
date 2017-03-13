@@ -16,6 +16,7 @@ public class UserService {
         user.setFirstName(reqUser.getFirstName());
         user.setLastName(reqUser.getLastName());
         user.setPassword(new BCryptPasswordEncoder().encode(reqUser.getPassword()));
+        user.setRoles(reqUser.getRoles());
         return userRepository.save(user);
     }
 
