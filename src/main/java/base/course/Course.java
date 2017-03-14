@@ -2,6 +2,7 @@ package base.course;
 
 import base.department.Department;
 import base.entry.Entry;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -73,6 +74,7 @@ public class Course implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "department_id")
+	@JsonIgnoreProperties("courses")
 	public Department getDepartment() {
 		return department;
 	}

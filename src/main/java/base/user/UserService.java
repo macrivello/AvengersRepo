@@ -10,8 +10,12 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User getUser(long id){
+    public User getUser(Long id){
         return userRepository.findOne(id);
+    }
+
+    public User getUser(String email){
+        return userRepository.findByEmail(email);
     }
 
     public User createNewUser(User reqUser) {

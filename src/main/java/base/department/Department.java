@@ -1,6 +1,7 @@
 package base.department;
 
 import base.course.Course;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.*;
@@ -10,7 +11,6 @@ public class Department {
 
     private Long id;
     private String prefix;
-
     private List<Course> courses;
 
     public Department () {
@@ -46,7 +46,8 @@ public class Department {
 
     }
 
-    @OneToMany(targetEntity = Course.class, mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("department")
     public List<Course> getCourses() {
         return courses;
     }

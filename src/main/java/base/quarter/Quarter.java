@@ -7,15 +7,21 @@ import java.util.List;
 
 @Entity
 public class Quarter {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String term;
+
+    @Enumerated(EnumType.STRING)
+    private Term term;
     private int year;
+
+    @OneToMany(targetEntity = Entry.class, mappedBy = "quarter",
+            cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Entry> entries;
 
     public Quarter(){}
 
-    public Quarter(String term, int year) {
+    public Quarter(Term term, int year) {
         this.term = term;
         this.year = year;
     }
@@ -27,8 +33,6 @@ public class Quarter {
         this.entries = quarter.entries;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -37,11 +41,11 @@ public class Quarter {
         this.id = id;
     }
 
-    public String getTerm() {
+    public Term getTerm() {
         return term;
     }
 
-    public void setTerm(String term) {
+    public void setTerm(Term term) {
         this.term = term;
     }
 
@@ -53,8 +57,6 @@ public class Quarter {
         this.year = year;
     }
 
-    @OneToMany(targetEntity = Entry.class, mappedBy = "quarter",
-            cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Entry> getEntries() {
         return entries;
     }
