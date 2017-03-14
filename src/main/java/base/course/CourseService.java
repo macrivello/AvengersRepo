@@ -33,9 +33,11 @@ public class CourseService {
 			return;
 		}
 		else {
+			temp.setId(course.getId());
 			temp.setNumber(course.getNumber());
-			temp.setPrefix(course.getPrefix());
 			temp.setTitle(course.getTitle());
+			temp.getDepartment().setId(course.getDepartment().getId());
+			temp.getDepartment().setPrefix(course.getDepartment().getPrefix());
 			courseRepository.save(temp);
 		}
 	}
@@ -43,6 +45,11 @@ public class CourseService {
 	public void deleteCourse(Long id)
 	{
 		courseRepository.delete(id);
+	}
+
+	public void removeAllCourses()
+	{
+		courseRepository.deleteAll();
 	}
 
 }

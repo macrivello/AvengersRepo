@@ -1,0 +1,168 @@
+/* Notes
+1) Font icons are resized responsively but have a funny value due to parent positioning
+2) Cannot add an <hr> to module?
+3) Some elements only padding-"" works (opposed to padding px px px px)?
+4)green on login button looks different
+*/
+
+body {
+    background: url('../images/PolyPathBGResized.png') fixed;
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+}
+
+.wrap {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+.form-title{
+    text-align: center;
+    margin-top: 10%;
+    padding: 20px;
+}
+
+.search{
+    position: relative;
+}
+
+.search input{
+    text-indent: 30px;
+    margin: 10px 0px;
+}
+
+.fa-user, .fa-lock, .fa-search{ /*font images*/
+  position: absolute;
+  top: 35%;
+  left: 2%;
+  font-size: 20px;
+  color: black;
+}
+
+form{
+    width: 350px;
+    margin: 0 auto;
+    border: 3px solid #f1f1f1;
+}
+
+form.modal-content {
+    /*background: url("../../images/PolyPathGrayBox.png") fixed;*/
+}
+
+form.modal-content input[type="text"], form.modal-content input[type="password"],
+form.select-chart input[type="text"] {
+    padding: 10px 20px;
+    width: 100%;
+    margin: 8px 0;
+    box-sizing: border-box;
+    background-color: white;
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    border: 2px solid light-gray;
+    border-radius: 4px;
+}
+
+.polybutton {
+    background-color: #5cb85c;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 3px;
+    padding: 10px;
+    outline: 0;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+form.modal-content input[type="submit"]:hover{
+    transition: background-color 0.5s ease;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5px auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: 35%; /* Could be more or less, depending on screen size */
+}
+
+.select-chart {
+    margin: 0 auto; /* 15% from the top and centered */
+    border: 0px;
+}
+
+/* The Close Button */
+.close {
+    /* Position it in the top right corner outside of the modal */
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+/* Close button on hover */
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
+
+/* The "Forgot password" text */
+span.psw {
+    float: right;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+        display: block;
+        float: none;
+    }
+    .cancelbtn {
+        width: 100%;
+    }
+}

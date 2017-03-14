@@ -1,0 +1,24 @@
+# Create an application.properties with the following properties filled in
+
+# Database Config
+spring.jpa.hibernate.ddl-auto=
+spring.datasource.url=
+spring.datasource.username=
+spring.datasource.password=
+spring.datasource.driver-class-name=
+spring.jpa.database-platform=
+
+# JWT
+jwt.requestHeader=
+jwt.secret=
+jwt.expiration=
+jwt.route.authentication.path=
+jwt.route.authentication.refresh=
+
+# Cookie
+server.cookie.name=
+server.cookie.domain=
+server.cookie.http-only=
+server.cookie.secure=
+server.cookie.max-age=
+server.cookie.path=

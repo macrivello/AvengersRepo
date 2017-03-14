@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+    <meta charset="UTF-8">
+    <meta lang="eng">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://s-media-cache-ak0.pinimg.com/originals/84/12/c0/8412c0e289628de0db61e015344223d2.jpg" type="image/png">
+    <script src="https://use.fontawesome.com/3533cc454b.js"></script> <!-- For thumbnail symbols -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <style>
+        div {
+            display: block;
+        }
+
+        #pageWrapper {
+            margin-top: 2px;
+        }
+
+        #sidebar {
+            float: left;
+            width: 20%;
+            height: 750px;
+            position: relative;
+            border: black solid 2px;
+            border-radius: 5px;
+            background-color: #ececec;
+        }
+
+        #flowchart-container {
+            margin-left: 5px;
+            float: left;
+            width: 75%;
+            height: 750px;
+            position: relative;
+            border: black solid 1px;
+        }
+
+        .quarter-container {
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+            position: relative;
+            float: left;
+            width: 120px;
+            height: calc(100% - 30px);
+            border: black solid 2px;
+            border-radius: 3px;
+            background-color: white;
+        }
+        .course {
+            position: relative;
+            float: left;
+            height: 75px;
+            width: 100%;
+            border: solid black 2px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            background-color: #CCFFCC;
+        }
+        .user-info {
+            color: white;
+            font-size: large;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-light" style="background-color: #035643">
+        <div >
+            <img src="http://cdnak1.psbin.com/peyljvsf3kycjao6/images/setup/2015/footer_logo_1.png" atl="Cal Poly Logo" height="110" width="200">
+            <div class="my-2 my-lg-0 pull-right">
+                <div id="userInfo" class="user-info mr-sm-2" ></div>
+                <button id="signOutButton" class="btn btn-success my-2 my-sm-0">Log Out</button>
+            </div>
+        </div>
+
+    </nav>
+    <div id="pageWrapper" width="100%" height="100%">
+        <div id="sidebar">
+        </div>
+        <div id="flowchart-container" >
+            <div class="container-fluid" height="20px">Flowchart</div>
+                <div class="quarter-container">
+                    <div class="quarter-title">Winter 2017</div>
+                    <div class="course">CPE 308</div>
+                    <div class="course">CPE 357</div>
+                </div>
+                <div class="quarter-container">
+                    <div class=quarter-title">Spring 2017</div>
+                    <div class="course">CPE 309</div>
+                    <div class="course">CPE 305</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(function(){
+        var signOutButton = $("#signOutButton");
+        var userInfo = $("#userInfo");
+
+        signOutButton.click(function () {
+            // TODO: somehow invalidate the cookie, although it is http only.
+            // might need to hit at /logout endpoint to somehow invalidate the jwt
+            $(location).attr('href', '/login'); //redirect to login page
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "/users/me",
+            contentType:"application/json",
+            dataType: "json"
+        }).done(function (data, textStatus, jqXHR) {
+            console.log(data);
+            userInfo.text(data.firstName + " " + data.lastName + " (" + data.roles[0] + ")");
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.status);
+            if (jqXHR.status == 401) {
+                $(location).attr('href', '/login'); //redirect to login page
+            }
+        });
+    });
+</script>

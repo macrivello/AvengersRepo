@@ -13,12 +13,22 @@ public class Quarter {
     private int year;
     private List<Entry> entries;
 
-    public Quarter(){
+    public Quarter(){}
 
+    public Quarter(String term, int year) {
+        this.term = term;
+        this.year = year;
+    }
+
+    public Quarter(Quarter quarter) {
+        this.id = quarter.id;
+        this.term = quarter.term;
+        this.year = quarter.year;
+        this.entries = quarter.entries;
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
