@@ -5,6 +5,8 @@ $(function () {
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
+            document.getElementById('usernameInput').value = "";
+            document.getElementById('passwordInput').value = "";
             modal.style.display = "none";
         }
     };
@@ -30,7 +32,8 @@ $(function () {
         }).done(function (data, textStatus, jqXHR) {
             $(location).attr('href', '/')
         }).fail(function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR.status);
+             console.log(jqXHR.status);
+             alert("Incorrect credentials!");
         });
     }
 
