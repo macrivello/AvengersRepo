@@ -17,8 +17,18 @@ public class Department {
 
     }
 
+    public Department(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public Department(Department department) {
+        this.id = department.id;
+        this.prefix = department.prefix;
+        this.courses = department.courses;
+    }
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }

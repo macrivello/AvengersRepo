@@ -47,4 +47,9 @@ public class CourseService {
 		courseRepository.delete(id);
 	}
 
+	public void removeAllCourses()
+	{
+		courseRepository.deleteAll();
+	}
+
 }

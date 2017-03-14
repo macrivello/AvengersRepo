@@ -2,13 +2,14 @@ package base.user;
 
 import base.flowchart.Flowchart;
 import base.security.user.RoleType;
-import org.hibernate.annotations.Proxy;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="users") // 'user' is a keyword in Postgres
