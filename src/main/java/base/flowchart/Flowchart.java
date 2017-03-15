@@ -2,6 +2,7 @@ package base.flowchart;
 
 import base.entry.Entry;
 import base.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,8 +10,18 @@ import java.util.List;
 @Entity
 public class Flowchart {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("flowcharts")
     private User user;
+
+    @JsonIgnoreProperties("flowchart")
+    @OneToMany(targetEntity = Entry.class, mappedBy = "flowchart",
+            cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Entry> entries;
 
     public Flowchart(){}
@@ -25,8 +36,6 @@ public class Flowchart {
         this.entries = flowchart.entries;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -35,8 +44,6 @@ public class Flowchart {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
     public User getUser() {
         return user;
     }
@@ -45,8 +52,6 @@ public class Flowchart {
         this.user = user;
     }
 
-    @OneToMany(targetEntity = Entry.class, mappedBy = "flowchart",
-            cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Entry> getEntries() {
         return entries;
     }

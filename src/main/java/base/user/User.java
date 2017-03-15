@@ -2,6 +2,9 @@ package base.user;
 
 import base.flowchart.Flowchart;
 import base.security.user.RoleType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -42,6 +45,7 @@ public class User implements Serializable {
 
     @OneToMany(targetEntity = Flowchart.class, mappedBy = "user",
             cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("user")
     private List<Flowchart> flowcharts;
 
     public User() {}
@@ -119,6 +123,13 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public List<Flowchart> getFlowcharts() {
+        return flowcharts;
+    }
+
+    public void setFlowcharts(List<Flowchart> flowcharts) {
+        this.flowcharts = flowcharts;
+    }
 
     public Set<RoleType> getRoles() {
         return roles;

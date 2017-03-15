@@ -1,6 +1,7 @@
 package base.quarter;
 
 import base.entry.Entry;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,8 +14,10 @@ public class Quarter {
 
     @Enumerated(EnumType.STRING)
     private Term term;
+
     private int year;
 
+    @JsonIgnoreProperties("quarter")
     @OneToMany(targetEntity = Entry.class, mappedBy = "quarter",
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Entry> entries;

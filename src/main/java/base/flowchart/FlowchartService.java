@@ -1,5 +1,6 @@
 package base.flowchart;
 
+import base.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,10 @@ public class FlowchartService {
         List<Flowchart> flowcharts = new ArrayList<>();
         flowchartRepository.findAll().forEach(flowcharts::add);
         return flowcharts;
+    }
+
+    public List<Flowchart> getUsersFlowcharts(User user) {
+        return user.getFlowcharts();
     }
 
     public Flowchart getFlowchart(Long id) {
