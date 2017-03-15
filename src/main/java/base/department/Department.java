@@ -8,9 +8,14 @@ import java.util.*;
 
 @Entity
 public class Department {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String prefix;
+
+    @JsonIgnoreProperties("department")
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Course> courses;
 
     public Department () {
@@ -27,8 +32,6 @@ public class Department {
         this.courses = department.courses;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -46,8 +49,6 @@ public class Department {
 
     }
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("department")
     public List<Course> getCourses() {
         return courses;
     }

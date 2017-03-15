@@ -3,15 +3,30 @@ package base.entry;
 import base.course.Course;
 import base.flowchart.Flowchart;
 import base.quarter.Quarter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
 @Entity
 public class Entry {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @JsonIgnoreProperties("entries")
+    @ManyToOne
+    @JoinColumn(name = "course_id")
     private Course course;
+
+    @JsonIgnoreProperties("entries")
+    @ManyToOne
+    @JoinColumn(name = "flowchart_id")
     private Flowchart flowchart;
+
+    @JsonIgnoreProperties("entries")
+    @ManyToOne
+    @JoinColumn(name = "quarter_id")
     private Quarter quarter;
 
     public Entry(){
@@ -31,8 +46,6 @@ public class Entry {
         this.quarter = entry.quarter;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -41,8 +54,6 @@ public class Entry {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "course_id")
     public Course getCourse() {
         return course;
     }
@@ -51,8 +62,6 @@ public class Entry {
         this.course = course;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "flowchart_id")
     public Flowchart getFlowchart() {
         return flowchart;
     }
@@ -61,8 +70,6 @@ public class Entry {
         this.flowchart = flowchart;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "quarter_id")
     public Quarter getQuarter() {
         return quarter;
     }
