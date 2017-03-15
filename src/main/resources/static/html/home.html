@@ -80,11 +80,12 @@
     </nav>
     <div id="pageWrapper" width="100%" height="100%">
         <div id="sidebar">
+            <button id="addCourse1" class="btn btn-info">Add Course</button>
         </div>
         <div id="flowchart-container" >
             <div class="container-fluid" height="20px">Flowchart</div>
-                <div class="quarter-container">
-                    <div class="quarter-title">Winter 2017</div>
+                <div id=quarter1 class="quarter-container">
+                    <div  class="quarter-title">Winter 2017</div>
                     <div class="course">CPE 308</div>
                     <div class="course">CPE 357</div>
                 </div>
@@ -94,7 +95,7 @@
                     <div class="course">CPE 305</div>
                 </div>
             </div>
-        </div>
+    </div>
     </div>
 </body>
 
@@ -102,6 +103,11 @@
     $(function(){
         var signOutButton = $("#signOutButton");
         var userInfo = $("#userInfo");
+        var addCourseButton1 = $("#addCourse1");
+
+        addCourseButton1.click(function (e) {
+            addCourse1()
+        });
 
         signOutButton.click(function () {
             // TODO: somehow invalidate the cookie, although it is http only.
@@ -123,5 +129,9 @@
                 $(location).attr('href', '/login'); //redirect to login page
             }
         });
+
+        function addCourse1() {
+            $("#quarter1").append('<div class="course">test</div>');
+        }
     });
 </script>

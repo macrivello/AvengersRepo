@@ -1,5 +1,6 @@
 package base.user;
 
+import base.security.user.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,10 @@ public class UserService {
 
     public User getUser(String email){
         return userRepository.findByEmail(email);
+    }
+
+    public User getCurrentUser(@CurrentUser User user){
+        return user;
     }
 
     public User createNewUser(User reqUser) {

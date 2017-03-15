@@ -25,8 +25,11 @@ public class FlowchartController {
     }
 
     @RequestMapping(method= RequestMethod.POST, value="/flowcharts")
-    public void addFlowchart(@RequestBody Flowchart flowchart) {
-        flowchartService.addFlowchart(flowchart);
+    public void addFlowchart(@CurrentUser User user) {
+        if (user != null) {
+            // create new empty flowchart for current user
+            flowchartService.addFlowchart(user);
+        }
     }
 
     @RequestMapping(method=RequestMethod.PUT, value="/flowcharts/{id}")

@@ -21,7 +21,7 @@ public class Flowchart {
 
     @JsonIgnoreProperties("flowchart")
     @OneToMany(targetEntity = Entry.class, mappedBy = "flowchart",
-            cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Entry> entries;
 
     public Flowchart(){}

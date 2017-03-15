@@ -1,6 +1,7 @@
 package base.flowchart;
 
 import base.user.User;
+import base.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,8 @@ public class FlowchartService {
 
     @Autowired
     private FlowchartRepository flowchartRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public List<Flowchart> getAllFlowcharts() {
         List<Flowchart> flowcharts = new ArrayList<>();
@@ -30,6 +33,13 @@ public class FlowchartService {
     public void addFlowchart(Flowchart flowchart)
     {
         flowchartRepository.save(flowchart);
+    }
+
+    public void addFlowchart(User user)
+    {
+        Flowchart newFlowchart = new Flowchart();
+        newFlowchart.setUser(user);
+        flowchartRepository.save(newFlowchart);
     }
 
     public void updateFlowchart(Long id, Flowchart flowchart)

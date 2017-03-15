@@ -18,8 +18,8 @@ public class UserController {
 
     // Return only logged in user
     @GetMapping("/me")
-    public UserDetails getCurrentUser(@CurrentUser UserDetails currentUser) {
-        return currentUser;
+    public User getCurrentUser(@CurrentUser User user) {
+        return user;
     }
 
 //    @RequestMapping("/all")

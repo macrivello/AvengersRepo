@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 public class Course implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	private int number;
@@ -31,6 +31,13 @@ public class Course implements Serializable {
 	}
 
 	public Course(int number, String title, Department department) {
+		this.number = number;
+		this.title = title;
+		this.department = department;
+	}
+
+	public Course(Long id, int number, String title, Department department) {
+		this.id = id;
 		this.number = number;
 		this.title = title;
 		this.department = department;

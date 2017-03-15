@@ -99,15 +99,15 @@ public class DatabaseLoader implements CommandLineRunner {
         Department math = departmentService.getDepartmentByName("MATH");
         Department cpe = departmentService.getDepartmentByName("CPE");
         if (math != null) {
-            testCourses.add(new Course(141, "Calc I", math));
-            testCourses.add(new Course(142, "Calc II", math));
-            testCourses.add(new Course(143, "Calc III", math));
-            testCourses.add(new Course(241, "Calc IV", math));
+            testCourses.add(new Course(1L,141, "Calc I", math));
+            testCourses.add(new Course(2L,142, "Calc II", math));
+            testCourses.add(new Course(3L,143, "Calc III", math));
+            testCourses.add(new Course(4L,241, "Calc IV", math));
         }
         if (cpe != null) {
-            testCourses.add(new Course(308, "Software Engineering I", cpe));
-            testCourses.add(new Course(309, "Software Engineering II", cpe));
-            testCourses.add(new Course(357, "Systems Programming", cpe));
+            testCourses.add(new Course(5L,308, "Software Engineering I", cpe));
+            testCourses.add(new Course(6L,309, "Software Engineering II", cpe));
+            testCourses.add(new Course(7L,357, "Systems Programming", cpe));
         }
 
         testCourses.forEach(course -> courseService.addCourse(course));
