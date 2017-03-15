@@ -1,8 +1,12 @@
 package base.course;
 
+import base.department.Department;
+import base.department.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -10,12 +14,19 @@ public class CourseController {
 
 	@Autowired
 	private CourseService courseService;
-	
+	@Autowired
+	private DepartmentService departmentService;
+
 	@RequestMapping("/courses")
-	public List<Course> getAllCourses(){
+	public List<Course> getAllCourses(@RequestParam(value="dept", required = false) String dept) {
+		if (!StringUtils.isEmpty(dept)) {
+			Department department = departmentService.getDepartmentByName(dept.toUpperCase());
+			return department != null ? department.getCourses() : Collections.emptyList();
+		}
+
 		return courseService.getAllCourses();
 	}
-	
+
 	@RequestMapping("courses/{id}")
 	public Course getCourse(@PathVariable Long id) {
 		return courseService.getCourse(id);
@@ -35,6 +46,5 @@ public class CourseController {
 	public void deleteCourse(@PathVariable Long id) {
 		courseService.deleteCourse(id);
 	}
-	
 	
 }
