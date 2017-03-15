@@ -20,10 +20,6 @@ import java.io.IOException;
 
 public class EntryDeserializer extends JsonDeserializer<Entry> {
 
-    ////////////////////////////////////
-    // Deserializing Objects from IDs.
-    // TODO: Move the services out of the entity class, might require a deserializer class
-    ////////////////////////////////////
     @Autowired
     FlowchartService flowchartService;
     @Autowired
