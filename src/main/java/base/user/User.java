@@ -2,9 +2,7 @@ package base.user;
 
 import base.flowchart.Flowchart;
 import base.security.user.RoleType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -16,6 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="users") // 'user' is a keyword in Postgres
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, resolver = SimpleObjectIdResolver.class, property = "id", scope=User.class)
 public class User implements Serializable {
 
     @Id

@@ -2,13 +2,17 @@ package base.course;
 
 import base.department.Department;
 import base.entry.Entry;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.SimpleObjectIdResolver;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, resolver = SimpleObjectIdResolver.class, property = "id", scope=Course.class)
 public class Course implements Serializable {
 	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,6 +21,7 @@ public class Course implements Serializable {
 	private int number;
 	private String title;
 
+	@JsonIgnoreProperties("course")
 	@OneToMany(targetEntity = Entry.class, mappedBy = "course",
 		cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Entry> entries;

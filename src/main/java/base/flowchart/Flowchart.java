@@ -2,12 +2,13 @@ package base.flowchart;
 
 import base.entry.Entry;
 import base.user.User;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, resolver = SimpleObjectIdResolver.class, property = "id", scope=Flowchart.class)
 public class Flowchart {
 
     @Id
@@ -17,11 +18,13 @@ public class Flowchart {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties("flowcharts")
+    @JsonIdentityReference(alwaysAsId = true)
     private User user;
 
     @JsonIgnoreProperties("flowchart")
     @OneToMany(targetEntity = Entry.class, mappedBy = "flowchart",
             cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Entry> entries;
 
     public Flowchart(){}

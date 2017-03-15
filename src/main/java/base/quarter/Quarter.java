@@ -1,15 +1,19 @@
 package base.quarter;
 
 import base.entry.Entry;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.SimpleObjectIdResolver;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, resolver = SimpleObjectIdResolver.class, property = "id", scope=Quarter.class)
 public class Quarter {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -23,6 +27,12 @@ public class Quarter {
     private List<Entry> entries;
 
     public Quarter(){}
+
+    public Quarter(Long id, Term term, int year) {
+        this.id = id;
+        this.term = term;
+        this.year = year;
+    }
 
     public Quarter(Term term, int year) {
         this.term = term;

@@ -56,18 +56,18 @@ public class DatabaseLoader implements CommandLineRunner {
 
         // Add Quarters
         ArrayList<Quarter> testQuarters = new ArrayList<>();
-        testQuarters.add(new Quarter(Term.FALL, 2016));
-        testQuarters.add(new Quarter(Term.WINTER, 2017));
-        testQuarters.add(new Quarter(Term.SPRING, 2017));
-        testQuarters.add(new Quarter(Term.SUMMER, 2017));
-        testQuarters.add(new Quarter(Term.FALL, 2017));
-        testQuarters.add(new Quarter(Term.WINTER, 2018));
-        testQuarters.add(new Quarter(Term.SPRING, 2018));
-        testQuarters.add(new Quarter(Term.SUMMER, 2018));
-        testQuarters.add(new Quarter(Term.FALL, 2018));
-        testQuarters.add(new Quarter(Term.WINTER, 2019));
-        testQuarters.add(new Quarter(Term.SPRING, 2019));
-        testQuarters.add(new Quarter(Term.SUMMER, 2019));
+        testQuarters.add(new Quarter(1L, Term.FALL, 2016));
+        testQuarters.add(new Quarter(2L, Term.WINTER, 2017));
+        testQuarters.add(new Quarter(3L, Term.SPRING, 2017));
+        testQuarters.add(new Quarter(4L, Term.SUMMER, 2017));
+        testQuarters.add(new Quarter(5L, Term.FALL, 2017));
+        testQuarters.add(new Quarter(6L, Term.WINTER, 2018));
+        testQuarters.add(new Quarter(7L, Term.SPRING, 2018));
+        testQuarters.add(new Quarter(8L, Term.SUMMER, 2018));
+        testQuarters.add(new Quarter(9L, Term.FALL, 2018));
+        testQuarters.add(new Quarter(10L, Term.WINTER, 2019));
+        testQuarters.add(new Quarter(11L, Term.SPRING, 2019));
+        testQuarters.add(new Quarter(12L, Term.SUMMER, 2019));
         testQuarters.forEach(quarter -> quarterService.addQuarter(quarter));
 
         // Add users
