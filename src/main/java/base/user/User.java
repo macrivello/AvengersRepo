@@ -32,9 +32,11 @@ public class User implements Serializable {
     @Column(unique=true, nullable = false)
     private String email;
 
+    @JsonIgnore
     @NotEmpty(message = "Password is required.")
     private String password;
 
+    @JsonIgnore
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = RoleType.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "users_roles",
@@ -42,6 +44,7 @@ public class User implements Serializable {
     @Column(name = "roles")
     private Set<RoleType> roles;
 
+    @JsonIgnore
     @OneToMany(targetEntity = Flowchart.class, mappedBy = "user",
             cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnoreProperties("user")

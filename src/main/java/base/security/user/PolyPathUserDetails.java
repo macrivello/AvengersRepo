@@ -1,6 +1,7 @@
 package base.security.user;
 
 import base.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Proxy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -19,6 +20,7 @@ public final class PolyPathUserDetails extends User implements UserDetails {
         super(user);
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.getRoles() == null) {
@@ -39,21 +41,25 @@ public final class PolyPathUserDetails extends User implements UserDetails {
     /********************************************************************
      Lets not worry about these for now. Hard code them to true.
      *******************************************************************/
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;
