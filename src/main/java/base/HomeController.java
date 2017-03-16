@@ -11,11 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @Controller // so framework can recognize this as a controller class
-@RequestMapping("/")
 public class HomeController {
 
 
-    @GetMapping
+    @RequestMapping("/")
     public String index(HttpServletRequest httpServletRequest, @CurrentUser User user) {
         //TODO Check for auth token, show index, otherwise redirect
 
@@ -23,5 +22,11 @@ public class HomeController {
             return "html/login.html";
         }
 
-        return "html/home.html"; }
+        return "html/home.html";
+    }
+
+    @RequestMapping("/search")
+    public String search(){
+        return "html/search.html";
+    }
 }

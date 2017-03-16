@@ -2,10 +2,7 @@ package base.course;
 
 import base.department.Department;
 import base.entry.Entry;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.fasterxml.jackson.annotation.SimpleObjectIdResolver;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,6 +18,7 @@ public class Course implements Serializable {
 	private int number;
 	private String title;
 
+	@JsonIgnore // dont need to serialize entries
 	@JsonIgnoreProperties("course")
 	@OneToMany(targetEntity = Entry.class, mappedBy = "course",
 		cascade = CascadeType.ALL, fetch = FetchType.LAZY)
