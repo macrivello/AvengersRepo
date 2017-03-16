@@ -1,10 +1,7 @@
 package base.quarter;
 
 import base.entry.Entry;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.fasterxml.jackson.annotation.SimpleObjectIdResolver;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,6 +18,7 @@ public class Quarter {
 
     private int year;
 
+    @JsonIgnore
     @JsonIgnoreProperties("quarter")
     @OneToMany(targetEntity = Entry.class, mappedBy = "quarter",
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)

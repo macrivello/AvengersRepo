@@ -25,7 +25,7 @@ public class Entry {
     @JsonIgnoreProperties("entries")
     @ManyToOne
     @JoinColumn(name = "course_id")
-    @JsonIdentityReference(alwaysAsId = true)
+//    @JsonIdentityReference(alwaysAsId = true)
     private Course course;
 
     @JsonIgnoreProperties("entries")
@@ -37,7 +37,7 @@ public class Entry {
     @JsonIgnoreProperties("entries")
     @ManyToOne
     @JoinColumn(name = "quarter_id")
-    @JsonIdentityReference(alwaysAsId = true)
+//    @JsonIdentityReference(alwaysAsId = true)
     private Quarter quarter;
 
     public Entry(){
