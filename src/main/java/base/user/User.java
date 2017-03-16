@@ -36,7 +36,6 @@ public class User implements Serializable {
     @NotEmpty(message = "Password is required.")
     private String password;
 
-    @JsonIgnore
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = RoleType.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "users_roles",
