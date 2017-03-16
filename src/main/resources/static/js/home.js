@@ -2,6 +2,11 @@ $(function(){
     var signOutButton = $("#signOutButton");
     var userInfo = $("#userInfo");
     var addCourseButton1 = $("#addCourse1");
+    var addCourseButton2 = $(".add-course");
+
+    addCourseButton2.click(function(e){
+        addCourse(e.currentTarget)
+    });
 
     addCourseButton1.click(function (e) {
         addCourse1()
