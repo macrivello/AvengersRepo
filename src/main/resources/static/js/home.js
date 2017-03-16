@@ -1,13 +1,25 @@
 $(function(){
+    /*
+        DOM Elements
+    */
     var signOutButton = $("#signOutButton");
     var userInfo = $("#userInfo");
     var addCourseButton = $(".add-course");
     var courseSearchModal = $("#add-course-modal");
     var autocomplete = $('#autocomplete').autocomplete();
     var courseSearch = $('#courseSearch');
+    var courseIdField = $("#courseId");
+    var courseNameField = $("#courseName");
 
+    /*
+        Data Objects
+    */
     var selectedQuarter = {};
+    var courses = [];
 
+    /*
+        Click Listeners
+    */
     addCourseButton.click(function(e){
         // addCourse(e.currentTarget)
         // courseSearchModal.modal('show');
@@ -29,6 +41,11 @@ $(function(){
         });
     });
 
+
+    /*
+        Ajax Calls
+    */
+
     $.ajax({
         type: "GET",
         url: "/users/me",
@@ -44,10 +61,22 @@ $(function(){
         }
     });
 
-    function addCourse1() {
-        $("#quarter1").append('<div class="course">test</div>');
-    }
+    $.ajax({
+        type: "GET",
+        url: "/courses"
+    }).done(function (data, textStatus, jqXHR) {
+        console.log("Retrieved list of courses.");
 
+        courses = formatDataForAutocomplete(data);
+
+        initAutocomplete();
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        console.log("Error: " + jqXHR.status);
+    });
+
+    /*
+        Course-related methods
+     */
     function addCourse(data) {
         var el = document.createElement("div");//.setAttribute("class", "course");
         el.className = "course";
@@ -74,23 +103,10 @@ $(function(){
         });
     }
 
-    var courseIdField = $("#courseId");
-    var courseNameField = $("#courseName");
-    var courses = [];
 
-    $.ajax({
-        type: "GET",
-        url: "/courses"
-    }).done(function (data, textStatus, jqXHR) {
-        console.log("Retrieved list of courses.");
-
-        courses = formatDataForAutocomplete(data);
-
-        initAutocomplete();
-    }).fail(function (jqXHR, textStatus, errorThrown) {
-        console.log("Error: " + jqXHR.status);
-    });
-
+    /*
+        Course Search
+    */
     function initAutocomplete() {
         $('#courseSearch').autocomplete({
             lookup: courses,
