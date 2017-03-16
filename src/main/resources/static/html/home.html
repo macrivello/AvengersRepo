@@ -9,6 +9,7 @@
     <script src="https://use.fontawesome.com/3533cc454b.js"></script> <!-- For thumbnail symbols -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/home.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <style>
         div {
@@ -77,32 +78,6 @@
             font-size: large;
         }
     </style>
-    <script type="text/javascript">
-        function addCourse(e) {
-            var el = document.createElement("div");//.setAttribute("class", "course");
-            el.className = "course";
-            el.innerHTML = "Math 248";
-            e.before(el);
-            getCourse(164);
-        }
-
-        function getCourse(c) {
-            $.ajax({
-                type: "GET",
-                url: "/courses/" + c,
-                contentType: "application/json",
-                dataType: "json"
-            }).done(function (data, textStatus, jqXHR) {
-                console.log(data);
-                console.log("finished AJAX query");
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR.status);
-                if (jqXHR.status == 401) {
-                    $(location).attr('href', '/login'); //redirect to login page
-                }
-            });
-        }
-    </script>
 </head>
 <body>
     <nav class="navbar navbar-light" style="background-color: #035643">
@@ -136,41 +111,3 @@
     </div>
     </div>
 </body>
-
-<script>
-
-    $(function(){
-        var signOutButton = $("#signOutButton");
-        var userInfo = $("#userInfo");
-        var addCourseButton1 = $("#addCourse1");
-
-        addCourseButton1.click(function (e) {
-            addCourse1()
-        });
-
-        signOutButton.click(function () {
-            // TODO: somehow invalidate the cookie, although it is http only.
-            // might need to hit at /logout endpoint to somehow invalidate the jwt
-            $(location).attr('href', '/login'); //redirect to login page
-        });
-
-        $.ajax({
-            type: "GET",
-            url: "/users/me",
-            contentType:"application/json",
-            dataType: "json"
-        }).done(function (data, textStatus, jqXHR) {
-            console.log(data);
-            userInfo.text(data.firstName + " " + data.lastName + " (" + data.roles[0] + ")");
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR.status);
-            if (jqXHR.status == 401) {
-                $(location).attr('href', '/login'); //redirect to login page
-            }
-        });
-
-        function addCourse1() {
-            $("#quarter1").append('<div class="course">test</div>');
-        }
-    });
-</script>
