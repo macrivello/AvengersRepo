@@ -136,6 +136,7 @@ public class DatabaseLoader implements CommandLineRunner {
             testCourses.add(new Course(300, "Professional Responsibilities", cpe));
             testCourses.add(new Course(308, "Software Engineering I", cpe));
             testCourses.add(new Course(309, "Software Engineering II", cpe));
+            testCourses.add(new Course(357, "Systems Programming", cpe));
             testCourses.add(new Course(402, "Software Requirements Engineering", cpe));
             testCourses.add(new Course(405, "Software Construction", cpe));
             testCourses.add(new Course(406, "Software Deployment", cpe));
