@@ -1,15 +1,17 @@
 $(function(){
     var signOutButton = $("#signOutButton");
     var userInfo = $("#userInfo");
-    var addCourseButton1 = $("#addCourse1");
-    var addCourseButton2 = $(".add-course");
+    var addCourseButton = $(".add-course");
+    var courseSearchModal = $("#add-course-modal");
+    var autocomplete = $('#autocomplete').autocomplete();
+    var courseSearch = $('#courseSearch');
 
-    addCourseButton2.click(function(e){
-        addCourse(e.currentTarget)
-    });
+    var selectedQuarter = {};
 
-    addCourseButton1.click(function (e) {
-        addCourse1()
+    addCourseButton.click(function(e){
+        // addCourse(e.currentTarget)
+        // courseSearchModal.modal('show');
+        selectedQuarter = e.currentTarget;
     });
 
     signOutButton.click(function () {
@@ -33,7 +35,7 @@ $(function(){
         contentType:"application/json",
         dataType: "json"
     }).done(function (data, textStatus, jqXHR) {
-        console.log(data);
+        // console.log(data);
         userInfo.text(data.firstName + " " + data.lastName + " (" + data.roles[0] + ")");
     }).fail(function (jqXHR, textStatus, errorThrown) {
         console.log(jqXHR.status);
@@ -46,12 +48,14 @@ $(function(){
         $("#quarter1").append('<div class="course">test</div>');
     }
 
-    function addCourse(e) {
+    function addCourse(data) {
         var el = document.createElement("div");//.setAttribute("class", "course");
         el.className = "course";
-        el.innerHTML = "Math 248";
-        e.before(el);
-        getCourse(164);
+
+        // var course = getCourse(id);
+
+        el.innerHTML = data.department + " " + data.course.number;
+        selectedQuarter.before(el);
     }
 
     function getCourse(c) {
@@ -61,13 +65,49 @@ $(function(){
             contentType: "application/json",
             dataType: "json"
         }).done(function (data, textStatus, jqXHR) {
-            console.log(data);
-            console.log("finished AJAX query");
+            return data;
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR.status);
             if (jqXHR.status == 401) {
                 $(location).attr('href', '/login'); //redirect to login page
             }
         });
+    }
+
+    var courseIdField = $("#courseId");
+    var courseNameField = $("#courseName");
+    var courses = [];
+
+    $.ajax({
+        type: "GET",
+        url: "/courses"
+    }).done(function (data, textStatus, jqXHR) {
+        console.log("Retrieved list of courses.");
+
+        courses = formatDataForAutocomplete(data);
+
+        initAutocomplete();
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        console.log("Error: " + jqXHR.status);
+    });
+
+    function initAutocomplete() {
+        $('#courseSearch').autocomplete({
+            lookup: courses,
+            groupBy: 'department',
+            onSelect: function (suggestion) {
+                // courseNameField.val(suggestion.value);
+                // courseIdField.val(suggestion.data.course.id);
+                courseSearchModal.modal('hide');
+                addCourse(suggestion.data);
+                courseSearch.val('');
+            }
+        });
+    }
+
+    function formatDataForAutocomplete(data){
+        return $.map(data, function(dataItem) {
+            return { value: dataItem.department.prefix + " " + dataItem.number + " - " + dataItem.title, data: {department: dataItem.department.prefix, course: dataItem} };
+        })
     }
 });
