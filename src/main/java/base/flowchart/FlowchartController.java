@@ -1,6 +1,9 @@
 package base.flowchart;
 
+import base.security.user.CurrentUser;
+import base.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,8 +15,8 @@ public class FlowchartController {
     private FlowchartService flowchartService;
 
     @RequestMapping("/flowcharts")
-    public List<Flowchart> getAllFlowcharts(){
-        return flowchartService.getAllFlowcharts();
+    public List<Flowchart> getAllFlowcharts(@CurrentUser User user){
+        return flowchartService.getUsersFlowcharts(user);
     }
 
     @RequestMapping("flowcharts/{id}")
@@ -22,8 +25,11 @@ public class FlowchartController {
     }
 
     @RequestMapping(method= RequestMethod.POST, value="/flowcharts")
-    public void addFlowchart(@RequestBody Flowchart flowchart) {
-        flowchartService.addFlowchart(flowchart);
+    public void addFlowchart(@CurrentUser User user) {
+        if (user != null) {
+            // create new empty flowchart for current user
+            flowchartService.addFlowchart(user);
+        }
     }
 
     @RequestMapping(method=RequestMethod.PUT, value="/flowcharts/{id}")

@@ -52,4 +52,7 @@ public class CourseService {
 		courseRepository.deleteAll();
 	}
 
+	public List<Course> getAllCoursesByDepartment(String dept) {
+		return courseRepository.findByDepartment(dept.toUpperCase());
+	}
 }

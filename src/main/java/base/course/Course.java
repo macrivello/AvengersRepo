@@ -2,26 +2,45 @@ package base.course;
 
 import base.department.Department;
 import base.entry.Entry;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, resolver = SimpleObjectIdResolver.class, property = "id", scope=Course.class)
 public class Course implements Serializable {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-		private Long id;
-		private int number;
-		private String title;
-		private List<Entry> entries;
-		private Department department;
+	private int number;
+	private String title;
 
+	@JsonIgnore // dont need to serialize entries
+	@JsonIgnoreProperties("course")
+	@OneToMany(targetEntity = Entry.class, mappedBy = "course",
+		cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Entry> entries;
+
+	@JsonIgnoreProperties("courses")
+	@ManyToOne
+	@JoinColumn(name = "department_id")
+	private Department department;
 
 	public Course() {
 		
 	}
 
 	public Course(int number, String title, Department department) {
+		this.number = number;
+		this.title = title;
+		this.department = department;
+	}
+
+	public Course(Long id, int number, String title, Department department) {
+		this.id = id;
 		this.number = number;
 		this.title = title;
 		this.department = department;
@@ -35,8 +54,6 @@ public class Course implements Serializable {
 		this.department = course.department;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
@@ -61,8 +78,6 @@ public class Course implements Serializable {
 		this.title = title;
 	}
 
-	@OneToMany(targetEntity = Entry.class, mappedBy = "course",
-			cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	public List<Entry> getEntries() {
 		return entries;
 	}
@@ -71,8 +86,6 @@ public class Course implements Serializable {
 		this.entries = entries;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "department_id")
 	public Department getDepartment() {
 		return department;
 	}

@@ -73,6 +73,14 @@ public class LoginController {
         return ResponseEntity.ok(new JwtTokenResponse(token));
     }
 
+    @RequestMapping(value = "/signout", method = RequestMethod.GET)
+    public ResponseEntity createBlankAuthenticationToken(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException {
+
+        CookieUtil.create(httpServletResponse, cookieName, "", Boolean.getBoolean(secure), Integer.parseInt(maxAge), domain);
+
+        return ResponseEntity.ok().build();
+    }
+
     @RequestMapping(value = "/refresh", method = RequestMethod.GET)
     public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
         String token = request.getHeader(tokenHeader);
@@ -90,7 +98,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
+    public String login(HttpServletRequest httpServletRequest) {
         return "html/login.html";
     }
 

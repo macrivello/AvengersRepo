@@ -2,6 +2,7 @@ package base.user;
 
 import base.flowchart.Flowchart;
 import base.security.user.RoleType;
+import com.fasterxml.jackson.annotation.*;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -13,6 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="users") // 'user' is a keyword in Postgres
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, resolver = SimpleObjectIdResolver.class, property = "id", scope=User.class)
 public class User implements Serializable {
 
     @Id
@@ -30,9 +32,11 @@ public class User implements Serializable {
     @Column(unique=true, nullable = false)
     private String email;
 
+    @JsonIgnore
     @NotEmpty(message = "Password is required.")
     private String password;
 
+    @JsonIgnore
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = RoleType.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "users_roles",
@@ -40,8 +44,10 @@ public class User implements Serializable {
     @Column(name = "roles")
     private Set<RoleType> roles;
 
+    @JsonIgnore
     @OneToMany(targetEntity = Flowchart.class, mappedBy = "user",
             cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("user")
     private List<Flowchart> flowcharts;
 
     public User() {}
@@ -119,6 +125,13 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public List<Flowchart> getFlowcharts() {
+        return flowcharts;
+    }
+
+    public void setFlowcharts(List<Flowchart> flowcharts) {
+        this.flowcharts = flowcharts;
+    }
 
     public Set<RoleType> getRoles() {
         return roles;

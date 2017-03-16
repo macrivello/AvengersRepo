@@ -1,17 +1,43 @@
 package base.entry;
 
 import base.course.Course;
+import base.course.CourseService;
 import base.flowchart.Flowchart;
+import base.flowchart.FlowchartService;
 import base.quarter.Quarter;
+import base.quarter.QuarterService;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, resolver = SimpleObjectIdResolver.class,
+        property = "id", scope=Entry.class)
+@JsonDeserialize(using = EntryDeserializer.class)
 public class Entry {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @JsonIgnoreProperties("entries")
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+//    @JsonIdentityReference(alwaysAsId = true)
     private Course course;
+
+    @JsonIgnoreProperties("entries")
+    @ManyToOne
+    @JoinColumn(name = "flowchart_id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Flowchart flowchart;
+
+    @JsonIgnoreProperties("entries")
+    @ManyToOne
+    @JoinColumn(name = "quarter_id")
+//    @JsonIdentityReference(alwaysAsId = true)
     private Quarter quarter;
 
     public Entry(){
@@ -31,8 +57,6 @@ public class Entry {
         this.quarter = entry.quarter;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -41,8 +65,6 @@ public class Entry {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "course_id")
     public Course getCourse() {
         return course;
     }
@@ -51,8 +73,6 @@ public class Entry {
         this.course = course;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "flowchart_id")
     public Flowchart getFlowchart() {
         return flowchart;
     }
@@ -61,8 +81,6 @@ public class Entry {
         this.flowchart = flowchart;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "quarter_id")
     public Quarter getQuarter() {
         return quarter;
     }

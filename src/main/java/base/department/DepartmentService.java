@@ -22,6 +22,10 @@ public class DepartmentService {
         return departmentRepository.findOne(id);
     }
 
+    public Department getDepartmentByName(String prefix) {
+        return departmentRepository.findDeparmentByPrefix(prefix);
+    }
+
     public void addDepartment(Department department)
     {
         departmentRepository.save(department);
@@ -38,6 +42,11 @@ public class DepartmentService {
             temp.setPrefix(department.getPrefix());
             departmentRepository.save(temp);
         }
+    }
+
+    public void updateDepartment(Department department)
+    {
+        departmentRepository.save(department);
     }
 
     public void deleteDepartment(Long id)

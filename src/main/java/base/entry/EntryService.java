@@ -1,5 +1,6 @@
 package base.entry;
 
+import base.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,5 +70,5 @@ public class EntryService {
     {
         entryRepository.deleteAll();
     }
-    
+
 }

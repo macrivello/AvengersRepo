@@ -1,5 +1,7 @@
 package base.entry;
 
+import base.security.user.CurrentUser;
+import base.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +13,7 @@ public class EntryController {
     @Autowired
     private EntryService entryService;
 
-    @RequestMapping("/entriss")
+    @RequestMapping("/entries")
     public List<Entry> getAllEntries(){
         return entryService.getAllEntries();
     }

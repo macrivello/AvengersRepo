@@ -2,6 +2,8 @@ package base.course;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface CourseRepository extends CrudRepository<Course, Long> {
+import java.util.List;
 
+public interface CourseRepository extends CrudRepository<Course, Long> {
+    List<Course> findByDepartment(String dept);
 }

@@ -1,16 +1,21 @@
 package base.department;
 
 import base.course.Course;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
 public class Department {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String prefix;
 
+    @JsonIgnoreProperties("department")
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Course> courses;
 
     public Department () {
@@ -27,8 +32,6 @@ public class Department {
         this.courses = department.courses;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -46,7 +49,6 @@ public class Department {
 
     }
 
-    @OneToMany(targetEntity = Course.class, mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<Course> getCourses() {
         return courses;
     }
