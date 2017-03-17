@@ -4,6 +4,7 @@ import base.course.Course;
 import base.course.CourseService;
 import base.department.Department;
 import base.department.DepartmentService;
+import base.entry.Entry;
 import base.entry.EntryService;
 import base.flowchart.Flowchart;
 import base.flowchart.FlowchartService;
@@ -102,9 +103,11 @@ public class DatabaseLoader implements CommandLineRunner {
         // Add flow chart to user
         User michael = userService.getUser("macrivel@calpoly.edu");
         User jonathan = userService.getUser("jpautz@calpoly.edu");
+        User staff = userService.getUser("staff@calpoly.edu");
         ArrayList<Flowchart> testFlowcharts = new ArrayList<>();
         testFlowcharts.add(new Flowchart(michael, "My Flowchart"));
         testFlowcharts.add(new Flowchart(jonathan, "My Flowchart"));
+        testFlowcharts.add(new Flowchart(staff, "Software Engineering"));
         testFlowcharts.forEach(flowchart -> flowchartService.addFlowchart(flowchart));
 
         // Add courses
@@ -190,21 +193,39 @@ public class DatabaseLoader implements CommandLineRunner {
 
         testCourses.forEach(course -> courseService.addCourse(course));
 
-//        ArrayList<Entry> testEntries = new ArrayList<>();
-//        testEntries.add(new Entry(courseService.getCourse((long) 3),flowchartService.getFlowchart((long) 0), quarterService.getQuarter((long) 0)));
-//        testEntries.add(new Entry(courseService.getCourse((long) 4),flowchartService.getFlowchart((long) 0), quarterService.getQuarter((long) 1)));
-//        testEntries.add(new Entry(courseService.getCourse((long) 1),flowchartService.getFlowchart((long) 0), quarterService.getQuarter((long) 1)));
-//
-//        testEntries.add(new Entry(courseService.getCourse((long) 2),flowchartService.getFlowchart((long) 1), quarterService.getQuarter((long) 0)));
-//        testEntries.add(new Entry(courseService.getCourse((long) 1),flowchartService.getFlowchart((long) 1), quarterService.getQuarter((long) 1)));
-//        testEntries.add(new Entry(courseService.getCourse((long) 2),flowchartService.getFlowchart((long) 1), quarterService.getQuarter((long) 2)));
-//
-//        testEntries.add(new Entry(courseService.getCourse((long) 1),flowchartService.getFlowchart((long) 2), quarterService.getQuarter((long) 1)));
-//
-//        testEntries.add(new Entry(courseService.getCourse((long) 1),flowchartService.getFlowchart((long) 3), quarterService.getQuarter((long) 1)));
-//
-//        testEntries.add(new Entry(courseService.getCourse((long) 1),flowchartService.getFlowchart((long) 4), quarterService.getQuarter((long) 1)));
-//
-//        testEntries.forEach(entry -> entryService.addEntry(entry));
+        ArrayList<Entry> testEntries = new ArrayList<>();
+        Flowchart jonathanMyFlow = flowchartService.getFlowchartByName(userService.getUser("jpautz@calpoly.edu"), "My Flowchart");
+        testEntries.add(new Entry(courseService.getCourseByTitle("Systems Programming"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("FALL2016")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus I"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("FALL2016")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Engineering Economics"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("FALL2016")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Oral Communication"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("FALL2016")));
+
+        testEntries.add(new Entry(courseService.getCourseByTitle("Software Engineering I"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus II"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Life Science For Engineers"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry I"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
+
+        testEntries.add(new Entry(courseService.getCourseByTitle("Software Engineering II"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry I"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus III"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Bioengineering Fundamentals"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
+
+        Flowchart staffFlow = flowchartService.getFlowchartByName(userService.getUser("staff@calpoly.edu"), "Software Engineering");
+        testEntries.add(new Entry(courseService.getCourseByTitle("Systems Programming"), staffFlow, quarterService.getQuarterByTermAndYear("FALL2016")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus I"), staffFlow, quarterService.getQuarterByTermAndYear("FALL2016")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Engineering Economics"), staffFlow, quarterService.getQuarterByTermAndYear("FALL2016")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Oral Communication"), staffFlow, quarterService.getQuarterByTermAndYear("FALL2016")));
+
+        testEntries.add(new Entry(courseService.getCourseByTitle("Software Engineering I"), staffFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus II"), staffFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Life Science For Engineers"), staffFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry I"), staffFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
+
+        testEntries.add(new Entry(courseService.getCourseByTitle("Software Engineering II"), staffFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry I"), staffFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus III"), staffFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Bioengineering Fundamentals"), staffFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
+        
+        testEntries.forEach(entry -> entryService.addEntry(entry));
     }
 }

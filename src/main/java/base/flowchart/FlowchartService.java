@@ -30,6 +30,18 @@ public class FlowchartService {
         return flowchartRepository.findOne(id);
     }
 
+    public Flowchart getFlowchartByName(User user, String name) {
+        List<Flowchart> temp = user.getFlowcharts();
+        for(Flowchart flowchart: temp)
+        {
+            if(flowchart.getName().equals(name))
+            {
+                return flowchart;
+            }
+        }
+        return null;
+    }
+
     public void addFlowchart(Flowchart flowchart)
     {
         flowchartRepository.save(flowchart);

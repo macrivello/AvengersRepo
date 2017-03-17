@@ -22,6 +22,21 @@ public class QuarterService {
         return quarterRepository.findOne(id);
     }
 
+    public Quarter getQuarterByTermAndYear(String termYear)
+    {
+        List<Quarter> quarters = getAllQuarters();
+        String temp = "";
+        for(Quarter q : quarters)
+        {
+            temp = "" + q.getTerm() + q.getYear();
+            if(temp.equals(termYear))
+            {
+                return q;
+            }
+        }
+        return null;
+    }
+
     public void addQuarter(Quarter quarter)
     {
         quarterRepository.save(quarter);

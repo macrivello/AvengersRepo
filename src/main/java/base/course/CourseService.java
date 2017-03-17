@@ -20,6 +20,11 @@ public class CourseService {
 	public Course getCourse(Long id) {
 		return courseRepository.findOne(id);
 	}
+
+	public Course getCourseByTitle(String title)
+	{
+		return courseRepository.findCourseByTitle(title);
+	}
 	
 	public void addCourse(Course course)
 	{
