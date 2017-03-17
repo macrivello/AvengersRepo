@@ -22,6 +22,9 @@ $(function(){
     var quarters = ["Fall 2016", "Winter 2017", "Spring 2017", "Summer 2017"];
     var quarterIndex = 0;
 
+    var quartersMap = {};
+    var coursesMap = {};
+
     /*
         Click Listeners
     */
@@ -82,9 +85,39 @@ $(function(){
         console.log("Error: " + jqXHR.status);
     });
 
+    $.ajax({
+        type: "GET",
+        url: "/flowcharts"
+    }).done(function (data, textStatus, jqXHR) {
+        console.log("Retrieved list of flowcharts.");
+
+        parseEntries(data[0]);
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        console.log("Error: " + jqXHR.status);
+    });
+
     /*
         Course-related methods
      */
+
+    function parseEntries(data){
+        var entry;
+        var quarter;
+        for(var i = 0; i < data.entries.length; i++){
+            var entry = data.entries[i];
+            var quarter = entry.quarter;
+            var course = entry.course;
+            var quarterId = quarter.id === undefined ? quarter.toString() : quarter.id.toString();
+            if (quartersMap[quarterId] === undefined) {
+                quartersMap[quarterId] = quarter;
+            }
+
+            if (coursesMap[quarterId] === undefined) {
+                coursesMap[quarterId] = [];
+            }
+            coursesMap[quarterId].push(course);
+        }
+    }
 
     function addCourse(data) {
         var el = document.createElement("div");//.setAttribute("class", "course");
@@ -147,4 +180,6 @@ $(function(){
             return { value: dataItem.department.prefix + " " + dataItem.number + " - " + dataItem.title, data: {department: dataItem.department.prefix, course: dataItem} };
         })
     }
+
+
 });
