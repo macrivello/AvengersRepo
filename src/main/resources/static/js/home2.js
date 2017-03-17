@@ -22,6 +22,7 @@ $(function(){
     var flowcharts = [];
     var quarters = ["Fall 2016", "Winter 2017", "Spring 2017", "Summer 2017"];
     var quarterIndex = 0;
+    var currentFlowchartId = 0;
 
     var quartersMap = {};
     var coursesMap = {};
@@ -89,14 +90,26 @@ $(function(){
         console.log("Error: " + jqXHR.status);
     });
 
-    // load user's flowcharts
-    loadFlowchartList()
+    function saveEntry(entry) {
+        $.ajax({
+            type: "POST",
+            url: "/entries",
+            contentType:"application/json",
+            data: JSON.stringify(entry)
+        }).done(function (data, textStatus, jqXHR) {
+            console.log("Saved Entry.");
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log("Error saving entry: " + jqXHR.status);
+        });
+    }
 
     /*
         Course-related methods
      */
 
     function parseEntries(data){
+        currentFlowchartId = data.id;
+
         var entry;
         var quarter;
         for(var i = 0; i < data.entries.length; i++){
@@ -214,11 +227,19 @@ $(function(){
             lookup: courses,
             groupBy: 'department',
             onSelect: function (suggestion) {
+                var course = suggestion.data.course;
                 // courseNameField.val(suggestion.value);
                 // courseIdField.val(suggestion.data.course.id);
                 courseSearchModal.modal('hide');
-                addCourse(selectedQuarterId, suggestion.data.course);
+                addCourse(selectedQuarterId, course);
                 courseSearch.val('');
+
+                var entry = {
+                    "flowchart_id": currentFlowchartId,
+                    "course_id": course.id,
+                    "quarter_id": selectedQuarterId
+                };
+                saveEntry(entry);
             }
         });
     }
@@ -241,7 +262,7 @@ $(function(){
             data.forEach(function (item) {
                 flowcharts.push(item);
                 $('#flowchartList').append('<div class="btn" flowchart-id="' + item.id + '">' + item.name + '</div>');
-            })
+            });
             console.log(flowcharts[0]);
             parseEntries(flowcharts[0]);
             buildFlowchart();
@@ -249,4 +270,8 @@ $(function(){
             console.log("Error loading flowchart list");
         });
     }
+
+
+    // load user's flowcharts
+    loadFlowchartList();
 });
