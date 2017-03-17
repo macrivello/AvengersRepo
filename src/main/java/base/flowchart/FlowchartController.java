@@ -19,6 +19,11 @@ public class FlowchartController {
         return flowchartService.getUsersFlowcharts(user);
     }
 
+    @RequestMapping("/flowcharts/all")
+    public List<Flowchart> getAllFlowcharts(){
+        return flowchartService.getAllFlowcharts();
+    }
+
     @RequestMapping("flowcharts/{id}")
     public Flowchart getFlowchart(@PathVariable Long id) {
         return flowchartService.getFlowchart(id);

@@ -15,6 +15,8 @@ public class Flowchart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String name;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties("flowcharts")
@@ -29,12 +31,14 @@ public class Flowchart {
 
     public Flowchart(){}
 
-    public Flowchart(User user) {
+    public Flowchart(User user, String name) {
         this.user = user;
+        this.name = name;
     }
 
     public Flowchart(Flowchart flowchart) {
         this.id = flowchart.id;
+        this.name = flowchart.name;
         this.user = flowchart.user;
         this.entries = flowchart.entries;
     }
@@ -53,6 +57,14 @@ public class Flowchart {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Entry> getEntries() {

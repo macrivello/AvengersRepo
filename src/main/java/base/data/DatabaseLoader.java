@@ -101,8 +101,10 @@ public class DatabaseLoader implements CommandLineRunner {
 
         // Add flow chart to user
         User michael = userService.getUser("macrivel@calpoly.edu");
+        User jonathan = userService.getUser("jpautz@calpoly.edu");
         ArrayList<Flowchart> testFlowcharts = new ArrayList<>();
-        testFlowcharts.add(new Flowchart(michael));
+        testFlowcharts.add(new Flowchart(michael, "My Flowchart"));
+        testFlowcharts.add(new Flowchart(jonathan, "My Flowchart"));
         testFlowcharts.forEach(flowchart -> flowchartService.addFlowchart(flowchart));
 
         // Add courses
