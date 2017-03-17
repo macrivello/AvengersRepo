@@ -59,9 +59,16 @@ div {
 .add-course {
     background-color: yellow;
 }
+
 .user-info {
     color: white;
     font-size: large;
+}
+
+.flowchart-name {
+    width: 100%;
+    float: left;
+    clear: both;
 }
 
 .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }

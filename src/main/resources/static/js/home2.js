@@ -18,7 +18,7 @@ $(function(){
     */
     var selectedQuarter = {};
     var courses = [];
-    var flowcharts = [];
+    var flowcharts = {};
     var quarters = ["Fall 2016", "Winter 2017", "Spring 2017", "Summer 2017"];
     var quarterIndex = 0;
 
@@ -28,6 +28,20 @@ $(function(){
     /*
         Click Listeners
     */
+    function setFlowchartListClickhandlers() {
+        $('.flowchart-names').click(function (e) {
+            console.log("button clicked");
+            console.log($(this));
+            var id = $(this)[0].getAttribute('flowchart-id');
+            $('.flowchart-container').html(
+                '<div class="container-fluid" height="20px">Flowchart</div>'
+            );
+            console.log("id: " + id);
+            parseEntries(flowcharts[id]);
+            buildFlowchart();
+        });
+    }
+
     function setAddCourseClickHandlers() {
         $(".add-course").click(function (e) {
             selectedQuarter = e.currentTarget;
@@ -88,15 +102,13 @@ $(function(){
     });
 
     // load user's flowcharts
-    loadFlowchartList()
+    loadFlowchartList();
 
     /*
         Course-related methods
      */
 
     function parseEntries(data){
-        var entry;
-        var quarter;
         for(var i = 0; i < data.entries.length; i++){
             var entry = data.entries[i];
             var quarter = entry.quarter;
@@ -115,10 +127,9 @@ $(function(){
 
     function buildFlowchart(){
         // Add quarters
-        for(id in quartersMap) {
+        for(var id in quartersMap) {
             var quarterName = quartersMap[id].term + " " + quartersMap[id].year;
             var div = addQuarterDiv(id ,quarterName);
-            div
             var courseArr = coursesMap[id];
             courseArr.forEach(function(c){
                 addCourse(div, c);
@@ -211,13 +222,17 @@ $(function(){
         }).done(function(data) {
             console.log("Loading flowcharts");
             console.log(data);
+            var firstID = data[0].id;
             data.forEach(function (item) {
-                flowcharts.push(item);
-                $('#flowchartList').append('<div class="btn" flowchart-id="' + item.id + '">' + item.name + '</div>');
+                flowcharts[item.id.toString()] = item;
+                $('#flowchartList').append('<button class="btn btn-success flowchart-names" flowchart-id="' + item.id + '">' + item.name + '</button>');
+                $('#flowchartList').append('<br />');
             })
             console.log(flowcharts[0]);
-            parseEntries(flowcharts[0]);
+            parseEntries(flowcharts[firstID.toString()]);
             buildFlowchart();
+            setFlowchartListClickhandlers();
+
         }).fail(function () {
             console.log("Error loading flowchart list");
         });
