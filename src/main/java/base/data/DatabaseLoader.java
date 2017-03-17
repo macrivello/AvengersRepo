@@ -222,9 +222,9 @@ public class DatabaseLoader implements CommandLineRunner {
         testEntries.add(new Entry(courseService.getCourseByTitle("Oral Communication"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("WINTER2017")));
 
         testEntries.add(new Entry(courseService.getCourseByTitle("Software Engineering II"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("SPRING2017")));
-        testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry II"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("SPRING2017")));
-        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus III"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("SPRING2017")));
-        testEntries.add(new Entry(courseService.getCourseByTitle("Bioengineering Fundamentals"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("SPRING2017")));
+
+        testEntries.add(new Entry(courseService.getCourseByTitle("Bioengineering Fundamentals"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("SUMMER2017")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus III"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("SUMMER2017")));
 
 
         Flowchart staffFlow = flowchartService.getFlowchartByName(userService.getUser("staff@calpoly.edu"), "Software Engineering");

@@ -10,7 +10,8 @@ $(function(){
     var courseSearch = $('#courseSearch');
     var courseIdField = $("#courseId");
     var courseNameField = $("#courseName");
-    var flowchartContainer = $("#flowchart-container");
+    // var flowchartContainer = $("#flowchart-container");
+    var flowchartContainer = $("#flow-container");
     var addQuarterButton = $("#addQuarterButton");
 
     /*
@@ -33,16 +34,33 @@ $(function(){
         Click Listeners
     */
     function setFlowchartListClickhandlers() {
-        $('.flowchart-names').click(function (e) {
-            console.log("button clicked");
-            console.log($(this));
+        $('.flowchart-name').click(function (e) {
             var id = $(this)[0].getAttribute('flowchart-id');
-            $('.flowchart-container').html(
-                '<div class="container-fluid" height="20px">Flowchart</div>'
-            );
-            console.log("id: " + id);
-            parseEntries(flowcharts[id]);
+            // $('.flowchart-container').html(
+            //     '<div class="container-fluid" height="20px">Flowchart</div>'
+            // );
+            // console.log("id: " + id);
+
+            //Clear flowchart container
+            flowchartContainer.empty();
+            getFlowchartById(id);
+        });
+    }
+
+    function getFlowchartById(id) {
+        $.ajax({
+            type: "GET",
+            url: "/flowcharts/" + id,
+            contentType: "application/json",
+            dataType: "json"
+        }).done(function(data) {
+            console.log("Loading flowcharts");
+
+            parseEntries(data);
             buildFlowchart();
+
+        }).fail(function () {
+            console.log("Error loading flowchart list");
         });
     }
 
@@ -140,6 +158,8 @@ $(function(){
 
     function parseEntries(data){
         currentFlowchartId = data.id;
+        quartersMap = {};
+        coursesMap = {};
 
         var entry;
         var quarter;
@@ -292,12 +312,13 @@ $(function(){
             console.log("Loading flowcharts");
             console.log(data);
             var firstID = data[0].id;
+
             data.forEach(function (item) {
                 flowcharts[item.id] = item;
-                $('#flowchartList').append('<button class="btn btn-primary" flowchart-id="' + item.id + '">' + item.name + '</button>');
+                $('#flowchartList').append('<button class="flowchart-name btn btn-primary" flowchart-id="' + item.id + '">' + item.name + '</button>');
                 $('#flowchartList').append('<br />');
             });
-            console.log(flowcharts[0]);
+
             parseEntries(flowcharts[firstID.toString()]);
             buildFlowchart();
             setFlowchartListClickhandlers();
