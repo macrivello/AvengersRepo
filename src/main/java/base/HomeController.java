@@ -25,8 +25,8 @@ public class HomeController {
         return "html/home.html";
     }
 
-    @RequestMapping("/search")
+    @RequestMapping("/home2")
     public String search(){
-        return "html/search.html";
+        return "html/home2.html";
     }
 }
