@@ -8,12 +8,14 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, resolver = SimpleObjectIdResolver.class, property = "id", scope=Flowchart.class)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, resolver = SimpleObjectIdResolver.class, property = "id", scope=Flowchart.class)
 public class Flowchart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -29,12 +31,14 @@ public class Flowchart {
 
     public Flowchart(){}
 
-    public Flowchart(User user) {
+    public Flowchart(User user, String name) {
         this.user = user;
+        this.name = name;
     }
 
     public Flowchart(Flowchart flowchart) {
         this.id = flowchart.id;
+        this.name = flowchart.name;
         this.user = flowchart.user;
         this.entries = flowchart.entries;
     }
@@ -53,6 +57,14 @@ public class Flowchart {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Entry> getEntries() {

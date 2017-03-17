@@ -38,5 +38,4 @@ public class EntryController {
         entryService.deleteEntry(id);
     }
 
-
 }

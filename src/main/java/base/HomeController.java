@@ -22,11 +22,11 @@ public class HomeController {
             return "html/login.html";
         }
 
-        return "html/home.html";
+        return "html/home2.html";
     }
 
-    @RequestMapping("/search")
-    public String search(){
-        return "html/search.html";
-    }
+//    @RequestMapping("/home2")
+//    public String search(){
+//        return "html/home2.html";
+//    }
 }
