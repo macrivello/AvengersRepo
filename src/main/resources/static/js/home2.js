@@ -92,6 +92,7 @@ $(function(){
         console.log("Retrieved list of flowcharts.");
 
         parseEntries(data[0]);
+        buildFlowchart();
     }).fail(function (jqXHR, textStatus, errorThrown) {
         console.log("Error: " + jqXHR.status);
     });
@@ -119,14 +120,31 @@ $(function(){
         }
     }
 
-    function addCourse(data) {
-        var el = document.createElement("div");//.setAttribute("class", "course");
-        el.className = "course";
+    function buildFlowchart(){
+        // Add quarters
+        for(id in quartersMap) {
+            var quarterName = quartersMap[id].term + " " + quartersMap[id].year;
+            var div = addQuarterDiv(id ,quarterName);
+            div
+            var courseArr = coursesMap[id];
+            courseArr.forEach(function(c){
+                addCourse(div, c);
+            });
+        }
 
-        // var course = getCourse(id);
+        // Add Courses
+    }
 
-        el.innerHTML = data.department + " " + data.course.number;
-        selectedQuarter.before(el);
+    function addCourse(quarterDiv, course) {
+        var divId = "course_" + course.id;
+
+        var courseDiv = $('<div/>', {
+            id: divId,
+            class: "course"
+        });
+        courseDiv.text(course.department.prefix + " " + course.number);
+
+        quarterDiv.before(courseDiv);
     }
 
     function getCourse(c) {
@@ -153,9 +171,19 @@ $(function(){
 
     }
 
-    function addQuarterDiv(name){
-        flowchartContainer.append('<div class="quarter-container"><div  class="quarter-title">' + name + '</div><div class="add-course" data-toggle="modal" data-target="#add-course-modal">Add Course</div></div>');
+    function addQuarterDiv(id, name){
+        var divId = "quarter_" + id;
+        var quarterDiv = $('<div/>', {
+            id: divId,
+            class: "quarter-container"
+        });
+        quarterDiv.append('<div class="quarter-title">' + name + '</div><div class="add-course" data-toggle="modal" data-target="#add-course-modal">Add Course</div>');
+
+        // flowchartContainer.append('<div class="quarter-container"><div class="quarter-title">' + name + '</div><div class="add-course" data-toggle="modal" data-target="#add-course-modal">Add Course</div></div>');
+        flowchartContainer.append(quarterDiv);
         setAddCourseClickHandlers();
+
+        return quarterDiv;
     }
 
     /*
