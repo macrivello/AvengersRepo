@@ -22,6 +22,9 @@ $(function(){
     var quarters = ["Fall 2016", "Winter 2017", "Spring 2017", "Summer 2017"];
     var quarterIndex = 0;
 
+    var quartersMap = {};
+    var coursesMap = {};
+
     /*
         Click Listeners
     */
@@ -82,18 +85,66 @@ $(function(){
         console.log("Error: " + jqXHR.status);
     });
 
+    $.ajax({
+        type: "GET",
+        url: "/flowcharts"
+    }).done(function (data, textStatus, jqXHR) {
+        console.log("Retrieved list of flowcharts.");
+
+        parseEntries(data[0]);
+        buildFlowchart();
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        console.log("Error: " + jqXHR.status);
+    });
+
     /*
         Course-related methods
      */
 
-    function addCourse(data) {
-        var el = document.createElement("div");//.setAttribute("class", "course");
-        el.className = "course";
+    function parseEntries(data){
+        var entry;
+        var quarter;
+        for(var i = 0; i < data.entries.length; i++){
+            var entry = data.entries[i];
+            var quarter = entry.quarter;
+            var course = entry.course;
+            var quarterId = quarter.id === undefined ? quarter.toString() : quarter.id.toString();
+            if (quartersMap[quarterId] === undefined) {
+                quartersMap[quarterId] = quarter;
+            }
 
-        // var course = getCourse(id);
+            if (coursesMap[quarterId] === undefined) {
+                coursesMap[quarterId] = [];
+            }
+            coursesMap[quarterId].push(course);
+        }
+    }
 
-        el.innerHTML = data.department + " " + data.course.number;
-        selectedQuarter.before(el);
+    function buildFlowchart(){
+        // Add quarters
+        for(id in quartersMap) {
+            var quarterName = quartersMap[id].term + " " + quartersMap[id].year;
+            var div = addQuarterDiv(id ,quarterName);
+            div
+            var courseArr = coursesMap[id];
+            courseArr.forEach(function(c){
+                addCourse(div, c);
+            });
+        }
+
+        // Add Courses
+    }
+
+    function addCourse(quarterDiv, course) {
+        var divId = "course_" + course.id;
+
+        var courseDiv = $('<div/>', {
+            id: divId,
+            class: "course"
+        });
+        courseDiv.text(course.department.prefix + " " + course.number);
+
+        quarterDiv.before(courseDiv);
     }
 
     function getCourse(c) {
@@ -120,9 +171,19 @@ $(function(){
 
     }
 
-    function addQuarterDiv(name){
-        flowchartContainer.append('<div class="quarter-container"><div  class="quarter-title">' + name + '</div><div class="add-course" data-toggle="modal" data-target="#add-course-modal">Add Course</div></div>');
+    function addQuarterDiv(id, name){
+        var divId = "quarter_" + id;
+        var quarterDiv = $('<div/>', {
+            id: divId,
+            class: "quarter-container"
+        });
+        quarterDiv.append('<div class="quarter-title">' + name + '</div><div class="add-course" data-toggle="modal" data-target="#add-course-modal">Add Course</div>');
+
+        // flowchartContainer.append('<div class="quarter-container"><div class="quarter-title">' + name + '</div><div class="add-course" data-toggle="modal" data-target="#add-course-modal">Add Course</div></div>');
+        flowchartContainer.append(quarterDiv);
         setAddCourseClickHandlers();
+
+        return quarterDiv;
     }
 
     /*

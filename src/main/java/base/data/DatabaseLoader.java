@@ -206,7 +206,7 @@ public class DatabaseLoader implements CommandLineRunner {
         testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry I"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
 
         testEntries.add(new Entry(courseService.getCourseByTitle("Software Engineering II"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
-        testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry I"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry II"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
         testEntries.add(new Entry(courseService.getCourseByTitle("Calculus III"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
         testEntries.add(new Entry(courseService.getCourseByTitle("Bioengineering Fundamentals"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
 
@@ -222,7 +222,7 @@ public class DatabaseLoader implements CommandLineRunner {
         testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry I"), staffFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
 
         testEntries.add(new Entry(courseService.getCourseByTitle("Software Engineering II"), staffFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
-        testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry I"), staffFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
+        testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry II"), staffFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
         testEntries.add(new Entry(courseService.getCourseByTitle("Calculus III"), staffFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
         testEntries.add(new Entry(courseService.getCourseByTitle("Bioengineering Fundamentals"), staffFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
         
