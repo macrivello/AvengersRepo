@@ -147,4 +147,23 @@ $(function(){
             return { value: dataItem.department.prefix + " " + dataItem.number + " - " + dataItem.title, data: {department: dataItem.department.prefix, course: dataItem} };
         })
     }
+
+    function loadFlowchartList() {
+        $.ajax({
+            type: "GET",
+            url: "/flowcharts",
+            contentType: "application/json",
+            dataType: "json"
+        }).done(function(data) {
+            console.log("Loading flowcharts");
+            console.log(data);
+            data.forEach(function (item) {
+                $('#flowchartList').append('<div class="btn" flowchart-id="' + item.id + '">' + item.name + '</div>');
+            })
+        }).fail(function () {
+            console.log("Error loading flowchart list");
+        });
+    }
+
+    loadFlowchartList();
 });
