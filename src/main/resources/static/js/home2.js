@@ -25,11 +25,11 @@ $(function(){
     /*
         Click Listeners
     */
-    addCourseButton.click(function(e){
-        // addCourse(e.currentTarget)
-        // courseSearchModal.modal('show');
-        selectedQuarter = e.currentTarget;
-    });
+    function setAddCourseClickHandlers() {
+        $(".add-course").click(function (e) {
+            selectedQuarter = e.currentTarget;
+        });
+    }
 
     signOutButton.click(function () {
         $.ajax({
@@ -85,6 +85,7 @@ $(function(){
     /*
         Course-related methods
      */
+
     function addCourse(data) {
         var el = document.createElement("div");//.setAttribute("class", "course");
         el.className = "course";
@@ -121,6 +122,7 @@ $(function(){
 
     function addQuarterDiv(name){
         flowchartContainer.append('<div class="quarter-container"><div  class="quarter-title">' + name + '</div><div class="add-course" data-toggle="modal" data-target="#add-course-modal">Add Course</div></div>');
+        setAddCourseClickHandlers();
     }
 
     /*
