@@ -59,6 +59,7 @@ $(function(){
         Ajax Calls
     */
 
+    // load user
     $.ajax({
         type: "GET",
         url: "/users/me",
@@ -74,6 +75,7 @@ $(function(){
         }
     });
 
+    // load courses
     $.ajax({
         type: "GET",
         url: "/courses"
@@ -87,17 +89,8 @@ $(function(){
         console.log("Error: " + jqXHR.status);
     });
 
-    $.ajax({
-        type: "GET",
-        url: "/flowcharts"
-    }).done(function (data, textStatus, jqXHR) {
-        console.log("Retrieved list of flowcharts.");
-
-        parseEntries(data[0]);
-        buildFlowchart();
-    }).fail(function (jqXHR, textStatus, errorThrown) {
-        console.log("Error: " + jqXHR.status);
-    });
+    // load user's flowcharts
+    loadFlowchartList()
 
     /*
         Course-related methods
@@ -236,5 +229,24 @@ $(function(){
         })
     }
 
-
+    function loadFlowchartList() {
+        $.ajax({
+            type: "GET",
+            url: "/flowcharts",
+            contentType: "application/json",
+            dataType: "json"
+        }).done(function(data) {
+            console.log("Loading flowcharts");
+            console.log(data);
+            data.forEach(function (item) {
+                flowcharts.push(item);
+                $('#flowchartList').append('<div class="btn" flowchart-id="' + item.id + '">' + item.name + '</div>');
+            })
+            console.log(flowcharts[0]);
+            parseEntries(flowcharts[0]);
+            buildFlowchart();
+        }).fail(function () {
+            console.log("Error loading flowchart list");
+        });
+    }
 });
