@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.*;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, resolver = SimpleObjectIdResolver.class,
-        property = "id", scope=Entry.class)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, resolver = SimpleObjectIdResolver.class,
+//        property = "id", scope=Entry.class)
 @JsonDeserialize(using = EntryDeserializer.class)
 public class Entry {
 

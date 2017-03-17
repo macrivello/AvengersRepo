@@ -17,10 +17,14 @@ $(function(){
         Data Objects
     */
     var selectedQuarter = {};
+    var selectedQuarterId = 0;
     var courses = [];
     var flowcharts = {};
     var quarters = ["Fall 2016", "Winter 2017", "Spring 2017", "Summer 2017"];
     var quarterIndex = 0;
+
+    var currentFlowchartId = 0;
+    var lastQuarterId = 0;
 
     var quartersMap = {};
     var coursesMap = {};
@@ -45,6 +49,7 @@ $(function(){
     function setAddCourseClickHandlers() {
         $(".add-course").click(function (e) {
             selectedQuarter = e.currentTarget;
+            selectedQuarterId = parseInt(e.currentTarget.attributes.quarter_id.nodeValue);
         });
     }
 
@@ -64,7 +69,22 @@ $(function(){
     });
 
     addQuarterButton.click(function () {
-       addQuarterDiv(quarters[quarterIndex++]);
+        // load user
+        $.ajax({
+            type: "GET",
+            url: "/quarters/" + ++lastQuarterId,
+            contentType:"application/json",
+            dataType: "json"
+        }).done(function (data, textStatus, jqXHR) {
+            console.log(data);
+            var qname = data.term + " " + data.year;
+            addQuarterDiv(data.id, qname);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.status);
+            if (jqXHR.status == 401) {
+                $(location).attr('href', '/login'); //redirect to login page
+            }
+        });
     });
 
     /*
@@ -101,20 +121,35 @@ $(function(){
         console.log("Error: " + jqXHR.status);
     });
 
-    // load user's flowcharts
-    loadFlowchartList();
+    function saveEntry(entry) {
+        $.ajax({
+            type: "POST",
+            url: "/entries",
+            contentType:"application/json",
+            data: JSON.stringify(entry)
+        }).done(function (data, textStatus, jqXHR) {
+            console.log("Saved Entry.");
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log("Error saving entry: " + jqXHR.status);
+        });
+    }
 
     /*
         Course-related methods
      */
 
     function parseEntries(data){
+        currentFlowchartId = data.id;
+
+        var entry;
+        var quarter;
         for(var i = 0; i < data.entries.length; i++){
             var entry = data.entries[i];
             var quarter = entry.quarter;
             var course = entry.course;
             var quarterId = quarter.id === undefined ? quarter.toString() : quarter.id.toString();
             if (quartersMap[quarterId] === undefined) {
+                lastQuarterId = quarterId;
                 quartersMap[quarterId] = quarter;
             }
 
@@ -129,17 +164,17 @@ $(function(){
         // Add quarters
         for(var id in quartersMap) {
             var quarterName = quartersMap[id].term + " " + quartersMap[id].year;
-            var div = addQuarterDiv(id ,quarterName);
+            addQuarterDiv(id ,quarterName);
             var courseArr = coursesMap[id];
             courseArr.forEach(function(c){
-                addCourse(div, c);
+                addCourse(id, c);
             });
         }
-
-        // Add Courses
+        setAddCourseClickHandlers();
     }
 
-    function addCourse(quarterDiv, course) {
+    function addCourse(id, course) {
+        var addCourseDivId = "#addCourse_" + id;
         var divId = "course_" + course.id;
 
         var courseDiv = $('<div/>', {
@@ -148,7 +183,20 @@ $(function(){
         });
         courseDiv.text(course.department.prefix + " " + course.number);
 
-        quarterDiv.before(courseDiv);
+        $(addCourseDivId).before(courseDiv);
+    }
+
+    function addCourse(id, course) {
+        var addCourseDivId = "#addCourse_" + id;
+        var divId = "course_" + course.id;
+
+        var courseDiv = $('<div/>', {
+            id: divId,
+            class: "course"
+        });
+        courseDiv.text(course.department.prefix + " " + course.number);
+
+        $(addCourseDivId).before(courseDiv);
     }
 
     function getCourse(c) {
@@ -176,13 +224,26 @@ $(function(){
     }
 
     function addQuarterDiv(id, name){
-        var divId = "quarter_" + id;
+        var quarterDivId = "quarter_" + id;
+        var addCourseDivId = "addCourse_" + id;
+
         var quarterDiv = $('<div/>', {
-            id: divId,
+            id: quarterDivId,
             class: "quarter-container"
         });
-        quarterDiv.append('<div class="quarter-title">' + name + '</div><div class="add-course" data-toggle="modal" data-target="#add-course-modal">Add Course</div>');
+        quarterDiv.text(name);
 
+        var addCourseDiv = $('<div/>', {
+            id: addCourseDivId,
+            class: "add-course"
+        });
+        addCourseDiv.attr('quarter_id', id);
+        addCourseDiv.attr('data-toggle','modal');
+        addCourseDiv.attr('data-target','#add-course-modal');
+        addCourseDiv.text("Add Course");
+
+        quarterDiv.append(addCourseDiv);
+        // quarterDiv.append('<div class="quarter-title">' + name + '</div><div class="add-course" data-toggle="modal" data-target="#add-course-modal">Add Course</div>');
         // flowchartContainer.append('<div class="quarter-container"><div class="quarter-title">' + name + '</div><div class="add-course" data-toggle="modal" data-target="#add-course-modal">Add Course</div></div>');
         flowchartContainer.append(quarterDiv);
         setAddCourseClickHandlers();
@@ -198,11 +259,19 @@ $(function(){
             lookup: courses,
             groupBy: 'department',
             onSelect: function (suggestion) {
+                var course = suggestion.data.course;
                 // courseNameField.val(suggestion.value);
                 // courseIdField.val(suggestion.data.course.id);
                 courseSearchModal.modal('hide');
-                addCourse(suggestion.data);
+                addCourse(selectedQuarterId, course);
                 courseSearch.val('');
+
+                var entry = {
+                    "flowchart_id": currentFlowchartId,
+                    "course_id": course.id,
+                    "quarter_id": selectedQuarterId
+                };
+                saveEntry(entry);
             }
         });
     }
@@ -224,10 +293,10 @@ $(function(){
             console.log(data);
             var firstID = data[0].id;
             data.forEach(function (item) {
-                flowcharts[item.id.toString()] = item;
-                $('#flowchartList').append('<button class="btn btn-success flowchart-names" flowchart-id="' + item.id + '">' + item.name + '</button>');
+                flowcharts[item.id] = item;
+                $('#flowchartList').append('<button class="btn btn-primary" flowchart-id="' + item.id + '">' + item.name + '</button>');
                 $('#flowchartList').append('<br />');
-            })
+            });
             console.log(flowcharts[0]);
             parseEntries(flowcharts[firstID.toString()]);
             buildFlowchart();
@@ -237,4 +306,8 @@ $(function(){
             console.log("Error loading flowchart list");
         });
     }
+
+
+    // load user's flowcharts
+    loadFlowchartList();
 });
