@@ -22,7 +22,9 @@ $(function(){
     var flowcharts = [];
     var quarters = ["Fall 2016", "Winter 2017", "Spring 2017", "Summer 2017"];
     var quarterIndex = 0;
+
     var currentFlowchartId = 0;
+    var lastQuarterId = 0;
 
     var quartersMap = {};
     var coursesMap = {};
@@ -53,7 +55,22 @@ $(function(){
     });
 
     addQuarterButton.click(function () {
-       addQuarterDiv(quarters[quarterIndex++]);
+        // load user
+        $.ajax({
+            type: "GET",
+            url: "/quarters/" + ++lastQuarterId,
+            contentType:"application/json",
+            dataType: "json"
+        }).done(function (data, textStatus, jqXHR) {
+            console.log(data);
+            var qname = data.term + " " + data.year;
+            addQuarterDiv(data.id, qname);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.status);
+            if (jqXHR.status == 401) {
+                $(location).attr('href', '/login'); //redirect to login page
+            }
+        });
     });
 
     /*
@@ -118,6 +135,7 @@ $(function(){
             var course = entry.course;
             var quarterId = quarter.id === undefined ? quarter.toString() : quarter.id.toString();
             if (quartersMap[quarterId] === undefined) {
+                lastQuarterId = quarterId;
                 quartersMap[quarterId] = quarter;
             }
 
