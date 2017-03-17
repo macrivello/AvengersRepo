@@ -17,6 +17,7 @@ $(function(){
         Data Objects
     */
     var selectedQuarter = {};
+    var selectedQuarterId = 0;
     var courses = [];
     var flowcharts = [];
     var quarters = ["Fall 2016", "Winter 2017", "Spring 2017", "Summer 2017"];
@@ -31,6 +32,7 @@ $(function(){
     function setAddCourseClickHandlers() {
         $(".add-course").click(function (e) {
             selectedQuarter = e.currentTarget;
+            selectedQuarterId = parseInt(e.currentTarget.attributes.quarter_id.nodeValue);
         });
     }
 
@@ -124,18 +126,17 @@ $(function(){
         // Add quarters
         for(id in quartersMap) {
             var quarterName = quartersMap[id].term + " " + quartersMap[id].year;
-            var div = addQuarterDiv(id ,quarterName);
-            div
+            addQuarterDiv(id ,quarterName);
             var courseArr = coursesMap[id];
             courseArr.forEach(function(c){
-                addCourse(div, c);
+                addCourse(id, c);
             });
         }
-
-        // Add Courses
+        setAddCourseClickHandlers();
     }
 
-    function addCourse(quarterDiv, course) {
+    function addCourse(id, course) {
+        var addCourseDivId = "#addCourse_" + id;
         var divId = "course_" + course.id;
 
         var courseDiv = $('<div/>', {
@@ -144,7 +145,20 @@ $(function(){
         });
         courseDiv.text(course.department.prefix + " " + course.number);
 
-        quarterDiv.before(courseDiv);
+        $(addCourseDivId).before(courseDiv);
+    }
+
+    function addCourse(id, course) {
+        var addCourseDivId = "#addCourse_" + id;
+        var divId = "course_" + course.id;
+
+        var courseDiv = $('<div/>', {
+            id: divId,
+            class: "course"
+        });
+        courseDiv.text(course.department.prefix + " " + course.number);
+
+        $(addCourseDivId).before(courseDiv);
     }
 
     function getCourse(c) {
@@ -172,13 +186,26 @@ $(function(){
     }
 
     function addQuarterDiv(id, name){
-        var divId = "quarter_" + id;
+        var quarterDivId = "quarter_" + id;
+        var addCourseDivId = "addCourse_" + id;
+
         var quarterDiv = $('<div/>', {
-            id: divId,
+            id: quarterDivId,
             class: "quarter-container"
         });
-        quarterDiv.append('<div class="quarter-title">' + name + '</div><div class="add-course" data-toggle="modal" data-target="#add-course-modal">Add Course</div>');
+        quarterDiv.text(name);
 
+        var addCourseDiv = $('<div/>', {
+            id: addCourseDivId,
+            class: "add-course"
+        });
+        addCourseDiv.attr('quarter_id', id);
+        addCourseDiv.attr('data-toggle','modal');
+        addCourseDiv.attr('data-target','#add-course-modal');
+        addCourseDiv.text("Add Course");
+
+        quarterDiv.append(addCourseDiv);
+        // quarterDiv.append('<div class="quarter-title">' + name + '</div><div class="add-course" data-toggle="modal" data-target="#add-course-modal">Add Course</div>');
         // flowchartContainer.append('<div class="quarter-container"><div class="quarter-title">' + name + '</div><div class="add-course" data-toggle="modal" data-target="#add-course-modal">Add Course</div></div>');
         flowchartContainer.append(quarterDiv);
         setAddCourseClickHandlers();
@@ -197,7 +224,7 @@ $(function(){
                 // courseNameField.val(suggestion.value);
                 // courseIdField.val(suggestion.data.course.id);
                 courseSearchModal.modal('hide');
-                addCourse(suggestion.data);
+                addCourse(selectedQuarterId, suggestion.data.course);
                 courseSearch.val('');
             }
         });
