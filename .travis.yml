@@ -10,7 +10,8 @@ notifications:
   # about configuring notification recipients and more.
   # webhooks:
   email: false
-# services:
 
 install:
-  - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+# update mvnw
+- mvn -N io.takari:maven:wrapper
+- ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
