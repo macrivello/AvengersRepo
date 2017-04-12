@@ -1,7 +1,0 @@
-IDE: IntelliJ 
-UML Drawing: http://draw.io
-Version control: git and GitHub
-Project management: GitHub Projects + GitHub Issues
-Prototyping: InVision
-Cloud platform: Heroku
-HTTP Client: Postman
