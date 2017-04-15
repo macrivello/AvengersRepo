@@ -5,3 +5,7 @@ Project management: GitHub Projects + GitHub Issues
 Prototyping: InVision
 Cloud platform: Heroku
 HTTP Client: Postman
+Front End: Angular2
+Continuous Integration: Travis-CI
+Code Testing: SonarCube
+Code Formatting: Checkstyle
