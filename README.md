@@ -46,7 +46,7 @@ Using this tool, a Cal Poly user can plan more efficiently for future classes. I
 
 #### FrontEnd
 
-* React.js
+* Angular2
 
 #### Backend
 
@@ -55,6 +55,10 @@ Using this tool, a Cal Poly user can plan more efficiently for future classes. I
 #### Database
 
 * PostgreSQL
+
+#### Continuous Integration
+
+* Travis-CI
 
 ##6.	Project Breakdown, Timeline and Milestones
 
