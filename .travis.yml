@@ -1,13 +1,18 @@
 dist: trusty
 language: java
 jdk:
-- oraclejdk8
+  - oraclejdk8
 notifications:
   email: false
 cache:
   directories:
   - $HOME/.m2/repository
   - $HOME/.sonar/cache
+before_install:
+  - chmod +x mvnw
+install:
+  - mvn -N io.takari:maven:wrapper
+  - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 addons:
   sonarqube:
     organization: polypath
@@ -16,7 +21,7 @@ addons:
     - angular
     - master
 script:
-- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 env:
   global:
   - secure: urPqQ7ntFER/iyPsz3KQbNFupyXVyQszsGZ89Zq2Se8/TX97XywnKZtaLqm+XujW5/ELIJPaROKSFlpdAoCRXJUrmw3sEjKnbN/7ou9vh96jwPreIriPkGPQ+RjryZYyYx0RztVXVwwrJjnpcp/nCtv0pczdwDUSndA+mjYdaKj5R7+nFQbMfnSKdvKZoJ96iylVZgVPGpV0larxMCEpXmG+u0v3bb6I/XwHNcdrrjtkqUKOgMbZMmZbB11Aoi9s0502PAc+253er63o8L9pG4aOSkTorvqvG9t98B/rorBSu0SMDwuNIQ/OkFF1DLPZY84VfLZsTFFV16uVw8GyghAenEd0zUaWEJrLfLFHwi/Z4fXUB0Kkg/AisyqH7nRIlJLjrot2Uhnm5ZqcCA3/UJUJtuc5n7TG8UqLh1ZPpY6dXwqXYC1Jut5nkGE/PDi0xHlpSlvF2XStcZowGnkEJ5JzJqZgRCOfH1Uu3FQzNFWt0w3OtUPSpMJeYrHkaGIACvO/viv+CsjeCeyYIDjq4NWYICmMsiSbvfytcR6vIKfpaNWwlgf20Euzr+ykN9inMeednr+cAl5FbufPxtKrWrvzbwivdJHKrUdc5auqtxPwEptqSgQ0zFZpXo/s1sb+LyAOyxnMaD7iMnFMA1fbHhBHY3VnMvMZzuhyQ2DTrgY=
