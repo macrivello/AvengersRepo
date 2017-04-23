@@ -1,4 +1,4 @@
-git pu*.class
+*.class
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -57,6 +57,7 @@ fabric.properties
 
 .idea/
 build/
+src/main/resources/public/static/
 .gradle/*
 !gradle/wrapper/gradle-wrapper.jar
 !gradle/wrapper/gradle-wrapper.properties
@@ -66,3 +67,24 @@ target/
 
 # Ignore applications.properties
 application.properties
+
+#Angular2 CLI gitignore
+
+dist/
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# IDEs
+.idea/
+jsconfig.json
+.vscode/
+
+# Typings file.
+typings/
+
+# Misc
+tmp/
+
+# Mac OSX Finder files.
+**/.DS_Store

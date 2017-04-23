@@ -6,6 +6,7 @@ import base.user.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,15 +19,17 @@ public class HomeController {
     public String index(HttpServletRequest httpServletRequest, @CurrentUser User user) {
         //TODO Check for auth token, show index, otherwise redirect
 
-        if (user == null) {
-            return "html/login.html";
-        }
-
-        return "html/home2.html";
+//        if (user == null) {
+//            return "html/login.html";
+//        }
+//
+//        return "html/home2.html";
+      return "static/index.html";
     }
 
-//    @RequestMapping("/home2")
-//    public String search(){
-//        return "html/home2.html";
-//    }
+    @RequestMapping("/test")
+    @ResponseBody
+    public String testAngular(){
+        return "communication with server works!";
+    }
 }

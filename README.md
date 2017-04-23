@@ -1,50 +1,30 @@
-Postman collection: https://www.getpostman.com/collections/58f033d960931c2d0c56  
-Heroku app url: http://cp-avengers.herokuapp.com/
-=======
-#Cal Poly SLO Flowchart
-Teamname: Avengers
+### PolyPath Flowchart Tool
 
-This Spring Boot application is rebuilt and deployed on Heroku with every new commit to this branch.  
+####Backend: 
+ + Spring Boot
+ + Spring Security
+ + Spring Data
+ + Postgres
+ 
+ Run the application with the maven plugin:
+  `mvn spring-boot:run`. This will start the server at `localhost:8080` by default.
+ 
+ ####Frontend:
+ + Angular2
+ 
+ Generated with the Angular CLI.
+ 
+ Run the development webpack server: `ng serve`. This will run the webpack dev server at `localhost:4200`
+
+ `ng build` will be bundle the assets and place at `src/main/resources/public/static`.
   
-To build and run locally run the following command: 
-./gradlew clean build && java -jar build/libs/gs-spring-boot-0.1.0.jar
-or
-mvn clean install && java -jar target/gs-spring-boot-0.1.0.jar
+ ####Deployment
 
-when running locally, then the app url is http://localhost:8080/
-=======
-Briefly list the purpose of your software system in a few short full sentences.
-
-Our software will help students plan for classes by building their own custom and interactive flowchart. An administrative version will be available to help the department plan ahead to see which classes they should offer in future quarters.
-
-##2.	List of features
-In bullet points: give your proposed software system a name and list the 5-10 key features.
-
-####Software System name: **POLY PATH**
-
-* Simplify the process of creating flowcharts for administration
-* Access Cal Poly's database for accurate quarters in which classes will be offered
-  * If a catalogue change occurres then the flowchart will dynamically reflect changes
-* Student's initial Path created depends upon:
-  * Freshman user **or**
-  * Transfer user
-* Poly Path can easily intergrate minor into students Path
-* Offers a suggested template, but has a customizable inferface
-* Course Offering History 
-* Planned academic calendar vs actual calendar 
-* Change notifications if class availability changes
-
-##3.	Requirements
-
-Using this tool, a Cal Poly user can plan more efficiently for future classes. Its core functionality will be its live itegration with the Poly catalogue. Poly Path will update the users flowcharts according to: the catalogue requirements of that year, the users previous classes taken, and the various paths classes can be taken (technical electives and GEs offer a lot of variety). It will then generate an interactive flowchart, custom to that specific user, to help plan for future classes. 
-
-##4.	Architecture
-
-![High-level System Overview](https://drive.google.com/uc?export=view&id=0B9F1DNYCrDCHbjlBLXhYbGd6RnM)
-
-##5.	Technologies
-
-#### FrontEnd
+ The `ng build` task needs to be ran before the running the server. This will allow the server to provide the bundled client code.
+ 
+ A maven plugin is used to run this run the npm tasks prior to the java build. `mvn spring-boot:run` will launch the spring boot app after running `ng build`.
+  
+ // TODO describe the proxy.config file, npm commands, maven plugin, heroku build, spring dev tools
 
 * Angular2
 
