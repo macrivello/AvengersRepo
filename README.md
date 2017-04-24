@@ -1,15 +1,21 @@
 ### PolyPath Flowchart Tool
 
-#### Backend: 
- + Spring Boot
- + Spring Security
- + Spring Data JPA
- 
- Run the application with the maven plugin:
-  `mvn spring-boot:run`. This will start the server at `localhost:8080` by default.
+ #### Backend: 
+ * Spring Boot
+ * Spring Security
+ * Spring Data JPA
  
  #### Frontend:
- + Angular2
+ * Angular2
+ 
+ #### Database
+ 
+ * PostgreSQL
+ 
+ #### Continuous Integration
+ 
+ * Travis-CI
+
  
  Generated with the Angular CLI.
  
@@ -19,6 +25,9 @@
   
  #### Deployment
 
+Run the application with the maven plugin:
+  `mvn spring-boot:run`. This will start the server at `localhost:8080` by default.
+ 
  The `ng build` task needs to be ran before the running the server. This will allow the server to provide the bundled client code.
  
  A maven plugin is used to run this run the npm tasks prior to the java build. `mvn spring-boot:run` will launch the spring boot app after running `ng build`.
@@ -59,4 +68,3 @@ npm is kind of like maven for javascript projects. It stands for Node Package Ma
 ```
 
 This means `npm start` will run `ng serve --proxy-config.json` which starts the webpackdev server and tells angular to use our proxy file to route requests from localhost:4200 to localhost:8080.
-
