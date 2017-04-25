@@ -19,7 +19,6 @@ addons:
     organization: polypath
     token: $SONARQUBE_TOKEN
     branches:
-    - angular
     - master
 script:
   - ./mvnw test -B
