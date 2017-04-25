@@ -6,7 +6,7 @@
   "apps": [
     {
       "root": "webapp",
-      "outDir": "src/main/resources/public/static",
+      "outDir": "src/main/resources/static",
       "deployUrl": "static/",
       "assets": [
         "assets",
