@@ -93,7 +93,7 @@
                     <goals>
                         <goal>exec</goal>
                     </goals>
-                    <phase>compile</phase>
+                    <phase>initialize</phase>
                     <configuration>
                         <executable>npm</executable>
                         <arguments>
