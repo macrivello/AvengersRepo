@@ -1,5 +1,15 @@
 ### PolyPath Flowchart Tool
 
+####TL;DR:
+
+
+  1. `npm install` : Install angular dependencies.  
+  2. `ng build` : compile angular app and bundle assets. Move to src/main/resources/public/static.
+  3. Run spring boot app.
+  4. Going to `localhost:8080` in a browser will return the generated index.html file that contains our angular app (the javascript files in the `<script>` tags.)
+   
+   Read below for more info. 
+
  #### Backend: 
  * Spring Boot
  * Spring Security
@@ -17,7 +27,9 @@
  * Travis-CI
 
  
- Generated with the Angular CLI.
+ Angular project was generated with the Angular CLI.
+ 
+ First, make sure you install all frontend dependencies using `npm install`.
  
  Run the development webpack server: `npm start`. This will run the webpack dev server at `localhost:4200`. It will watch all the source files and reload the app when it detects changes.
 
