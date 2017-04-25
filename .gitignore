@@ -71,6 +71,7 @@ application.properties
 #Angular2 CLI gitignore
 
 dist/
+node/
 node_modules/
 npm-debug.log*
 yarn-error.log*
