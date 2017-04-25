@@ -38,6 +38,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
           .authorizeRequests()
+          .antMatchers(HttpMethod.GET, "**/*.js").permitAll()
+          .antMatchers(HttpMethod.GET, "**/*.css").permitAll()
+          .antMatchers(HttpMethod.GET, "**/*.html").permitAll()
+          .antMatchers(HttpMethod.GET, "**/*.png").permitAll()
+          .antMatchers(HttpMethod.GET, "**/*.jpg").permitAll()
+          .antMatchers(HttpMethod.GET, "**/*.svg").permitAll()
+          .antMatchers(HttpMethod.GET, "**/*.gif").permitAll()
           .antMatchers(HttpMethod.GET, "/static/*").permitAll()
           .antMatchers(HttpMethod.GET, "/test").permitAll()
           .antMatchers(HttpMethod.GET,"/UserManHelpPage/**").permitAll()
