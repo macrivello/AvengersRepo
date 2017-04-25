@@ -6,8 +6,8 @@
   "apps": [
     {
       "root": "webapp",
-      "outDir": "src/main/resources/public/static",
-      "deployUrl": "static/",
+      "outDir": "src/main/resources/static",
+      "deployUrl": "",
       "assets": [
         "assets",
         "favicon.ico"
