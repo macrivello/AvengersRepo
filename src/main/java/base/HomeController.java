@@ -24,7 +24,7 @@ public class HomeController {
 //        }
 //
 //        return "html/home2.html";
-      return "index.html";
+      return "static/index.html";
     }
 
     @RequestMapping("/test")
