@@ -3,20 +3,28 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MainComponent} from './core/layout/main/main.component';
+import {CoreModule} from './core/core.module';
+import { FlowchartComponent } from './components/flowchart/flowchart.component';
+import { CourseComponent } from './components/course/course.component';
+import { QuarterComponent } from './components/quarter/quarter.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    MainComponent,
+    FlowchartComponent,
+    CourseComponent,
+    QuarterComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CoreModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [MainComponent]
 })
 export class AppModule { }
