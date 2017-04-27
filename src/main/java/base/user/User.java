@@ -47,6 +47,7 @@ public class User implements Serializable {
     @OneToMany(targetEntity = Flowchart.class, mappedBy = "user",
             cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnoreProperties("user")
+    @JsonProperty("flowchart_ids")
     private List<Flowchart> flowcharts;
 
     public User() {}
