@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoggerService } from './logger.service';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SpinnerService } from './spinner/spinner.service';
-import { NavbarComponent } from './layout/navbar/navbar.component';
+import { NavbarComponent } from './navbar/navbar.component';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 
 @NgModule({

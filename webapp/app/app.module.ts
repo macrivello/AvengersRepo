@@ -4,15 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MainComponent} from './core/layout/main/main.component';
-import {CoreModule} from './core/core.module';
+import { CoreModule } from './core/core.module';
 import { FlowchartComponent } from './components/flowchart/flowchart.component';
 import { CourseComponent } from './components/course/course.component';
 import { QuarterComponent } from './components/quarter/quarter.component';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    MainComponent,
+    AppComponent,
     FlowchartComponent,
     CourseComponent,
     QuarterComponent,
@@ -25,6 +25,6 @@ import { QuarterComponent } from './components/quarter/quarter.component';
     CoreModule
   ],
   providers: [],
-  bootstrap: [MainComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
