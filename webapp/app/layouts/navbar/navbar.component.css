@@ -1,0 +1,22 @@
+.polypath-navbar {
+  background-color: #9eb28f;
+  padding: .2em 1em;
+}
+.navbar-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #262626;
+  display: inline-block;
+  vertical-align: middle;
+}
+.logo {
+  padding: 5px 15px;
+}
+.logo-img {
+  height: 45px;
+  width: 70px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url("../../../assets/grap_cap.png") no-repeat center center;
+  background-size: contain;
+}

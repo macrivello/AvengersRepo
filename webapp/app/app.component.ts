@@ -8,14 +8,9 @@ import 'rxjs/add/operator/toPromise';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app works!';
 
   constructor(private http: Http) { }
 
   ngOnInit(): void {
-    this.http.get('/test')
-      .toPromise()
-      .then(response => this.title = response.text())
-      .catch(error => console.log(error));
   }
 }
