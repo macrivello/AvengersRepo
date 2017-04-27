@@ -21,6 +21,7 @@ public class Flowchart {
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties("flowcharts")
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("user_id")
     private User user;
 
     @JsonIgnoreProperties("flowchart")
