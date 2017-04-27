@@ -4,19 +4,25 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MainComponent } from './layouts/main/main.component';
-import { NavbarComponent } from './layouts/navbar/navbar.component';
+import {MainComponent} from './core/layout/main/main.component';
+import {CoreModule} from './core/core.module';
+import { FlowchartComponent } from './components/flowchart/flowchart.component';
+import { CourseComponent } from './components/course/course.component';
+import { QuarterComponent } from './components/quarter/quarter.component';
 
 @NgModule({
   declarations: [
     MainComponent,
-    NavbarComponent
+    FlowchartComponent,
+    CourseComponent,
+    QuarterComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [MainComponent]
