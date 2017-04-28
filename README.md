@@ -1,8 +1,6 @@
+[![Build Status](https://travis-ci.org/cpe308-309/polypath.svg?branch=master)](https://travis-ci.org/cpe308-309/polypath) [![Quality Gate](https://sonarqube.com/api/badges/gate?key=polypath)](https://sonarqube.com/dashboard/index/polypath) [![Stories in Ready](https://badge.waffle.io/cpe308-309/polypath.png?label=ready&title=Ready)](https://waffle.io/cpe308-309/polypath)
+
 ### PolyPath Flowchart Tool
-
-![](https://travis-ci.org/travis-ci/travis-web.svg?branch=master)
-![](https://sonarqube.com/dashboard?id=polypath)
-
 #### TL;DR:
   1. `npm install` : Install angular dependencies.  
   2. `ng build` : compile angular app and bundle assets. Move to src/main/resources/public/static.
