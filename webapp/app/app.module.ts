@@ -13,6 +13,10 @@ import { FlowchartService} from './services/flowchart/flowchart.service';
 import {CourseService} from "./services/course/course.service";
 import {QuarterService} from "./services/quarter/quarter.service";
 
+import { LoginComponent } from './components/login/login.component';
+import { MdProgressSpinnerModule } from '@angular/material';
+import {UserService} from './services/user.service';
+import {LoginService} from './services/login.service';
 
 @NgModule({
   declarations: [
@@ -20,15 +24,18 @@ import {QuarterService} from "./services/quarter/quarter.service";
     FlowchartComponent,
     CourseComponent,
     QuarterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     BrowserAnimationsModule,
+    MdProgressSpinnerModule,
+    FormsModule,
     CoreModule
   ],
-  providers: [FlowchartService, CourseService, QuarterService],
+  providers: [UserService, LoginService, FlowchartService, CourseService, QuarterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

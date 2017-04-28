@@ -1,8 +1,9 @@
+import {RoleType} from './role-type';
 export class User {
   id: number;
   firstName: string;
   lastName: string;
   email: string;
-  flowchart_id: number[];
+  roles: RoleType[]
   // TODO: add roles
 }
