@@ -1,8 +1,8 @@
 ### PolyPath Flowchart Tool
 
+![](https://travis-ci.org/travis-ci/travis-web.svg?branch=master)
+
 #### TL;DR:
-
-
   1. `npm install` : Install angular dependencies.  
   2. `ng build` : compile angular app and bundle assets. Move to src/main/resources/public/static.
   3. Run spring boot app.
