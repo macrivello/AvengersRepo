@@ -9,6 +9,10 @@ import { FlowchartComponent } from './components/flowchart/flowchart.component';
 import { CourseComponent } from './components/course/course.component';
 import { QuarterComponent } from './components/quarter/quarter.component';
 import { AppComponent } from './app.component';
+import { FlowchartService} from './services/flowchart/flowchart.service';
+import {CourseService} from "./services/course/course.service";
+import {QuarterService} from "./services/quarter/quarter.service";
+
 
 @NgModule({
   declarations: [
@@ -24,7 +28,7 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
     CoreModule
   ],
-  providers: [],
+  providers: [FlowchartService, CourseService, QuarterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

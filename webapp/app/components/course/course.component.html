@@ -1,3 +1,10 @@
-<p>
-  course works!
-</p>
+<div *ngIf="course">
+  <li>
+    course works
+    id({{course.id}})
+    {{course.department.prefix}}
+    {{course.number}}
+    {{course.title}}
+  </li>
+
+</div>
