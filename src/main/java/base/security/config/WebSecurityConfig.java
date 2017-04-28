@@ -54,7 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .antMatchers(HttpMethod.POST, "/login").permitAll() // to get auth token
           .antMatchers(HttpMethod.GET, "/search").permitAll() // to get auth token
           .antMatchers(HttpMethod.GET, "/courses/**").permitAll() // to get auth token
-          .anyRequest().authenticated();
+//          .anyRequest().authenticated();
+          .anyRequest().permitAll();
 
         // Custom JWT based security filter -- Check for JWT tokens
         http
