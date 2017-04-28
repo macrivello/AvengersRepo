@@ -1,6 +1,7 @@
 ### PolyPath Flowchart Tool
 
 ![](https://travis-ci.org/travis-ci/travis-web.svg?branch=master)
+![](https://sonarqube.com/dashboard?id=polypath)
 
 #### TL;DR:
   1. `npm install` : Install angular dependencies.  
