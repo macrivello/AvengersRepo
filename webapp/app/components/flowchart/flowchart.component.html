@@ -1,5 +1,10 @@
 <div *ngIf="flowchart">
-  {{flowchart.id}}
+  <h1>
+    {{flowchart.name}}
+  </h1>
+  <li *ngFor="let entry of flowchart.entries">
 
-  flowchart works!
+    {{entry.course.department.prefix}} {{entry.course.number}} {{entry.quarter.term}} {{entry.quarter.year}}
+
+  </li>
 </div>

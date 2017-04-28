@@ -15,11 +15,12 @@ export class FlowchartComponent implements OnInit {
 
   ngOnInit() {
 
-      this.flowchartService.getFlowchart(36)
+    this.flowchartService.getFlowchart(36)
       .then(
         flowchart => {
           console.log(flowchart);
-          this.flowchart = flowchart});
-  }
+          return this.flowchart = flowchart;
+        })
 
+  }
 }

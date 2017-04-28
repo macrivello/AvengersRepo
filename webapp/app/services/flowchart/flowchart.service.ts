@@ -36,7 +36,12 @@ export class FlowchartService {
       )
       .catch(this.handleError);
   }
-
+  /*
+  putEntry(entry : FlowchartEntry) : Promise<any> {
+    return this.http.put(`/entries/${entry.id}`, entry)
+      .toPromise();
+  }
+*/
   private handleError(error: any): Promise<any> {
     console.log('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
