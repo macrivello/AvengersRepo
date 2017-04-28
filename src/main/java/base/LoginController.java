@@ -73,7 +73,7 @@ public class LoginController {
         return ResponseEntity.ok(new JwtTokenResponse(token));
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @RequestMapping(value = "/signout", method = RequestMethod.GET)
     public ResponseEntity createBlankAuthenticationToken(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException {
 
         CookieUtil.create(httpServletResponse, cookieName, "", Boolean.getBoolean(secure), Integer.parseInt(maxAge), domain);

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FlowchartService } from '../../services/flowchart/flowchart.service'
 import {Flowchart} from "../../models/flowchart.model";
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-flowchart',
@@ -11,16 +12,10 @@ export class FlowchartComponent implements OnInit {
 
   flowchart : Flowchart;
 
-  constructor(private flowchartService : FlowchartService) {}
+  constructor(private flowchartService : FlowchartService, private userService: UserService) {}
 
   ngOnInit() {
-
-    this.flowchartService.getFlowchart(36)
-      .then(
-        flowchart => {
-          console.log(flowchart);
-          return this.flowchart = flowchart;
-        })
-
+    this.flowchartService.getFirstFlowchart()
+      .subscribe((data) => this.flowchart = data);
   }
 }

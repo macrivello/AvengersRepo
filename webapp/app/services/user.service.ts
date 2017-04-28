@@ -22,9 +22,10 @@ export class UserService {
 
   logout(): Observable<any> {
     console.log("logout");
-    return this.http.get('/logout').map(() => {
+    return this.http.get('/signout').map(response => {
       console.log(`${this.currentUser.email} has logged out.`);
       this.currentUser = null;
+      return response.text();
     })
   }
 

@@ -1,14 +1,19 @@
-<div *ngIf="flowchart">
-  <h1>
-    {{flowchart.name}}
-  </h1>
-  <ul  class="list-group ">
-    <li class="list-group-item d-flex justify-content-center " *ngFor=" let entry of flowchart.entries">
+<div class="centered">
+  <div *ngIf="flowchart; else loading">
+    <h1>
+      {{flowchart.name}}
+    </h1>
+    <ul  class="list-group ">
+      <li class="list-group-item d-flex justify-content-center" *ngFor=" let entry of flowchart.entries">
 
-      {{entry.course.department.prefix}} {{entry.course.number}} {{entry.quarter.term}} {{entry.quarter.year}}
+        {{entry.course.department.prefix}} {{entry.course.number}} {{entry.quarter.term}} {{entry.quarter.year}}
 
-    </li>
-  </ul>
-
+      </li>
+    </ul>
+  </div>
+  <ng-template #loading>
+    <div class="d-flex justify-content-center">
+      <md-spinner></md-spinner>
+    </div>
+  </ng-template>
 </div>
-

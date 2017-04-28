@@ -4,27 +4,34 @@ import { FlowchartEntry } from "../../models/flowchart-entry.model"
 import { Http } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import {toPromise} from "rxjs/operator/toPromise";
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class FlowchartService {
 
   constructor(private http : Http) { }
 
-  getFlowcharts(): Promise<Flowchart[]> {
+  getFlowcharts(): Observable<Flowchart[]> {
     return this.http.get("/flowcharts")
-      .toPromise()
-      .then(response => response.json().data as Flowchart[])
-      .catch(this.handleError);
+      .map(response => {
+        return response.json() as Flowchart[];
+    })
   }
 
-  getFlowchart(id : number): Promise<Flowchart> {
+  getFlowchart(id : number): Observable<Flowchart> {
     return this.http.get(`/flowcharts/${id}`)
-      .toPromise()
-      .then(response => {
-        //console.log(response.json());
-        return response.json() as Flowchart;}
-        )
-      .catch(this.handleError);
+      .map(response => {
+        return response.json() as Flowchart
+      });
+  }
+
+  getFirstFlowchart(): Observable<Flowchart> {
+    return this.getFlowcharts()
+      .first()
+      .flatMap((flowcharts) => {
+      console.log(flowcharts);
+      return this.getFlowchart(flowcharts[0].id);
+      });
   }
 
   getEntry(id : number): Promise<FlowchartEntry> {

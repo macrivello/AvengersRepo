@@ -1,11 +1,11 @@
 <div>
   <app-navbar></app-navbar>
 </div>
-<div class="container-fluid">
+<div class="container-fluid" style="height: 100%;">
   <div class="text-lg-center">
-    <div *ngIf="userService.currentUser; else loging">
+    <div *ngIf="userService.currentUser; else login">
       <app-flowchart></app-flowchart>
     </div>
-    <ng-template #login><app-login></app-login></ng-template>
+    <ng-template #login><app-login class="fade-in"></app-login></ng-template>
   </div>
 </div>

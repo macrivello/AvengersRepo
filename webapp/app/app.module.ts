@@ -14,7 +14,7 @@ import {CourseService} from "./services/course/course.service";
 import {QuarterService} from "./services/quarter/quarter.service";
 
 import { LoginComponent } from './components/login/login.component';
-import { MdProgressSpinnerModule } from '@angular/material';
+import {MdButtonModule, MdProgressSpinnerModule} from '@angular/material';
 import {UserService} from './services/user.service';
 import {LoginService} from './services/login.service';
 
@@ -32,6 +32,7 @@ import {LoginService} from './services/login.service';
     HttpModule,
     BrowserAnimationsModule,
     MdProgressSpinnerModule,
+    MdButtonModule,
     FormsModule,
     CoreModule
   ],
