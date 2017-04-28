@@ -1,10 +1,13 @@
-<div *ngIf="flowchart">
+<div   *ngIf="flowchart">
   <h1>
     {{flowchart.name}}
   </h1>
-  <li *ngFor="let entry of flowchart.entries">
+  <ul  class="list-group ">
+    <li class="list-group-item d-flex justify-content-center " *ngFor=" let entry of flowchart.entries">
 
-    {{entry.course.department.prefix}} {{entry.course.number}} {{entry.quarter.term}} {{entry.quarter.year}}
+      {{entry.course.department.prefix}} {{entry.course.number}} {{entry.quarter.term}} {{entry.quarter.year}}
 
-  </li>
+    </li>
+  </ul>
+
 </div>
