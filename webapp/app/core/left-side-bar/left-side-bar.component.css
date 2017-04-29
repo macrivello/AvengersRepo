@@ -1,0 +1,33 @@
+/*
+.sidebar-container {
+  width: 500px;
+  height: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.sidebar-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-sidenav {
+  padding: 20px;
+}
+*/
+
+
+.sidenav {
+  height: 500px;
+  width: 150px;
+  float: left;
+  border: solid 3px black;
+  background-color: #CECCA0;
+  position: inherit;
+}
+
+.navbar-title {
+  text-align: center;
+}
+

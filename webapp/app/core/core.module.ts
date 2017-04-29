@@ -1,18 +1,26 @@
 import {NgModule, Optional, SkipSelf} from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+
+
 import { LoggerService } from './logger.service';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SpinnerService } from './spinner/spinner.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { throwIfAlreadyLoaded } from './module-import-guard';
+import { LeftSideBarComponent } from './left-side-bar/left-side-bar.component';
 
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  exports: [NavbarComponent, SpinnerComponent],
-  declarations: [NavbarComponent, SpinnerComponent],
+  exports: [NavbarComponent, SpinnerComponent, LeftSideBarComponent],
+  declarations: [
+    NavbarComponent,
+    SpinnerComponent,
+    LeftSideBarComponent
+  ],
   providers: [LoggerService, SpinnerService]
 })
 export class CoreModule {
