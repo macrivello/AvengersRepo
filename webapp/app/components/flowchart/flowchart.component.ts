@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FlowchartService } from '../../services/flowchart/flowchart.service'
+import {Flowchart} from "../../models/flowchart.model";
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-flowchart',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FlowchartComponent implements OnInit {
 
-  constructor() { }
+  flowchart : Flowchart;
+
+  constructor(private flowchartService : FlowchartService, private userService: UserService) {}
 
   ngOnInit() {
+    this.flowchartService.getFirstFlowchart()
+      .subscribe((data) => this.flowchart = data);
   }
-
 }

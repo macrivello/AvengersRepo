@@ -6,9 +6,10 @@ import { SpinnerService } from './spinner/spinner.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 
+
 @NgModule({
   imports: [
-    CommonModule // we use ngFor
+    CommonModule
   ],
   exports: [NavbarComponent, SpinnerComponent],
   declarations: [NavbarComponent, SpinnerComponent],

@@ -9,6 +9,14 @@ import { FlowchartComponent } from './components/flowchart/flowchart.component';
 import { CourseComponent } from './components/course/course.component';
 import { QuarterComponent } from './components/quarter/quarter.component';
 import { AppComponent } from './app.component';
+import { FlowchartService} from './services/flowchart/flowchart.service';
+import {CourseService} from "./services/course/course.service";
+import {QuarterService} from "./services/quarter/quarter.service";
+
+import { LoginComponent } from './components/login/login.component';
+import {MdButtonModule, MdProgressSpinnerModule} from '@angular/material';
+import {UserService} from './services/user.service';
+import {LoginService} from './services/login.service';
 
 @NgModule({
   declarations: [
@@ -16,15 +24,19 @@ import { AppComponent } from './app.component';
     FlowchartComponent,
     CourseComponent,
     QuarterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     BrowserAnimationsModule,
+    MdProgressSpinnerModule,
+    MdButtonModule,
+    FormsModule,
     CoreModule
   ],
-  providers: [],
+  providers: [UserService, LoginService, FlowchartService, CourseService, QuarterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
