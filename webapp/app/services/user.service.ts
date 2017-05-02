@@ -35,6 +35,7 @@ export class UserService {
     return this.http.get('/signout').map(response => {
       console.log(`${this.currentUser.email} has logged out.`);
       this.currentUser = null;
+    // TODO Emit an event, or somehow clear the flowchart object in the app component.
       return response.text();
     })
   }

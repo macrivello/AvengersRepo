@@ -11,6 +11,7 @@ import {FlowchartService} from './services/flowchart/flowchart.service';
   providers: []
 })
 export class AppComponent implements OnInit {
+  // TODO Where should this live? Do we want it in another class?
   flowchart: Flowchart;
 
   constructor(private userService: UserService, private flowchartService: FlowchartService) {
