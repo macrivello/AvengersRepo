@@ -3,9 +3,16 @@
 </div>
 <div class="container-fluid" style="height: 100%;">
   <div class="text-lg-center">
+    <!--If user is logged in. -->
     <div *ngIf="userService.currentUser; else login">
-      <app-flowchart></app-flowchart>
+      <div *ngIf="flowchart">
+        <app-flowchart [flowchart]="flowchart"></app-flowchart>
+      </div>
     </div>
-    <ng-template #login><app-login class="fade-in"></app-login></ng-template>
+
+    <!--Not Logged in-->
+    <ng-template #login>
+      <app-login class="fade-in"></app-login>
+    </ng-template>
   </div>
 </div>

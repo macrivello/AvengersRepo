@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Course } from "../../models/course.model";
-import {CourseService} from "../../services/course/course.service";
+import {Component, Input, OnInit} from '@angular/core';
+import {FlowchartEntry} from '../../models/flowchart-entry.model';
+import {FlowchartService} from '../../services/flowchart/flowchart.service';
 
 @Component({
   selector: 'app-course',
@@ -9,16 +9,10 @@ import {CourseService} from "../../services/course/course.service";
 })
 export class CourseComponent implements OnInit {
 
-  course : Course;
+  @Input() entry: FlowchartEntry;
 
-  constructor(private courseService : CourseService) { }
+  constructor(private flowchartService : FlowchartService) { }
 
   ngOnInit() {
-    this.courseService.getCourse(40)
-      .then(
-        course => {
-          console.log(course);
-          this.course = course});
   }
-
 }

@@ -33,7 +33,7 @@ public class EntryController {
         entryService.updateEntry(id, entry);
     }
 
-    @RequestMapping(method=RequestMethod.DELETE, value="/entriess/{id}")
+    @RequestMapping(method=RequestMethod.DELETE, value="/entries/{id}")
     public void deleteEntry(@PathVariable Long id) {
         entryService.deleteEntry(id);
     }

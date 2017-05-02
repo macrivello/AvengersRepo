@@ -5,9 +5,15 @@ import { Http } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import {toPromise} from "rxjs/operator/toPromise";
 import {Observable} from 'rxjs/Observable';
+import {Quarter} from '../../models/quarter.model';
+import {QuarterView} from '../../models/quarter-view.model';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class FlowchartService {
+
+  private flowchartChanges = new Subject<any>();
+  flowchartChanged = this.flowchartChanges.asObservable();
 
   constructor(private http : Http) { }
 
@@ -29,7 +35,6 @@ export class FlowchartService {
     return this.getFlowcharts()
       .first()
       .flatMap((flowcharts) => {
-      console.log(flowcharts);
       return this.getFlowchart(flowcharts[0].id);
       });
   }
@@ -38,9 +43,15 @@ export class FlowchartService {
     return this.http.get(`/entries/${id}`)
       .toPromise()
       .then(response => {
-        console.log(response.json());
         return response.json() as FlowchartEntry;}
       )
+      .catch(this.handleError);
+  }
+
+  deleteEntry(id: number): Promise<void> {
+    return this.http.delete(`/entries/${id}`)
+      .toPromise()
+      .then(() => console.log(`Deleted entry ${id}`))
       .catch(this.handleError);
   }
   /*
@@ -54,4 +65,8 @@ export class FlowchartService {
     return Promise.reject(error.message || error);
   }
 
+  updateFlowchart() {
+    console.log("updateflowchart");
+    this.flowchartChanges.next();
+  }
 }
