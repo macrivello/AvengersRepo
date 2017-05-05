@@ -18,14 +18,14 @@ export class FlowchartService {
   constructor(private http : Http) { }
 
   getFlowcharts(): Observable<Flowchart[]> {
-    return this.http.get("/flowcharts")
+    return this.http.get("api/flowcharts")
       .map(response => {
         return response.json() as Flowchart[];
     })
   }
 
   getFlowchart(id : number): Observable<Flowchart> {
-    return this.http.get(`/flowcharts/${id}`)
+    return this.http.get(`api/flowcharts/${id}`)
       .map(response => {
         return response.json() as Flowchart
       });
@@ -40,7 +40,7 @@ export class FlowchartService {
   }
 
   getEntry(id : number): Promise<FlowchartEntry> {
-    return this.http.get(`/entries/${id}`)
+    return this.http.get(`api/entries/${id}`)
       .toPromise()
       .then(response => {
         return response.json() as FlowchartEntry;}
@@ -49,7 +49,7 @@ export class FlowchartService {
   }
 
   deleteEntry(id: number): Promise<void> {
-    return this.http.delete(`/entries/${id}`)
+    return this.http.delete(`api/entries/${id}`)
       .toPromise()
       .then(() => console.log(`Deleted entry ${id}`))
       .catch(this.handleError);

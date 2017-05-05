@@ -5,6 +5,7 @@ import {current} from 'codelyzer/util/syntaxKind';
 import {Flowchart} from './models/flowchart.model';
 import {FlowchartEntry} from './models/flowchart-entry.model';
 import {FlowchartService} from './services/flowchart/flowchart.service';
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,23 +15,14 @@ export class AppComponent implements OnInit {
   // TODO Where should this live? Do we want it in another class?
   flowchart: Flowchart;
 
-  constructor(private userService: UserService, private flowchartService: FlowchartService) {
+  constructor(private userService: UserService,
+              private flowchartService: FlowchartService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
-    let user: User; // TODO retrieve user object to local storage.
-    this.userService.getCurrentUser().subscribe((data) => user = data); // Async
-    this.flowchartService.flowchartChanged.subscribe((data) => {
-        this.updateFlowchart();
-    });
-    this.flowchartService.updateFlowchart();
-  }
-
-  updateFlowchart() {
-    this.flowchartService.getFirstFlowchart()
-      .subscribe((data) => {
-          this.flowchart = data;
-        },
-        (error) => console.log(`Error getting first flowchart for user ${this.userService.currentUser.email}`));
+    this.userService.verifyUser()
+      .subscribe(() => {},
+        (err) => this.router.navigate(['/login']));
   }
 }

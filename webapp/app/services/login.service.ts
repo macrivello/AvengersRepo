@@ -11,10 +11,7 @@ export class LoginService {
   constructor(private http: Http, private userService: UserService) {
   }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post('/login', {username: username, password: password})
-      .flatMap(() => this.userService.getCurrentUser())
-  }
+
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error);

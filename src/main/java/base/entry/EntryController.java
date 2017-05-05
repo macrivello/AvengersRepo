@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/")
 public class EntryController {
 
     @Autowired
     private EntryService entryService;
 
-    @RequestMapping("/entries")
+    @RequestMapping("entries")
     public List<Entry> getAllEntries(){
         return entryService.getAllEntries();
     }
@@ -23,17 +24,17 @@ public class EntryController {
         return entryService.getEntry(id);
     }
 
-    @RequestMapping(method= RequestMethod.POST, value="/entries")
+    @RequestMapping(method= RequestMethod.POST, value="entries")
     public void addEntry(@RequestBody Entry entry) {
         entryService.addEntry(entry);
     }
 
-    @RequestMapping(method=RequestMethod.PUT, value="/entries/{id}")
+    @RequestMapping(method=RequestMethod.PUT, value="entries/{id}")
     public void updateEntry(@PathVariable Long id, @RequestBody Entry entry) {
         entryService.updateEntry(id, entry);
     }
 
-    @RequestMapping(method=RequestMethod.DELETE, value="/entries/{id}")
+    @RequestMapping(method=RequestMethod.DELETE, value="entries/{id}")
     public void deleteEntry(@PathVariable Long id) {
         entryService.deleteEntry(id);
     }

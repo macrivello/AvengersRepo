@@ -10,9 +10,9 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" routerLink="/">
-            <div *ngIf="userService.currentUser">
-              <span class="font-weight-bold text-gray-dark p-3">Hi {{userService.currentUser.firstName}} {{userService.currentUser.lastName}}</span>
-              <button md-button class="btn btn-outline-secondary gray" (click)="onSignOut()">Sign Out</button>
+            <div *ngIf="userService.getCurrentUser()">
+              <span class="font-weight-bold text-gray-dark p-3">Hi {{userService.getCurrentUser().firstName}} {{userService.getCurrentUser().lastName}}</span>
+              <button class="btn btn-outline-secondary gray" (click)="onSignOut()">Sign Out</button>
             </div>
           </a>
         </li>

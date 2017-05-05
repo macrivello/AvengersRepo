@@ -4,6 +4,7 @@ import {Flowchart} from "../../models/flowchart.model";
 import {UserService} from '../../services/user.service';
 import {QuarterView} from '../../models/quarter-view.model';
 import {isNullOrUndefined} from 'util';
+import {ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-flowchart',
@@ -16,23 +17,35 @@ export class FlowchartComponent implements OnInit {
     Initially I tried input binding but it was not working for some reason. Property was undefined
      even in ngOnInit();
    */
-  @Input() flowchart: Flowchart;
+  flowchart: Flowchart;
   quarters: Map<number, QuarterView>; //quarter id, quarterview
-  flowchartService: FlowchartService;
-  userService: UserService;
 
-  constructor(flowchartService: FlowchartService, userService: UserService) {
-    this.flowchartService = flowchartService;
-    this.userService = userService;
+  constructor(private flowchartService: FlowchartService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    console.log(`flowchart onInit: ${this.flowchart}`);
-    this.quarters = this.parseQuarters(this.flowchart);
+    const id = this.route.params['id'];
+
+    this.route.params
+      .switchMap((params: Params) => {
+        return isNullOrUndefined(params['id'])
+          ? this.flowchartService.getFirstFlowchart()
+          : this.flowchartService.getFlowchart(+params['id'])
+      })
+      .subscribe(flowchart => {
+        this.flowchart = flowchart;
+        this.quarters = this.parseQuarters(flowchart);
+        // console.log(`on init: ${JSON.stringify(flowchart)}`);
+      });
   }
 
   // TODO The data structures could be made more efficient.
   // TODO this could be in a utility
+  /*
+     This function parses a flowchart object and returns a Map of QuarterViews
+     keyed to the quarter id.
+   */
   private parseQuarters(flowchart: Flowchart): Map<number, QuarterView> {
     if (isNullOrUndefined(flowchart)) {
       return;
@@ -53,6 +66,7 @@ export class FlowchartComponent implements OnInit {
       quarterView.entries.push(entry); // add entry to quarter
     }
 
+    //TODO return the map sorted ?
     return quarters;
   }
 

@@ -1,18 +1,5 @@
-<div>
-  <app-navbar></app-navbar>
-</div>
-<div class="container-fluid" style="height: 100%;">
-  <div class="text-lg-center">
-    <!--If user is logged in. -->
-    <div *ngIf="userService.currentUser; else login">
-      <div *ngIf="flowchart">
-        <app-flowchart [flowchart]="flowchart"></app-flowchart>
-      </div>
-    </div>
+<app-navbar></app-navbar>
 
-    <!--Not Logged in-->
-    <ng-template #login>
-      <app-login class="fade-in"></app-login>
-    </ng-template>
-  </div>
+<div class="text-lg-center">
+    <router-outlet></router-outlet>
 </div>
