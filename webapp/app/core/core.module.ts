@@ -9,11 +9,13 @@ import { SpinnerService } from './spinner/spinner.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { LeftSideBarComponent } from './left-side-bar/left-side-bar.component';
+import {AppRoutingModule} from '../modules/app-routing.module';
 
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    AppRoutingModule
   ],
   exports: [NavbarComponent, SpinnerComponent, LeftSideBarComponent],
   declarations: [

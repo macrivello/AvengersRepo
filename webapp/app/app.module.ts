@@ -17,6 +17,8 @@ import { LoginComponent } from './components/login/login.component';
 import {MdButtonModule, MdProgressSpinnerModule} from '@angular/material';
 import {UserService} from './services/user.service';
 import {LoginService} from './services/login.service';
+import {AppRoutingModule} from './modules/app-routing.module';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import {LoginService} from './services/login.service';
     MdProgressSpinnerModule,
     MdButtonModule,
     FormsModule,
+    AppRoutingModule,
     CoreModule
   ],
   providers: [UserService, LoginService, FlowchartService, CourseService, QuarterService],

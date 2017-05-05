@@ -1,10 +1,6 @@
 <div *ngIf="quarter">
-  <li>
-    quarter works
-    id({{quarter.id}})
-    {{quarter.term}}
-    {{quarter.year}}
-  </li>
+  <h1>{{quarter.quarter.term}} {{quarter.quarter.year}}</h1>
 
-
+  <app-course *ngFor="let entry of quarter.entries"
+                [entry]="entry"></app-course>
 </div>

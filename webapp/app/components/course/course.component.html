@@ -1,10 +1,8 @@
-<div *ngIf="course">
-  <li>
-    course works
-    id({{course.id}})
-    {{course.department.prefix}}
-    {{course.number}}
-    {{course.title}}
-  </li>
-
+<div *ngIf="entry">
+  ({{entry.course.id}})
+  {{entry.course.department.prefix}}
+  {{entry.course.number}}
+  {{entry.course.title}}
+  <button class="btn btn-danger" (click)="onRemove()">X</button>
 </div>
+

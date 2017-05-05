@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Quarter } from "../../models/quarter.model";
 import { QuarterService} from "../../services/quarter/quarter.service"
+import {QuarterView} from '../../models/quarter-view.model';
+import {FlowchartEntry} from '../../models/flowchart-entry.model';
 
 @Component({
   selector: 'app-quarter',
@@ -9,15 +11,11 @@ import { QuarterService} from "../../services/quarter/quarter.service"
 })
 export class QuarterComponent implements OnInit {
 
-  quarter : Quarter;
+  @Input() quarter : QuarterView;
 
   constructor(private quarterService : QuarterService) { }
 
   ngOnInit() {
-    this.quarterService.getQuarter(13)
-      .then(
-        quarter => {
-          console.log(quarter);
-          this.quarter = quarter});
   }
 }
+

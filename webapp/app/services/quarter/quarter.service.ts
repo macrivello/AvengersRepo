@@ -10,14 +10,14 @@ export class QuarterService {
   constructor(private http : Http) { }
 
   getQuarters(): Promise<Quarter[]> {
-    return this.http.get("/quarters")
+    return this.http.get("api/quarters")
       .toPromise()
       .then(response => response.json().data as Quarter[])
       .catch(this.handleError);
   }
 
   getQuarter(id : number): Promise<Quarter> {
-    return this.http.get(`/quarters/${id}`)
+    return this.http.get(`api/quarters/${id}`)
       .toPromise()
       .then(response => {
         //console.log(response.json());

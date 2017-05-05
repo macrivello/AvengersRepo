@@ -27,67 +27,67 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class LoginController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+  @Autowired
+  private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+  @Autowired
+  private JwtTokenUtil jwtTokenUtil;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+  @Autowired
+  private UserDetailsService userDetailsService;
 
-    @Value("${jwt.requestHeader}")
-    private String tokenHeader;
-    @Value("${server.cookie.domain}")
-    private String domain;
-    @Value("${server.cookie.http-only}")
-    private String httpOnly;
-    @Value("${server.cookie.secure}")
-    private String secure;
-    @Value("${server.cookie.path}")
-    private String path;
-    @Value("${server.cookie.max-age}")
-    private String maxAge;
-    @Value("${server.cookie.name}")
-    private String cookieName;
+  @Value("${jwt.requestHeader}")
+  private String tokenHeader;
+  @Value("${server.cookie.domain}")
+  private String domain;
+  @Value("${server.cookie.http-only}")
+  private String httpOnly;
+  @Value("${server.cookie.secure}")
+  private String secure;
+  @Value("${server.cookie.path}")
+  private String path;
+  @Value("${server.cookie.max-age}")
+  private String maxAge;
+  @Value("${server.cookie.name}")
+  private String cookieName;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity createAuthenticationToken(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody JwtAuthenticationRequest authenticationRequest, Device device) throws AuthenticationException {
+  @RequestMapping(value = "/login", method = RequestMethod.POST)
+  public ResponseEntity createAuthenticationToken(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody JwtAuthenticationRequest authenticationRequest, Device device) throws AuthenticationException {
 
-        // Perform the security
-        final Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        authenticationRequest.getUsername(),
-                        authenticationRequest.getPassword()
-                )
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+    // Perform the security
+    final Authentication authentication = authenticationManager.authenticate(
+      new UsernamePasswordAuthenticationToken(
+        authenticationRequest.getUsername(),
+        authenticationRequest.getPassword()
+      )
+    );
+    SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // Reload password post-security so we can generate token
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+    // Reload password post-security so we can generate token
+    final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
-        final String token = jwtTokenUtil.generateToken(userDetails, device);
+    final String token = jwtTokenUtil.generateToken(userDetails, device);
 
-        CookieUtil.create(httpServletResponse, cookieName, token, Boolean.getBoolean(secure), Integer.parseInt(maxAge), domain);
+    CookieUtil.create(httpServletResponse, cookieName, token, Boolean.getBoolean(secure), Integer.parseInt(maxAge), domain);
 
-        return ResponseEntity.ok(new JwtTokenResponse(token));
-    }
+    return ResponseEntity.ok(new JwtTokenResponse(token));
+  }
 
-    @RequestMapping(value = "/signout", method = RequestMethod.GET)
-    public ResponseEntity createBlankAuthenticationToken(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException {
+  @RequestMapping(value = "/signout", method = RequestMethod.GET)
+  public ResponseEntity createBlankAuthenticationToken(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException {
 
-        CookieUtil.create(httpServletResponse, cookieName, "", Boolean.getBoolean(secure), Integer.parseInt(maxAge), domain);
+    CookieUtil.create(httpServletResponse, cookieName, "", Boolean.getBoolean(secure), Integer.parseInt(maxAge), domain);
 
-        return ResponseEntity.ok().build();
-    }
+    return ResponseEntity.ok().build();
+  }
 
-    @RequestMapping(value = "/refresh", method = RequestMethod.GET)
-    public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
-        String token = request.getHeader(tokenHeader);
-        String username = jwtTokenUtil.getUsernameFromToken(token);
-        UserDetails user = userDetailsService.loadUserByUsername(username);
+  @RequestMapping(value = "/refresh", method = RequestMethod.GET)
+  public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
+    String token = request.getHeader(tokenHeader);
+    String username = jwtTokenUtil.getUsernameFromToken(token);
+    UserDetails user = userDetailsService.loadUserByUsername(username);
 
-        return ResponseEntity.ok(jwtTokenUtil.refreshToken(token));
+    return ResponseEntity.ok(jwtTokenUtil.refreshToken(token));
 
 //        if (jwtTokenUtil.canTokenBeRefreshed(token, user.getLastPasswordResetDate())) {
 //            String refreshedToken = jwtTokenUtil.refreshToken(token);
@@ -95,12 +95,5 @@ public class LoginController {
 //        } else {
 //            return ResponseEntity.badRequest().body(null);
 //        }
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(HttpServletRequest httpServletRequest) {
-        return "html/login.html";
-    }
-
-
+  }
 }
