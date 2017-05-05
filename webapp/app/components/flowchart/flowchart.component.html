@@ -1,19 +1,20 @@
-<div class="centered">
-  <div *ngIf="flowchart; else loading">
-    <h1>
-      {{flowchart.name}}
-    </h1>
-    <ul  class="list-group ">
-      <li class="list-group-item d-flex justify-content-center" *ngFor=" let entry of flowchart.entries">
+<div class="container-fluid" style="height: 100%;">
+  <div class="centered">
+    <div *ngIf="flowchart; else loading">
+      <h1>{{flowchart.name}} ({{flowchart.id}})</h1>
 
-        {{entry.course.department.prefix}} {{entry.course.number}} {{entry.quarter.term}} {{entry.quarter.year}}
-
-      </li>
-    </ul>
-  </div>
-  <ng-template #loading>
-    <div class="d-flex justify-content-center">
-      <md-spinner></md-spinner>
+      <!--<app-quarter *ngIf="let quarterView of quarterViews"></app-quarter>-->
+      <div *ngIf="quarters">
+        <div *ngFor="let quarter of getQuarters()">
+          <app-quarter [quarter]="quarter"></app-quarter>
+        </div>
+      </div>
     </div>
-  </ng-template>
+
+    <ng-template #loading>
+      <div class="d-flex justify-content-center">
+        <md-spinner></md-spinner>
+      </div>
+    </ng-template>
+  </div>
 </div>

@@ -38,23 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
           .authorizeRequests()
-          .antMatchers(HttpMethod.GET, "/**/*.js").permitAll()
-          .antMatchers(HttpMethod.GET, "/**/*.css").permitAll()
-          .antMatchers(HttpMethod.GET, "/**/*.html").permitAll()
-          .antMatchers(HttpMethod.GET, "/**/*.png").permitAll()
-          .antMatchers(HttpMethod.GET, "/**/*.jpg").permitAll()
-          .antMatchers(HttpMethod.GET, "/**/*.svg").permitAll()
-          .antMatchers(HttpMethod.GET, "/**/*.gif").permitAll()
-          .antMatchers(HttpMethod.GET, "/static/*").permitAll()
-          .antMatchers(HttpMethod.GET, "/test").permitAll()
-          .antMatchers(HttpMethod.GET,"/UserManHelpPage/**").permitAll()
-          .antMatchers(HttpMethod.GET,"/favicon.ico").permitAll()
-          .antMatchers(HttpMethod.GET, "/").permitAll()
-          .antMatchers(HttpMethod.GET, "/login").permitAll() // to get auth token
-          .antMatchers(HttpMethod.POST, "/login").permitAll() // to get auth token
-          .antMatchers(HttpMethod.GET, "/search").permitAll() // to get auth token
-          .antMatchers(HttpMethod.GET, "/courses/**").permitAll() // to get auth token
-//          .anyRequest().authenticated();
+          .antMatchers(HttpMethod.GET, "/api/courses/**").permitAll() // to allow for course search
+          .antMatchers("/api/**").authenticated()  // We only need to protect the api routes
           .anyRequest().permitAll();
 
         // Custom JWT based security filter -- Check for JWT tokens

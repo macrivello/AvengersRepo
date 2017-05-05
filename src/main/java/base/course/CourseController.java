@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/")
 public class CourseController {
 
 	@Autowired
@@ -17,7 +18,7 @@ public class CourseController {
 	@Autowired
 	private DepartmentService departmentService;
 
-	@RequestMapping("/courses")
+	@RequestMapping("courses")
 	public List<Course> getAllCourses(@RequestParam(value="dept", required = false) String dept) {
 		if (!StringUtils.isEmpty(dept)) {
 			Department department = departmentService.getDepartmentByName(dept.toUpperCase());
@@ -31,20 +32,20 @@ public class CourseController {
 	public Course getCourse(@PathVariable Long id) {
 		return courseService.getCourse(id);
 	}
-	
-	@RequestMapping(method=RequestMethod.POST, value="/courses")
+
+	@RequestMapping(method=RequestMethod.POST, value="courses")
 	public void addCourse(@RequestBody Course course) {
 		courseService.addCourse(course);
 	}
-	
-	@RequestMapping(method=RequestMethod.PUT, value="/courses/{id}")
+
+	@RequestMapping(method=RequestMethod.PUT, value="courses/{id}")
 	public void updateCourse(@PathVariable Long id, @RequestBody Course course) {
 		courseService.updateCourse(id, course);
 	}
-	
-	@RequestMapping(method=RequestMethod.DELETE, value="/courses/{id}")
+
+	@RequestMapping(method=RequestMethod.DELETE, value="courses/{id}")
 	public void deleteCourse(@PathVariable Long id) {
 		courseService.deleteCourse(id);
 	}
-	
+
 }
