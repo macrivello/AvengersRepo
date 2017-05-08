@@ -19,6 +19,11 @@ import {UserService} from './services/user.service';
 import {LoginService} from './services/login.service';
 import {AppRoutingModule} from './modules/app-routing.module';
 import {RouterModule} from '@angular/router';
+import {StoreModule} from '@ngrx/store';
+import {flowchartReducer} from './reducers/flowchart';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {FlowchartEffects} from './effects/flowchart';
+import {EffectsModule} from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -37,7 +42,10 @@ import {RouterModule} from '@angular/router';
     MdButtonModule,
     FormsModule,
     AppRoutingModule,
-    CoreModule
+    CoreModule,
+    StoreModule.provideStore({flowchart: flowchartReducer}),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    EffectsModule.run(FlowchartEffects),
   ],
   providers: [UserService, LoginService, FlowchartService, CourseService, QuarterService],
   bootstrap: [AppComponent]

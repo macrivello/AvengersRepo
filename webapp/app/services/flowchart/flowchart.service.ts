@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Flowchart} from "../../models/flowchart.model";
-import { FlowchartEntry } from "../../models/flowchart-entry.model"
+import {FlowchartEntry, FlowchartEntryCompact} from "../../models/flowchart-entry.model"
 import { Http } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import {toPromise} from "rxjs/operator/toPromise";
@@ -12,8 +12,8 @@ import {Subject} from 'rxjs/Subject';
 @Injectable()
 export class FlowchartService {
 
-  private flowchartChanges = new Subject<any>();
-  flowchartChanged = this.flowchartChanges.asObservable();
+  selectedFlowchart: Flowchart;
+  flowcharts: Flowchart[];
 
   constructor(private http : Http) { }
 
@@ -48,25 +48,27 @@ export class FlowchartService {
       .catch(this.handleError);
   }
 
-  deleteEntry(id: number): Promise<void> {
+  deleteEntry(id: number): Observable<void> {
     return this.http.delete(`api/entries/${id}`)
-      .toPromise()
-      .then(() => console.log(`Deleted entry ${id}`))
+      .map(() => console.log(`Deleted entry ${id}`))
       .catch(this.handleError);
   }
-  /*
-  putEntry(entry : FlowchartEntry) : Promise<any> {
-    return this.http.put(`/entries/${entry.id}`, entry)
-      .toPromise();
+
+  addEntry(entry: FlowchartEntryCompact): Observable<void> {
+    return this.http.post(`api/entries/`, entry)
+      .map(() => console.log(`Added entry ${JSON.stringify(entry)}`))
+      .catch(this.handleError);
   }
-*/
+
+  updateEntry(id: number, entry: FlowchartEntry): Observable<void> {
+    return this.http.put(`api/entries/${id}`, entry)
+      .map(() => console.log(`Updated entry ${id}`))
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.log('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
 
-  updateFlowchart() {
-    console.log("updateflowchart");
-    this.flowchartChanges.next();
-  }
 }

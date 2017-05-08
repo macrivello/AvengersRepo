@@ -8,6 +8,8 @@ import base.quarter.Quarter;
 import base.quarter.QuarterService;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -31,7 +33,7 @@ public class Entry {
     @JsonIgnoreProperties("entries")
     @ManyToOne
     @JoinColumn(name = "flowchart_id")
-    @JsonIdentityReference(alwaysAsId = true)
+//    @JsonIdentityReference(alwaysAsId = true)
     private Flowchart flowchart;
 
     @JsonIgnoreProperties("entries")

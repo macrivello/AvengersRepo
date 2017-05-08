@@ -11,11 +11,13 @@ import {FlowchartEntry} from '../../models/flowchart-entry.model';
 })
 export class QuarterComponent implements OnInit {
 
-  @Input() quarter : QuarterView;
+  @Input() quarter : Quarter;
+  entries: FlowchartEntry[];
 
   constructor(private quarterService : QuarterService) { }
 
   ngOnInit() {
+
   }
 }
 
