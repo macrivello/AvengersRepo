@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<app-navbar [user]="(user$ | async).user"></app-navbar>
 
 <div class="text-lg-center">
     <router-outlet></router-outlet>

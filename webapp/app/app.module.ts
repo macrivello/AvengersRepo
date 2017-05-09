@@ -18,12 +18,16 @@ import {MdButtonModule, MdProgressSpinnerModule} from '@angular/material';
 import {UserService} from './services/user.service';
 import {LoginService} from './services/login.service';
 import {AppRoutingModule} from './modules/app-routing.module';
-import {RouterModule} from '@angular/router';
 import {StoreModule} from '@ngrx/store';
 import {flowchartReducer} from './reducers/flowchart';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {FlowchartEffects} from './effects/flowchart';
 import {EffectsModule} from '@ngrx/effects';
+import {userReducer} from './reducers/user';
+import {UserEffects} from './effects/user';
+import {AuthGuard} from './guards/auth.guard';
+import {RouterModule} from '@angular/router';
+import {routes} from './shared/app.routes';
 
 @NgModule({
   declarations: [
@@ -41,13 +45,16 @@ import {EffectsModule} from '@ngrx/effects';
     MdProgressSpinnerModule,
     MdButtonModule,
     FormsModule,
-    AppRoutingModule,
     CoreModule,
-    StoreModule.provideStore({flowchart: flowchartReducer}),
+    RouterModule.forRoot(routes, {useHash: true}),
+    StoreModule.provideStore({
+      flowchart: flowchartReducer,
+      user: userReducer}),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     EffectsModule.run(FlowchartEffects),
+    EffectsModule.run(UserEffects),
   ],
-  providers: [UserService, LoginService, FlowchartService, CourseService, QuarterService],
+  providers: [UserService, LoginService, FlowchartService, CourseService, QuarterService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,7 +7,7 @@ import {isNullOrUndefined} from 'util';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
-import {State} from '../../reducers/flowchart';
+import {FlowchartState} from '../../reducers/flowchart';
 import {isEmpty} from 'rxjs/operator/isEmpty';
 import {AddEntryAction} from '../../actions/flowchart';
 import {FlowchartEntryCompact} from '../../models/flowchart-entry.model';
@@ -24,23 +24,25 @@ export class FlowchartComponent implements OnInit {
     Initially I tried input binding but it was not working for some reason. Property was undefined
      even in ngOnInit();
    */
-  state: Observable<State>;
-  flowchart: Flowchart;
+  state: Observable<FlowchartState>;
+  flowchart$: Observable<Flowchart>;
   quarters: Map<number, QuarterView>; //quarter id, quarterview
 
-  constructor(private store: Store<State>) {
+  constructor(private store: Store<FlowchartState>) {
     this.state = store.select('flowchart');
+    this.flowchart$ = store.select(state => state.selectedFlowchart);
   }
 
   ngOnInit() {
-    this.state.subscribe(
-      (state) => {
-        this.flowchart = state.selectedFlowchart;
-        this.quarters = this.parseQuarters(this.flowchart);
-      },
 
-      (err) => console.log(err)
-    );
+    // this.state.subscribe(
+    //   (state) => {
+    //     this.flowchart = state.selectedFlowchart;
+    //     this.quarters = this.parseQuarters(this.flowchart);
+    //   },
+    //
+    //   (err) => console.log(err)
+    // );
 
     // const id = this.route.params['id'];
 
@@ -92,11 +94,11 @@ export class FlowchartComponent implements OnInit {
   }
 
   onAddEntry() {
-    const entry: FlowchartEntryCompact = {
-      flowchart_id: this.flowchart.id,
-      course_id: 73,
-      quarter_id: 13
-    };
-    this.store.dispatch(new AddEntryAction(entry));
+    // const entry: FlowchartEntryCompact = {
+    //   flowchart_id: this.flowchart.id,
+    //   course_id: 73,
+    //   quarter_id: 13
+    // };
+    // this.store.dispatch(new AddEntryAction(entry));
   }
 }

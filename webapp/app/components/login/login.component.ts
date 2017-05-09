@@ -3,7 +3,7 @@ import {LoginService} from '../../services/login.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import {Store} from '@ngrx/store';
-import {State} from '../../reducers/flowchart';
+import {FlowchartState} from '../../reducers/flowchart';
 import {ResetAction, LoadAction} from '../../actions/flowchart';
 
 @Component({
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UserService,
               private route: ActivatedRoute,
               private router: Router,
-              private store: Store<State>) { }
+              private store: Store<FlowchartState>) { }
 
   ngOnInit() {
     this.userService.logout().subscribe(() => {

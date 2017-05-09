@@ -4,6 +4,7 @@ import base.security.jwt.JwtAuthenticationRequest;
 import base.security.jwt.JwtTokenResponse;
 import base.security.jwt.JwtTokenUtil;
 import base.security.util.CookieUtil;
+import base.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +53,8 @@ public class LoginController {
   private String cookieName;
 
   @RequestMapping(value = "/login", method = RequestMethod.POST)
-  public ResponseEntity createAuthenticationToken(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody JwtAuthenticationRequest authenticationRequest, Device device) throws AuthenticationException {
+  @ResponseBody
+  public User createAuthenticationToken(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestBody JwtAuthenticationRequest authenticationRequest, Device device) throws AuthenticationException {
 
     // Perform the security
     final Authentication authentication = authenticationManager.authenticate(
@@ -70,7 +72,7 @@ public class LoginController {
 
     CookieUtil.create(httpServletResponse, cookieName, token, Boolean.getBoolean(secure), Integer.parseInt(maxAge), domain);
 
-    return ResponseEntity.ok(new JwtTokenResponse(token));
+    return (User) userDetails;
   }
 
   @RequestMapping(value = "/signout", method = RequestMethod.GET)

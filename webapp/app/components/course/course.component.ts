@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FlowchartEntry} from '../../models/flowchart-entry.model';
 import {FlowchartService} from '../../services/flowchart/flowchart.service';
-import {State} from '../../reducers/flowchart';
+import {FlowchartState} from '../../reducers/flowchart';
 import {Store} from '@ngrx/store';
 import {DeleteEntryAction} from '../../actions/flowchart';
 
@@ -14,7 +14,7 @@ export class CourseComponent implements OnInit {
 
   @Input() entry: FlowchartEntry;
 
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<FlowchartState>) { }
 
   ngOnInit() {
   }

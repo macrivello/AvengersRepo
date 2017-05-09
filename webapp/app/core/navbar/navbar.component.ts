@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {Router, RouterModule} from '@angular/router';
 import {Flowchart} from '../../models/flowchart.model';
 import {Store} from '@ngrx/store';
-import {State} from '../../reducers/flowchart';
+import {FlowchartState} from '../../reducers/flowchart';
 import {RESET, ResetAction} from '../../actions/flowchart';
+import {User} from '../../models/user.model';
+import {UserState} from '../../reducers/user';
+import {LogoutAction} from '../../actions/user';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-navbar',
@@ -12,21 +16,20 @@ import {RESET, ResetAction} from '../../actions/flowchart';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  constructor(private userService: UserService,
+  @Input() user: User;
+
+  constructor(userService: UserService,
               private router: Router,
-              private store: Store<State>) {
+              private userStore: Store<UserState>) {
   }
 
   ngOnInit() {
     // Get signed in state, async pipe user in template
+    console.log(`navbar init ${JSON.stringify(this.user)}`);
   }
 
   onSignOut() {
     console.log("onSignOut");
-    this.userService.logout().subscribe(() => {
-      console.log("routing to /login");
-      this.store.dispatch(new ResetAction());
-      this.router.navigate(['login']);
-    })
+    this.userStore.dispatch(new LogoutAction());
   }
 }

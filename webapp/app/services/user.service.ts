@@ -29,9 +29,16 @@ export class UserService {
     });
   }
 
-  login(username: string, password: string): Observable<any> {
+  login(username: string, password: string): Observable<User> {
     return this.http.post('/login', {username: username, password: password})
-      .flatMap(() => this.verifyUser());
+      .map(response => {
+        const user = response.json() as User;
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        return user;
+      }).catch((err) => {
+        console.log(`Error logging in user ${username}: ${err}`);
+        return Observable.throw(new Error(err.status));
+    });
   }
 
   logout(): Observable<any> {
