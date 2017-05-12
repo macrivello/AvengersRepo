@@ -6,3 +6,9 @@ export class FlowchartEntry {
   course: Course;
   quarter: Quarter;
 }
+
+export class FlowchartEntryCompact {
+  flowchart_id: number;
+  course_id: number;
+  quarter_id: number;
+}
