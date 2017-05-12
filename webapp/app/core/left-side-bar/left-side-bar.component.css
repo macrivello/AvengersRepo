@@ -2,6 +2,7 @@
   width: 500px;
   height: 300px;
   border: 1px solid rgba(0, 0, 0, 0.5);
+  background-color: transparent;
 }
 
 .sidebar-sidenav-content {
@@ -9,6 +10,7 @@
   height: 100%;
   align-items: center;
   justify-content: center;
+  background-color: transparent;
 }
 
 .sidebar-sidenav {
@@ -18,16 +20,18 @@
 
 .list-group {
   position: absolute;
+  margin-left: 10pt;
 }
 
 .sidenav {
+  margin-top: 20px;
   height: 600px;
   width: 200px;
   float: left;
   border: solid 3px black;
   background-color: #CECCA0;
 
-  /*position: inherit;*/
+  position: inherit
 }
 
 .navbar-title {
@@ -35,29 +39,24 @@
 }
 
 .button-padding {
-  margin: 0 5px 5px 5px;
+  margin: 5px 5px 5px 5px;
   position: relative;
   background-color: #9eb28f;
 }
 
-
-
-
-/*
-.sidenav-container {
-  width: 500px;
-  height: 300px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+.courseSearch
+{
+  margin-left: 25px;
+  margin-bottom: 40px;
+  position: fixed;
+  bottom: 50%;
+  left: 0;
+  clear: both;
+  float: left;
 }
 
-.sidenav-content {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
+.container-fluid
+{
+  background-color: transparent;
 }
 
-.sidenav {
-  padding: 20px;
-}
-*/

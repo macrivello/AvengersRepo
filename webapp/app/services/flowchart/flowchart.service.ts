@@ -7,21 +7,58 @@ import {toPromise} from "rxjs/operator/toPromise";
 import {Observable} from 'rxjs/Observable';
 import {Quarter} from '../../models/quarter.model';
 import {QuarterView} from '../../models/quarter-view.model';
-import {Subject} from 'rxjs/Subject';
+import {Subject} from 'rxjs';
+import {isNull, isNullOrUndefined} from "util";
 
 @Injectable()
 export class FlowchartService {
 
-  private flowchartChanges = new Subject<any>();
-  flowchartChanged = this.flowchartChanges.asObservable();
+  private currentFlowchartID: number;
+  private flowcharts = new Map<number, Flowchart>();
+
+  private flowchartSource = new Subject<Flowchart>();
+  private flowchart$ = this.flowchartSource.asObservable().share().publishReplay().refCount();
 
   constructor(private http : Http) { }
 
-  getFlowcharts(): Observable<Flowchart[]> {
+  getFlowcharts(): Observable<Map<number, Flowchart>> {
     return this.http.get("api/flowcharts")
       .map(response => {
-        return response.json() as Flowchart[];
+        let flowcharts = response.json() as Flowchart[];
+        for (let flowchart of flowcharts)
+        {
+          if (isNullOrUndefined(this.currentFlowchartID))
+          {
+            this.currentFlowchartID = flowcharts[0].id;
+          }
+          this.flowcharts.set(flowchart.id, flowchart);
+        }
+        this.updateFlowchart();
+        return this.flowcharts;
     })
+  }
+
+  getCurrentFlowchart() : Observable<Flowchart>
+  {
+    return this.flowchart$;
+  }
+
+  setCurrentFlowchartByIDInMap(id : number)
+  {
+    //TODO
+    //Does not check if the key is in the map
+    this.currentFlowchartID = id;
+    this.flowchartSource.next(this.flowcharts.get(this.currentFlowchartID));
+  }
+
+  getFlowchartMap() : Map<number, Flowchart>
+  {
+    return this.flowcharts;
+  }
+
+  getCurrentFlowchartFromMap() : Observable<Flowchart>
+  {
+    return Observable.of(this.flowcharts.get(this.currentFlowchartID));
   }
 
   getFlowchart(id : number): Observable<Flowchart> {
@@ -60,7 +97,7 @@ export class FlowchartService {
   }
 
   updateFlowchart() {
-    console.log("updateflowchart");
-    this.flowchartChanges.next();
+    console.log("updateflowchart" + this.flowcharts.get(this.currentFlowchartID).name.toString());
+    this.flowchartSource.next(this.flowcharts.get(this.currentFlowchartID));
   }
 }

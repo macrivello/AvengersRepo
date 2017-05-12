@@ -10,6 +10,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { LeftSideBarComponent } from './left-side-bar/left-side-bar.component';
 import {AppRoutingModule} from '../modules/app-routing.module';
+import {CourseSearchComponent} from "../components/course-search/course-search.component";
+import {CourseSearchService} from "../services/course-search/course-search.service";
 
 
 @NgModule({
@@ -18,11 +20,12 @@ import {AppRoutingModule} from '../modules/app-routing.module';
     AppRoutingModule,
     MdSidenavModule
   ],
-  exports: [NavbarComponent, SpinnerComponent, LeftSideBarComponent],
+  exports: [NavbarComponent, SpinnerComponent, LeftSideBarComponent, CourseSearchComponent],
   declarations: [
     NavbarComponent,
     SpinnerComponent,
-    LeftSideBarComponent
+    LeftSideBarComponent,
+    CourseSearchComponent
   ],
   providers: [LoggerService, SpinnerService]
 })
