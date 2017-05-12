@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 
@@ -8,6 +8,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  @Output() onClicked = new EventEmitter();
+
   constructor(private userService: UserService,
               private router: Router) {
   }
@@ -21,5 +23,10 @@ export class NavbarComponent implements OnInit {
       console.log("routing to /login");
       this.router.navigate(['login']);
     })
+  }
+
+  onClick() {
+    console.log('clicked')
+    this.onClicked.emit();
   }
 }
