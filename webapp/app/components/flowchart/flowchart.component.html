@@ -3,14 +3,12 @@
     <div *ngIf="flowchart; else loading">
       <h1>{{flowchart.name}} ({{flowchart.id}})</h1>
 
-        <div class="col-xm-4">
-          <app-left-side-bar></app-left-side-bar>
-        </div>
+      <div *ngIf="quarters" class = "container">
+        <div class="row some-gutter">
 
-      <!--<app-quarter *ngIf="let quarterView of quarterViews"></app-quarter>-->
-      <div *ngIf="quarters">
-        <div *ngFor="let quarter of getQuarters()">
-          <app-quarter [quarter]="quarter"></app-quarter>
+          <div *ngFor="let quarter of getQuarters()" class = "col-sm-4">
+            <app-quarter [quarter]="quarter"></app-quarter>
+          </div>
         </div>
       </div>
     </div>
@@ -22,3 +20,4 @@
     </ng-template>
   </div>
 </div>
+

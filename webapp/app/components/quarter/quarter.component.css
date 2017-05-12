@@ -1,0 +1,9 @@
+.rectanglebox {
+  width: 200px;
+  height: 550px;
+  border: 2px solid #000000;
+  text-align: center;
+  margin: 10px 0px 10px 0px;
+  padding: 0px;
+}
+
