@@ -1,8 +1,12 @@
-<div *ngIf="entry">
-  ({{entry.course.id}})
-  {{entry.course.department.prefix}}
-  {{entry.course.number}}
-  {{entry.course.title}}
-  <button class="btn btn-danger" (click)="onRemove()">X</button>
-</div>
+<div class = "roundcorners">
+  <button class="btn btn-danger button-postioning" (click)="onRemove()">X</button>
 
+  <div *ngIf="entry" class = "classtitle">
+    <!-- ({{entry.course.id}}) -->
+    <div class="prettify-text">
+      {{entry.course.department.prefix}}
+      {{entry.course.number}}
+      {{entry.course.title}}
+    </div>
+  </div>
+</div>
