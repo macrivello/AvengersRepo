@@ -1,6 +1,6 @@
 import {NgModule, Optional, SkipSelf} from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import {MdSidenavModule} from '@angular/material';
 
 
 import { LoggerService } from './logger.service';
@@ -15,7 +15,8 @@ import {AppRoutingModule} from '../modules/app-routing.module';
 @NgModule({
   imports: [
     CommonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MdSidenavModule
   ],
   exports: [NavbarComponent, SpinnerComponent, LeftSideBarComponent],
   declarations: [

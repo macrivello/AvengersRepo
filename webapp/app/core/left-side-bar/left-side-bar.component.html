@@ -1,3 +1,4 @@
+
 <div class="container-fluid">
   <div class = "sidenav">
     <div class="text-cen">
@@ -21,12 +22,15 @@
 <!--
 <md-sidenav-container class="sidenav-container">
   <md-sidenav #sidenav class="sidenav">
-    Flowcharts
+    <a href="#" class="list-group-item list-group-item-action button-padding"
+       *ngFor="let flowchart of flowcharts">
+      {{flowchart.name}}
+    </a>
   </md-sidenav>
 
   <div class="sidenav-content">
     <button md-button (click)="sidenav.open()">
-      Open Sidenav
+      Flowcharts
     </button>
   </div>
 

@@ -10,10 +10,10 @@ import { CourseComponent } from './components/course/course.component';
 import { CourseSearchComponent } from './components/course-search/course-search.component';
 import { QuarterComponent } from './components/quarter/quarter.component';
 import { AppComponent } from './app.component';
-import { FlowchartService} from './services/flowchart/flowchart.service';
-import {CourseService} from "./services/course/course.service";
-import {CourseSearchService} from "./services/course-search/course-search.service";
-import {QuarterService} from "./services/quarter/quarter.service";
+import { FlowchartService } from './services/flowchart/flowchart.service';
+import { CourseService } from "./services/course/course.service";
+import { CourseSearchService } from "./services/course-search/course-search.service";
+import { QuarterService } from "./services/quarter/quarter.service";
 
 import { LoginComponent } from './components/login/login.component';
 import {MdButtonModule, MdProgressSpinnerModule} from '@angular/material';

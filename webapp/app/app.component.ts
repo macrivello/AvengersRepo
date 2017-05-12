@@ -8,6 +8,7 @@ import {Flowchart} from './models/flowchart.model';
 import {FlowchartEntry} from './models/flowchart-entry.model';
 import {FlowchartService} from './services/flowchart/flowchart.service';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -26,5 +27,10 @@ export class AppComponent implements OnInit {
     this.userService.verifyUser()
       .subscribe(() => {},
         (err) => this.router.navigate(['/login']));
+  }
+
+  onSidebarToggle() {
+    console.log('toggled');
+
   }
 }
