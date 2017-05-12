@@ -6,4 +6,11 @@
   margin: 10px 0px 10px 0px;
   padding: 0px;
 }
-
+.outerbox {
+  display: table;
+  margin: 0 auto;
+}
+.coursebox {
+  width: 50%;
+  margin: 0 auto;
+}
