@@ -1,4 +1,5 @@
 .rectanglebox {
+  clear: both;
   position: relative;
   display: inline-table;
   width: 225px;
@@ -9,6 +10,7 @@
   padding: 10px;
 }
 .outerbox {
+  clear: both;
   overflow: visible;
   flex-wrap: wrap;
   clear: both;
@@ -23,5 +25,6 @@
 
 .quarterTitle {
   padding-bottom: 10px;
+  clear: both;
 }
 
