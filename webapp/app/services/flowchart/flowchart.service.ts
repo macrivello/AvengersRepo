@@ -7,7 +7,7 @@ import {toPromise} from "rxjs/operator/toPromise";
 import {Observable} from 'rxjs/Observable';
 import {Quarter} from '../../models/quarter.model';
 import {QuarterView} from '../../models/quarter-view.model';
-import {Subject} from 'rxjs/Subject';
+import {Subject} from 'rxjs';
 import {isNull, isNullOrUndefined} from "util";
 
 @Injectable()
@@ -17,8 +17,7 @@ export class FlowchartService {
   private flowcharts = new Map<number, Flowchart>();
 
   private flowchartSource = new Subject<Flowchart>();
-  private flowchart$ = this.flowchartSource.asObservable();
-
+  private flowchart$ = this.flowchartSource.asObservable().share().publishReplay().refCount();
 
   constructor(private http : Http) { }
 
@@ -104,7 +103,7 @@ export class FlowchartService {
   }
 
   updateFlowchart() {
-    console.log("updateflowchart" + JSON.stringify(this.flowcharts.get(this.currentFlowchartID)));
+    console.log("updateflowchart" + this.flowcharts.get(this.currentFlowchartID).name.toString());
     this.flowchartSource.next(this.flowcharts.get(this.currentFlowchartID));
   }
 }

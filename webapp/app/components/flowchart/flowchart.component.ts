@@ -20,6 +20,7 @@ export class FlowchartComponent implements OnInit, OnDestroy {
      even in ngOnInit();
    */
   flowchart$: Observable<Flowchart>;
+  quarterViews$: Observable<QuarterView[]>;
   quarters: Map<number, QuarterView>; //quarter id, quarterview
 
   subscription;
@@ -30,12 +31,21 @@ export class FlowchartComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const id = this.route.params['id'];
 
-    this.flowchartService.getFlowcharts().subscribe();
+    this.subscription = this.flowchartService.getFlowcharts().subscribe();
     this.flowchart$ = this.flowchartService.getCurrentFlowchart();
-    this.subscription = this.flowchart$.subscribe((flowchart) => {this.parseQuarters(flowchart)
-      console.log("got flowchart data")},
-      (error) => console.log(error))
 
+    this.quarterViews$ =  this.flowchart$.delay(10).map(flowchart => {
+      console.log(JSON.stringify(flowchart));
+      return this.parseQuarters(flowchart)
+    });
+
+
+    /*
+    this.flowchart$.map(flowchart => {
+      console.log("im here")
+      return this.parseQuarters(flowchart)
+    }).subscribe();
+    */
     // this.route.params
     //   .switchMap((params: Params) => {
     //     return isNullOrUndefined(params['id'])
@@ -58,7 +68,7 @@ export class FlowchartComponent implements OnInit, OnDestroy {
      This function parses a flowchart object and returns a Map of QuarterViews
      keyed to the quarter id.
    */
-  private parseQuarters(flowchart: Flowchart): Map<number, QuarterView> {
+  private parseQuarters(flowchart: Flowchart): QuarterView[] {
     if (isNullOrUndefined(flowchart)) {
       return;
     }
@@ -79,7 +89,7 @@ export class FlowchartComponent implements OnInit, OnDestroy {
     }
 
     //TODO return the map sorted ?
-    return quarters;
+    return Array.from(quarters.values());
   }
 
   getQuarters(): QuarterView[] {
