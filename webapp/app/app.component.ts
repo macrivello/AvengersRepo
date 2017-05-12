@@ -1,11 +1,14 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+
 import {User} from './models/user.model';
 import {UserService} from './services/user.service';
 import {current} from 'codelyzer/util/syntaxKind';
 import {Flowchart} from './models/flowchart.model';
 import {FlowchartEntry} from './models/flowchart-entry.model';
 import {FlowchartService} from './services/flowchart/flowchart.service';
-import {Router} from '@angular/router';
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -24,5 +27,10 @@ export class AppComponent implements OnInit {
     this.userService.verifyUser()
       .subscribe(() => {},
         (err) => this.router.navigate(['/login']));
+  }
+
+  onSidebarToggle() {
+    console.log('toggled');
+
   }
 }

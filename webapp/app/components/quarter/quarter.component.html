@@ -1,4 +1,5 @@
 <div *ngIf="quarter">
+
   <div class="rectanglebox">
 
     <div class = quarterTitle>
@@ -9,4 +10,5 @@
        <app-course *ngFor="let entry of quarter.entries" [entry]="entry" class="center-block"></app-course>
     </div>
   </div>
+
 </div>
