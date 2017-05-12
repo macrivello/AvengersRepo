@@ -1,7 +1,7 @@
 <app-navbar (onClicked)="sidenav.toggle()"></app-navbar>
 <md-sidenav-container class="sidenav-container">
   <md-sidenav #sidenav class="sidenav">
-      <app-left-side-bar></app-left-side-bar>
+      <app-left-side-bar (flowchartSelected)="sidenav.close()"></app-left-side-bar>
   </md-sidenav>
 
       <div class="text-lg-center">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 import { Flowchart } from '../../models/flowchart.model';
 import { FlowchartService } from '../../services/flowchart/flowchart.service'
@@ -12,36 +12,22 @@ import { FlowchartService } from '../../services/flowchart/flowchart.service'
 export class LeftSideBarComponent implements OnInit {
   flowcharts: Flowchart[];
   constructor(private flowchartService: FlowchartService) {}
-
+ @Output() flowchartSelected = new EventEmitter();
   ngOnInit() {
-    this.flowchartService.getFlowcharts().subscribe(
-      (data) => {
-        //console.log(`onNext: ${data[1].name}`);
-        this.flowcharts = data;
-      },
-      err => console.log(err),
-      () => console.log('oncomplete')
-     );
-
-
-
-
-      // let timer = Observable
-      //   .interval(1000)
-      //   .take(10)
-      //   .timeInterval();
-      //
-      // timer.subscribe(
-      // //data => console.log(`onNext: ${data.value}`),
-      // data => console.log(`Flowchart: ${data.}`),
-      // error => console.log(`onError: ${error}`),
-      // () => console.log(`onComplete`)
-      // )
-
-
+    this.flowchartService.getFlowcharts().subscribe((flowchartMap) =>
+    this.flowcharts = Array.from(flowchartMap.values()));
 
   }
 
+
+  onFlowchartSelected(id : number)
+  {
+    console.log(id);
+    this.flowchartSelected.emit();
+    this.flowchartService.setCurrentFlowchartByIDInMap(id);
+
+
+  }
 
 
 }
