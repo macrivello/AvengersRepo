@@ -1,4 +1,3 @@
-
 <div class="container-fluid">
   <div class = "sidenav">
     <div class="text-cen">
@@ -9,30 +8,13 @@
 
     <div class="col-xs-12">
       <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action button-padding"
-           *ngFor="let flowchart of flowcharts">
+        <button md-button class="list-group-item list-group-item-action button-padding"
+           *ngFor="let flowchart of flowcharts$ | async"
+            (click)="onFlowchartSelected(flowchart.id)">
           {{flowchart.name}}
-        </a>
+        </button>
       </div>
     </div>
 
   </div>
 </div>
-
-<!--
-<md-sidenav-container class="sidenav-container">
-  <md-sidenav #sidenav class="sidenav">
-    <a href="#" class="list-group-item list-group-item-action button-padding"
-       *ngFor="let flowchart of flowcharts">
-      {{flowchart.name}}
-    </a>
-  </md-sidenav>
-
-  <div class="sidenav-content">
-    <button md-button (click)="sidenav.open()">
-      Flowcharts
-    </button>
-  </div>
-
-</md-sidenav-container>
--->

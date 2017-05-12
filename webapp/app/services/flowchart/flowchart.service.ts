@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Flowchart} from "../../models/flowchart.model";
-import { FlowchartEntry } from "../../models/flowchart-entry.model"
+import {FlowchartEntry, FlowchartEntryCompact} from "../../models/flowchart-entry.model"
 import { Http } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import {toPromise} from "rxjs/operator/toPromise";

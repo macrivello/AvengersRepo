@@ -9,9 +9,11 @@ import {Router} from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   @Output() onClicked = new EventEmitter();
+  userService: UserService;
 
-  constructor(private userService: UserService,
+  constructor(userService: UserService,
               private router: Router) {
+    this.userService = userService;
   }
 
   ngOnInit() {
