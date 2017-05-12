@@ -27,7 +27,6 @@ import {RouterModule} from '@angular/router';
   declarations: [
     AppComponent,
     CourseComponent,
-    CourseSearchComponent,
     FlowchartComponent,
     LoginComponent,
     QuarterComponent

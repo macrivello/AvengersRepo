@@ -1,7 +1,11 @@
 <div *ngIf="quarter">
 
   <div class="rectanglebox">
-    <h2><u>{{quarter.quarter.term}} {{quarter.quarter.year}}</u></h2>
+
+    <div class = quarterTitle>
+      <h2><u>{{quarter.quarter.term}} {{quarter.quarter.year}}</u></h2>
+    </div>
+
     <div class="outerbox">
        <app-course *ngFor="let entry of quarter.entries" [entry]="entry" class="center-block"></app-course>
     </div>
