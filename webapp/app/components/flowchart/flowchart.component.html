@@ -1,6 +1,6 @@
 <div class="container-fluid" style="height: 100%;">
   <div class="centered">
-    <div *ngIf="flowchart; else loading">
+    <div *ngIf="(flowchart$ | async); else loading; let flowchart;">
       <h1>{{flowchart.name}} ({{flowchart.id}})</h1>
 
       <!--<app-quarter *ngIf="let quarterView of quarterViews"></app-quarter>-->
