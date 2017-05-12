@@ -39,27 +39,21 @@ export class FlowchartService {
       });
   }
 
-  getEntry(id : number): Promise<FlowchartEntry> {
-    return this.http.get(`api/entries/${id}`)
-      .toPromise()
-      .then(response => {
-        return response.json() as FlowchartEntry;}
-      )
-      .catch(this.handleError);
-  }
-
-  deleteEntry(id: number): Promise<void> {
+  deleteEntry(id: number): Observable<void> {
     return this.http.delete(`api/entries/${id}`)
-      .toPromise()
-      .then(() => console.log(`Deleted entry ${id}`))
-      .catch(this.handleError);
-  }
-  /*
-  putEntry(entry : FlowchartEntry) : Promise<any> {
-    return this.http.put(`/entries/${entry.id}`, entry)
-      .toPromise();
-  }
-*/
+      .map(() => console.log(`Deleted entry ${id}`))
+      .catch(this.handleError);}
+
+  addEntry(entry: FlowchartEntryCompact): Observable<void> {
+    return this.http.post(`api/entries/`, entry)
+      .map(() => console.log(`Added entry ${JSON.stringify(entry)}`))
+      .catch(this.handleError);}
+
+  updateEntry(id: number, entry: FlowchartEntry): Observable<void> {
+    return this.http.put(`api/entries/${id}`, entry)
+      .map(() => console.log(`Updated entry ${id}`))
+      .catch(this.handleError);}
+
   private handleError(error: any): Promise<any> {
     console.log('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
