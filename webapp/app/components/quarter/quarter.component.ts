@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Quarter } from "../../models/quarter.model";
+import { QuarterService} from "../../services/quarter/quarter.service"
+import {QuarterView} from '../../models/quarter-view.model';
+import {FlowchartEntry} from '../../models/flowchart-entry.model';
 
 @Component({
   selector: 'app-quarter',
@@ -7,9 +11,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuarterComponent implements OnInit {
 
-  constructor() { }
+  @Input() quarter : QuarterView;
+
+  constructor(private quarterService : QuarterService) { }
 
   ngOnInit() {
   }
-
 }
+

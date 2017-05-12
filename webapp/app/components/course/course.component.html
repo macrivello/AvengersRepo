@@ -1,6 +1,9 @@
 <div class = "roundcorners">
-  <div *ngIf="course" class = "classtitle">
-    {{course.title}} <br>
-    {{course.department.prefix}} {{course.number}}
+  <div *ngIf="entry" class = "classtitle">
+    ({{entry.course.id}})
+    {{entry.course.department.prefix}}
+    {{entry.course.number}}
+    {{entry.course.title}}
+    <button class="btn btn-danger" (click)="onRemove()">X</button>
   </div>
 </div>

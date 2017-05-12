@@ -20,3 +20,7 @@
   background: url("../../../assets/grap_cap.png") no-repeat center center;
   background-size: contain;
 }
+
+.gray {
+  color: #262626;
+}
