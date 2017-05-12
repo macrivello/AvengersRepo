@@ -3,3 +3,9 @@
   align-items: center;
   justify-content: center;
 }
+
+/*Removes horizontal padding from bootstrap col*/
+.some-gutter > [class*='col-'] {
+  padding-right:2px;
+  padding-left:2px;
+}
