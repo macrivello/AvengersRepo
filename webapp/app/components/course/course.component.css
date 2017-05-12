@@ -1,4 +1,6 @@
 .roundcorners {
+  clear: both;
+  display: flex;
   border-radius: 5px;
   background: lightgray;
   border: 2px solid #000000;

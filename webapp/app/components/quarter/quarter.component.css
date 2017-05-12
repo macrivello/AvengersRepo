@@ -1,16 +1,27 @@
 .rectanglebox {
-  width: 200px;
+  position: relative;
+  display: inline-table;
+  width: 225px;
   height: 550px;
   border: 2px solid #000000;
   text-align: center;
   margin: 10px 0px 10px 0px;
-  padding: 0px;
+  padding: 10px;
 }
 .outerbox {
+  overflow: visible;
+  flex-wrap: wrap;
+  clear: both;
   display: table;
   margin: 0 auto;
+
 }
 .coursebox {
   width: 50%;
   margin: 0 auto;
 }
+
+.quarterTitle {
+  padding-bottom: 10px;
+}
+
