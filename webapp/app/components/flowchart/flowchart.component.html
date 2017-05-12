@@ -3,6 +3,10 @@
     <div *ngIf="flowchart; else loading">
       <h1>{{flowchart.name}} ({{flowchart.id}})</h1>
 
+        <div class="col-xm-4">
+          <app-left-side-bar></app-left-side-bar>
+        </div>
+
       <!--<app-quarter *ngIf="let quarterView of quarterViews"></app-quarter>-->
       <div *ngIf="quarters">
         <div *ngFor="let quarter of getQuarters()">

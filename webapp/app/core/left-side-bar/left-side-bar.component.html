@@ -1,15 +1,34 @@
 <div class="container-fluid">
   <div class = "sidenav">
-    <div class="col-md-3">
-      <span class="navbar-title">PolyPath</span>
-      <div>
-        <ul>
-          <li><a href="#">Flowcharts</a></li>
-          <li><a href="#">blah</a></li>
-          <li><a href="#">blah</a></li>
-        </ul>
+    <div class="text-cen">
+      <span class="navbar-title">
+        <h4>Flowcharts</h4>
+      </span>
+    </div>
+
+    <div class="col-xs-12">
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action button-padding"
+           *ngFor="let flowchart of flowcharts">
+          {{flowchart.name}}
+        </a>
       </div>
     </div>
+
   </div>
 </div>
 
+<!--
+<md-sidenav-container class="sidenav-container">
+  <md-sidenav #sidenav class="sidenav">
+    Flowcharts
+  </md-sidenav>
+
+  <div class="sidenav-content">
+    <button md-button (click)="sidenav.open()">
+      Open Sidenav
+    </button>
+  </div>
+
+</md-sidenav-container>
+-->

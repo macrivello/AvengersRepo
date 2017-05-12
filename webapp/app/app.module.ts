@@ -15,6 +15,7 @@ import {QuarterService} from "./services/quarter/quarter.service";
 
 import { LoginComponent } from './components/login/login.component';
 import {MdButtonModule, MdProgressSpinnerModule} from '@angular/material';
+import {MdSidenavModule} from '@angular/material';
 import {UserService} from './services/user.service';
 import {LoginService} from './services/login.service';
 import {AppRoutingModule} from './modules/app-routing.module';
@@ -34,6 +35,7 @@ import {RouterModule} from '@angular/router';
     HttpModule,
     BrowserAnimationsModule,
     MdProgressSpinnerModule,
+    MdSidenavModule,
     MdButtonModule,
     FormsModule,
     AppRoutingModule,
