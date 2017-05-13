@@ -1,4 +1,10 @@
 <div class="d-flex">
+  <ng-template #loading>
+    <div class="d-flex justify-content-center">
+      <!--<md-spinner></md-spinner>-->
+   </div>
+  </ng-template>
+
   <div class="card" *ngIf="(flowchartView$ | async); else loading; let flowchartView;">
 
     <h1 class="card-header">{{flowchartView.flowchart.name}}</h1>
@@ -11,11 +17,7 @@
       </div>
     </div>
 
-    <ng-template #loading>
-      <div class="d-flex justify-content-center">
-        <!--<md-spinner></md-spinner>-->
-      </div>
-    </ng-template>
+
   </div>
 
 </div>
