@@ -1,10 +1,15 @@
-<div class = "roundcorners">
-
-  <button class="btn btn-danger button-postioning" (click)="onRemove()">X</button>
-
-  <div *ngIf="entry" class = "classtitle">
+<div class = "d-flex flex-column roundcorners">
+  <div *ngIf="entry"  class="d-flex justify-content-end">
+    <button md-button
+            class="md-small"
+            style="z-index: 1"
+            (click)="onCourseRemove(entry)">
+      X
+    </button>
+  </div>
+  <div class="text-center">
     <!-- ({{entry.course.id}}) -->
-    <div class="prettify-text">
+    <div >
       {{entry.course.department.prefix}}
       {{entry.course.number}}
       {{entry.course.title}}

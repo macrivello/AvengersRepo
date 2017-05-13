@@ -1,10 +1,22 @@
-<app-navbar (onClicked)="sidenav.toggle()"></app-navbar>
-<md-sidenav-container class="sidenav-container">
-  <md-sidenav #sidenav class="sidenav">
-    <app-left-side-bar (flowchartSelected)="sidenav.close()"></app-left-side-bar>
-  </md-sidenav>
+<!--<md-sidenav-container class="main-container">-->
+  <!--<app-navbar (onClicked)="sidenav.toggle()"></app-navbar>-->
+  <!--<md-sidenav #sidenav class="sidenav">-->
+    <!--<app-sidenav (flowchartSelected)="sidenav.close()"></app-sidenav>-->
+  <!--</md-sidenav>-->
 
-  <div class="text-lg-center" style="background-color: white">
-    <router-outlet></router-outlet>
-  </div>
-</md-sidenav-container>
+  <!--<div class="main-container">-->
+    <!--<router-outlet></router-outlet>-->
+  <!--</div>-->
+<!--</md-sidenav-container>-->
+<!--<div class="container">-->
+  <md-sidenav-container fullscreen>
+    <app-navbar (onClicked)="sidenav.toggle()"></app-navbar>
+    <md-sidenav #sidenav>
+        <app-sidenav (flowchartSelected)="sidenav.close()"
+                     (sideNavClose)="sidenav.close()"></app-sidenav>
+      </md-sidenav>
+    <div class="main-container d-flex mt-5 justify-content-center">
+      <router-outlet></router-outlet>
+    </div>
+  </md-sidenav-container>
+<!--</div>-->

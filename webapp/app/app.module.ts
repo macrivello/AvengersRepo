@@ -21,7 +21,16 @@ import {MdSidenavModule} from '@angular/material';
 import {UserService} from './services/user.service';
 import {LoginService} from './services/login.service';
 import {AppRoutingModule} from './modules/app-routing.module';
-import {RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
+import {AuthGuard} from './guards/auth.guard';
+
+const routes: Routes = [
+  { path: '', redirectTo: 'flowchart', pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'flowchart',  component: FlowchartComponent },
+  { path: 'flowchart/:id',  component: FlowchartComponent },
+  { path: 'login', component: LoginComponent },
+  { path: '**', redirectTo: '' } // TODO Or we can display an ErrorComponent since this is technically a 404
+];
 
 @NgModule({
   declarations: [
@@ -29,19 +38,22 @@ import {RouterModule} from '@angular/router';
     CourseComponent,
     FlowchartComponent,
     LoginComponent,
-    QuarterComponent
+    QuarterComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     BrowserAnimationsModule,
-    MdProgressSpinnerModule,
-    MdSidenavModule,
-    MdButtonModule,
+    // MdProgressSpinnerModule,
+    // MdSidenavModule,
+    // MdButtonModule,
     FormsModule,
-    AppRoutingModule,
-    CoreModule
+    CoreModule,
+    RouterModule.forRoot(routes , {useHash: true} )
+  ],
+  entryComponents: [
+    CourseSearchComponent
   ],
   providers: [UserService, LoginService, FlowchartService, CourseService, CourseSearchService, QuarterService],
   bootstrap: [AppComponent]

@@ -3,17 +3,22 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Flowchart } from '../../models/flowchart.model';
 import { FlowchartService } from '../../services/flowchart/flowchart.service'
 import { Observable } from 'rxjs/Observable';
+import {MdSidenav} from '@angular/material';
 
 @Component({
-  selector: 'app-left-side-bar',
-  templateUrl: './left-side-bar.component.html',
-  styleUrls: ['./left-side-bar.component.css'],
+  selector: 'app-sidenav',
+  templateUrl: './sidenav.component.html',
+  styleUrls: ['./sidenav.component.css'],
 
 })
-export class LeftSideBarComponent implements OnInit {
+export class SideNavComponent implements OnInit {
   flowcharts$: Observable<Flowchart[]>;
-  constructor(private flowchartService: FlowchartService) {}
+
+  constructor(private flowchartService: FlowchartService) {
+  }
+
  @Output() flowchartSelected = new EventEmitter();
+ @Output() sideNavClose = new EventEmitter();
 
   ngOnInit() {
     this.flowcharts$ = this.flowchartService.getFlowcharts()
@@ -23,11 +28,14 @@ export class LeftSideBarComponent implements OnInit {
     })
   }
 
-
   onFlowchartSelected(id : number)
   {
     console.log(id);
     this.flowchartSelected.emit();
     this.flowchartService.setCurrentFlowchartByIDInMap(id);
+  }
+
+  onSidebarClose() {
+    this.sideNavClose.emit();
   }
 }

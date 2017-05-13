@@ -1,12 +1,19 @@
-import {AfterContentInit, AfterViewInit, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit} from '@angular/core';
 import { FlowchartService } from '../../services/flowchart/flowchart.service'
 import {Flowchart} from "../../models/flowchart.model";
 import {UserService} from '../../services/user.service';
-import {QuarterView} from '../../models/quarter-view.model';
 import {isNullOrUndefined} from 'util';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Observable} from "rxjs/Observable";
 import {subscribeOn} from "rxjs/operator/subscribeOn";
+import {Subscription} from 'rxjs/Subscription';
+import {QuarterView} from '../../models/quarter-view.model';
+import {FlowchartViewModel} from '../../models/flowchart-view.model';
+import {MdDialog, MdDialogRef} from '@angular/material';
+import {Quarter} from '../../models/quarter.model';
+import {CourseSearchComponent} from '../course-search/course-search.component';
+import {Course} from '../../models/course.model';
+import {FlowchartEntryCompact} from '../../models/flowchart-entry.model';
 
 @Component({
   selector: 'app-flowchart',
@@ -19,47 +26,31 @@ export class FlowchartComponent implements OnInit, OnDestroy {
     Initially I tried input binding but it was not working for some reason. Property was undefined
      even in ngOnInit();
    */
-  flowchart$: Observable<Flowchart>;
-  quarterViews$: Observable<QuarterView[]>;
-  quarters: Map<number, QuarterView>; //quarter id, quarterview
+  flowchartView$: Observable<FlowchartViewModel>;
+  flowchart: Flowchart;
+  // quarters: QuarterView[];
+  // quarters: Map<number, QuarterView>; //quarter id, quarterview
 
-  subscription;
+  initialSubscription: Subscription;
   constructor(private flowchartService: FlowchartService,
-              private route: ActivatedRoute) {
-  }
+              private route: ActivatedRoute,
+              public dialog: MdDialog) {}
 
   ngOnInit() {
+    console.log("onInit: FlowchartComponent ");
     const id = this.route.params['id'];
-
-    this.subscription = this.flowchartService.getFlowcharts().subscribe();
-    this.flowchart$ = this.flowchartService.getCurrentFlowchart();
-
-    this.quarterViews$ =  this.flowchart$.delay(10).map(flowchart => {
-      console.log(JSON.stringify(flowchart));
-      return this.parseQuarters(flowchart)
-    });
-
-
-    /*
-    this.flowchart$.map(flowchart => {
-      console.log("im here")
-      return this.parseQuarters(flowchart)
-    }).subscribe();
-    */
-    // this.route.params
-    //   .switchMap((params: Params) => {
-    //     return isNullOrUndefined(params['id'])
-    //       ? this.flowchartService.getFlowcharts()
-    //       : this.flowchartService.getFlowchart(+params['id'])
-    //   })
-
-        // console.log(`on init: ${JSON.stringify(flowchart)}`);
-
+    this.initialSubscription = this.flowchartService.getFlowcharts().subscribe();
+    this.flowchartView$ = this.flowchartService.getCurrentFlowchart()
+      .map((flowchart) => {
+            console.log('new event coming through');
+            this.flowchart = flowchart;
+            return {flowchart: flowchart, quarters: this.parseQuarters(flowchart)};
+      });
   }
 
   ngOnDestroy()
   {
-    this.subscription.unsubscribe();
+    this.initialSubscription.unsubscribe();
   }
 
   // TODO The data structures could be made more efficient.
@@ -69,8 +60,11 @@ export class FlowchartComponent implements OnInit, OnDestroy {
      keyed to the quarter id.
    */
   private parseQuarters(flowchart: Flowchart): QuarterView[] {
-    if (isNullOrUndefined(flowchart)) {
-      return;
+    if (isNullOrUndefined(flowchart)
+     || isNullOrUndefined(flowchart.entries)
+     || flowchart.entries.length === 0) {
+
+      return [];
     }
 
     let quarters = new Map();
@@ -92,7 +86,23 @@ export class FlowchartComponent implements OnInit, OnDestroy {
     return Array.from(quarters.values());
   }
 
-  getQuarters(): QuarterView[] {
-    return Array.from(this.quarters.values());
+  openAddCourseDialog(quarter: Quarter) {
+    let dialogRef = this.dialog.open(CourseSearchComponent, {data: quarter});
+
+    dialogRef.afterClosed()
+      .subscribe(course => {
+        if (isNullOrUndefined(course)){
+          console.log("CourseSearch closed. No course selected.");
+          return
+        }
+
+        let entry: FlowchartEntryCompact = {
+          flowchart_id: this.flowchart.id,
+          quarter_id: quarter.id,
+          course_id: course.id,
+        };
+        this.flowchartService.addEntry(entry)
+        return;
+    });
   }
 }

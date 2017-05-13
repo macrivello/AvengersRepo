@@ -9,6 +9,8 @@ import {Quarter} from '../../models/quarter.model';
 import {QuarterView} from '../../models/quarter-view.model';
 import {Subject} from 'rxjs';
 import {isNull, isNullOrUndefined} from "util";
+import {UserService} from '../user.service';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class FlowchartService {
@@ -16,10 +18,11 @@ export class FlowchartService {
   private currentFlowchartID: number;
   private flowcharts = new Map<number, Flowchart>();
 
-  private flowchartSource = new Subject<Flowchart>();
-  private flowchart$ = this.flowchartSource.asObservable().share().publishReplay().refCount();
+  private flowchartSource = new BehaviorSubject<Flowchart>(new Flowchart());
+  private flowchart$ = this.flowchartSource.asObservable();
 
-  constructor(private http : Http) { }
+  constructor(private http : Http,
+              private userService: UserService) { }
 
   getFlowcharts(): Observable<Map<number, Flowchart>> {
     return this.http.get("api/flowcharts")
@@ -76,15 +79,27 @@ export class FlowchartService {
       });
   }
 
-  deleteEntry(id: number): Observable<void> {
-    return this.http.delete(`api/entries/${id}`)
-      .map(() => console.log(`Deleted entry ${id}`))
-      .catch(this.handleError);}
+  deleteEntry(entry: FlowchartEntry): void {
+    console.log(`Deleting Entry ${entry.id} from flowchart ${this.currentFlowchartID}. User: ${this.userService.getCurrentUser().email}` );
+    this.http.delete(`api/entries/${entry.id}`)
+      .catch(this.handleError)
+      .toPromise()
+      .then(() => {
+        console.log(`Deleted entry ${entry.id}. Updating Flowchart.`)
+        this.updateFlowchart();
+      });
+    }
 
-  addEntry(entry: FlowchartEntryCompact): Observable<void> {
-    return this.http.post(`api/entries/`, entry)
-      .map(() => console.log(`Added entry ${JSON.stringify(entry)}`))
-      .catch(this.handleError);}
+  addEntry(entry: FlowchartEntryCompact): void {
+    console.log(`Adding Entry ${JSON.stringify(entry)}. User: ${this.userService.getCurrentUser().email}` );
+    this.http.post(`api/entries/`, entry)
+      .catch(this.handleError)
+      .toPromise()
+      .then(() => {
+        console.log(`Adding Entry ${JSON.stringify(entry)}. User: ${this.userService.getCurrentUser().email}` );
+        this.updateFlowchart();
+    });
+  }
 
   updateEntry(id: number, entry: FlowchartEntry): Observable<void> {
     return this.http.put(`api/entries/${id}`, entry)
@@ -97,7 +112,12 @@ export class FlowchartService {
   }
 
   updateFlowchart() {
-    console.log("updateflowchart" + this.flowcharts.get(this.currentFlowchartID).name.toString());
-    this.flowchartSource.next(this.flowcharts.get(this.currentFlowchartID));
+    console.log('updateFlowchart');
+    this.getFlowchart(this.currentFlowchartID)
+      .toPromise()
+      .then((flowchart) => {
+        this.getFlowchartMap().set(flowchart.id, flowchart); //update local map
+        this.flowchartSource.next(flowchart);
+      })
   }
 }

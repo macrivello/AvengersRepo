@@ -9,6 +9,7 @@ import {Flowchart} from '../models/flowchart.model';
 
 @Injectable()
 export class UserService {
+  currentUser: User;
 
   constructor(private http: Http) {
   }
@@ -21,6 +22,7 @@ export class UserService {
     // TODO Catch error if non-500, clear user from local storage
     return this.http.get('api/users/me').map(response => {
       const user = response.json() as User;
+      this.currentUser = user;
       localStorage.setItem('currentUser', JSON.stringify(user));
       return user;
     }).catch((err) => {
@@ -38,6 +40,7 @@ export class UserService {
     console.log("logout");
     return this.http.get('/signout').map(response => {
       console.log(`${this.getCurrentUser().email} has logged out. Response: ${response}`);
+      this.currentUser = null;
       localStorage.removeItem('currentUser');
     // TODO Emit an event, or somehow clear the flowchart object in the app component.
       return response.text();

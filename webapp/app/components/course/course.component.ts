@@ -16,6 +16,8 @@ export class CourseComponent implements OnInit {
   ngOnInit() {
   }
 
-  onRemove() {
+  onCourseRemove(entry: FlowchartEntry) {
+    console.log(`OnCourseRemove: ${entry.id}`);
+    this.flowchartService.deleteEntry(entry);
   }
 }

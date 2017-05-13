@@ -24,13 +24,5 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.verifyUser()
-      .subscribe(() => {},
-        (err) => this.router.navigate(['/login']));
-  }
-
-  onSidebarToggle() {
-    console.log('toggled');
-
   }
 }

@@ -24,14 +24,15 @@
 }
 
 .sidenav {
-  margin-top: 20px;
-  height: 600px;
-  width: 200px;
-  float: left;
-  border: solid 3px black;
-  background-color: #CECCA0;
+  width: 300px;
+}
 
-  position: inherit
+.sidenav-title{
+  padding-top: 20px;
+}
+
+.sidenav-button {
+  width: 250px;
 }
 
 .navbar-title {

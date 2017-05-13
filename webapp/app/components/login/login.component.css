@@ -3,15 +3,13 @@
   z-index: 100;
   margin: 0 auto;
   padding-top: 40px;
-  background-color: white;
 }
 
 .logo-name {
-  color: #e6e6e6;
-  font-size: 100px;
+  font-size: 80px;
   font-weight: 800;
-  letter-spacing: -10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  color: #275a27;
 }
 
 .full-width {

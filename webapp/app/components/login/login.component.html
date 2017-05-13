@@ -1,7 +1,7 @@
 <div class="middle-box text-center animated fadeIn">
   <div>
     <div>
-      <h1 class="logo-name">Poly Path</h1>
+      <h1 class="logo-name">PolyPath</h1>
     </div>
     <form class="m-t" role="form" (ngSubmit)="onSubmit()">
       <div class="form-group">
@@ -10,7 +10,7 @@
       <div class="form-group">
         <input type="password" class="form-control" placeholder="Password" [(ngModel)]="data.password" name="password">
       </div>
-      <button [disabled]="loading" type="submit" class="btn btn-primary block full-width m-b">Login</button>
+      <button md-raised-button [disabled]="loading" class="full-width" type="submit">Login</button>
     </form>
   </div>
 </div>
