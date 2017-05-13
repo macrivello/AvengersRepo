@@ -48,9 +48,9 @@ export class UserService {
     console.log("logout");
     return this.http.get('/signout').map(response => {
       console.log(`${UserService.getCurrentUser().email} has logged out.`);
-      this.currentUserSource.next(null);
-      this.flowchartService.clearData();
       localStorage.removeItem('currentUser');
+      this.flowchartService.clearData();
+      this.currentUserSource.next(null);
     // TODO Emit an event, or somehow clear the flowchart object in the app component.
       return response.text();
     })
