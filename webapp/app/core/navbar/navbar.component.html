@@ -3,11 +3,8 @@
   <span class="logo-img"(click)="onClick()"></span>
   <span class="navbar-title">PolyPath</span>
 
-  <!--<span class="fill-remaining-space"></span>-->
-
-  <div *ngIf="userService.getCurrentUser()" class="pull-right p-3">
-    <span class="text-gray-dark p-3">{{userService.getCurrentUser().firstName}} {{userService.getCurrentUser().lastName}}</span>
-    <!--<button md-fab	 (click)="onSignOut()">Sign Out</button>-->
+  <div *ngIf="currentUser$ | async as user" class="pull-right p-3">
+    <span class="text-gray-dark p-3">{{user.firstName}} {{user.lastName}}</span>
     <button md-button (click)="onSignOut()">Sign Out</button>
   </div>
 

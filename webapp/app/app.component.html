@@ -1,22 +1,17 @@
-<!--<md-sidenav-container class="main-container">-->
-  <!--<app-navbar (onClicked)="sidenav.toggle()"></app-navbar>-->
-  <!--<md-sidenav #sidenav class="sidenav">-->
-    <!--<app-sidenav (flowchartSelected)="sidenav.close()"></app-sidenav>-->
-  <!--</md-sidenav>-->
+<md-sidenav-container fullscreen>
+  <app-navbar (onClicked)="onSideNavToggle()"></app-navbar>
 
-  <!--<div class="main-container">-->
-    <!--<router-outlet></router-outlet>-->
+  <!--TODO: Make this conditionally toggle on current user-->
+  <!--<div *ngIf="currentUser$ | async">-->
+    <md-sidenav #sidenav (sideNavToggle)="sidenav.open()">
+      <app-sidenav (flowchartSelected)="sidenav.close()"
+                   (sideNavClose)="sidenav.close()"
+                    [flowcharts]="allFlowcharts$ | async">
+      </app-sidenav>
+    </md-sidenav>
   <!--</div>-->
-<!--</md-sidenav-container>-->
-<!--<div class="container">-->
-  <md-sidenav-container fullscreen>
-    <app-navbar (onClicked)="sidenav.toggle()"></app-navbar>
-    <md-sidenav #sidenav>
-        <app-sidenav (flowchartSelected)="sidenav.close()"
-                     (sideNavClose)="sidenav.close()"></app-sidenav>
-      </md-sidenav>
-    <div class="main-container d-flex mt-5 justify-content-center">
-      <router-outlet></router-outlet>
-    </div>
-  </md-sidenav-container>
-<!--</div>-->
+
+  <div class="main-container d-flex mt-5 justify-content-center">
+    <router-outlet></router-outlet>
+  </div>
+</md-sidenav-container>

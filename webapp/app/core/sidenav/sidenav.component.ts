@@ -1,9 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Flowchart } from '../../models/flowchart.model';
 import { FlowchartService } from '../../services/flowchart/flowchart.service'
-import { Observable } from 'rxjs/Observable';
-import {MdSidenav} from '@angular/material';
 
 @Component({
   selector: 'app-sidenav',
@@ -12,21 +9,13 @@ import {MdSidenav} from '@angular/material';
 
 })
 export class SideNavComponent implements OnInit {
-  flowcharts$: Observable<Flowchart[]>;
+  @Output() flowchartSelected = new EventEmitter();
+  @Output() sideNavClose = new EventEmitter();
+  @Input() flowcharts: Flowchart[];
 
-  constructor(private flowchartService: FlowchartService) {
-  }
+  constructor(private flowchartService: FlowchartService) {}
 
- @Output() flowchartSelected = new EventEmitter();
- @Output() sideNavClose = new EventEmitter();
-
-  ngOnInit() {
-    this.flowcharts$ = this.flowchartService.getFlowcharts()
-    .map((flowchartMaps) => {
-        //TODO Do we really need to be returning a map here?
-        return Array.from(flowchartMaps.values());
-    })
-  }
+  ngOnInit() {}
 
   onFlowchartSelected(id : number)
   {

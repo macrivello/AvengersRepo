@@ -13,7 +13,7 @@
   </div>
     <hr>
     <div class="row justify-content-center p-1"
-         *ngFor="let flowchart of flowcharts$ | async"
+         *ngFor="let flowchart of flowcharts"
          (click)="onFlowchartSelected(flowchart.id)">
       <button md-raised-button class="sidenav-button">{{flowchart.name}}</button>
     </div>

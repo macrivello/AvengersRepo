@@ -1,7 +1,7 @@
 import {Flowchart} from './flowchart.model';
 import {QuarterView} from './quarter-view.model';
 
-export class FlowchartViewModel {
+export class FlowchartView {
   flowchart: Flowchart;
   quarters: QuarterView[];
 

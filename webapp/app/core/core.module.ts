@@ -9,10 +9,7 @@ import { SpinnerService } from './spinner/spinner.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { SideNavComponent } from './sidenav/sidenav.component';
-import {AppRoutingModule} from '../modules/app-routing.module';
 import {CourseSearchComponent} from "../components/course-search/course-search.component";
-import {CourseSearchService} from "../services/course-search/course-search.service";
-import {LoginComponent} from '../components/login/login.component';
 
 
 @NgModule({
