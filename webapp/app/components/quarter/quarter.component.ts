@@ -1,13 +1,14 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Quarter } from "../../models/quarter.model";
-import { QuarterService} from "../../services/quarter/quarter.service"
+import { QuarterService} from "../../services/quarter.service"
 import {QuarterView} from '../../models/quarter-view.model';
 import {FlowchartEntry} from '../../models/flowchart-entry.model';
 
 @Component({
   selector: 'app-quarter',
   templateUrl: './quarter.component.html',
-  styleUrls: ['./quarter.component.css']
+  styleUrls: ['./quarter.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuarterComponent implements OnInit {
 

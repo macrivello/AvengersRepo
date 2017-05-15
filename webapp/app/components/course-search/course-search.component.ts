@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
-import { CourseSearchService }          from '../../services/course-search/course-search.service';
+import { CourseSearchService }          from '../../services/course-search.service';
 import { Course }                       from '../../models/course.model';
 import {MD_DIALOG_DATA, MdDialogRef} from '@angular/material';
 import {Quarter} from '../../models/quarter.model';

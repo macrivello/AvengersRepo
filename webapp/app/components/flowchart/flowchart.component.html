@@ -5,7 +5,7 @@
    </div>
   </ng-template>
 
-  <div class="card" *ngIf="(flowchartView$ | async); else loading; let flowchartView;">
+  <div class="card" *ngIf="flowchartView && flowchartView.flowchart;">
 
     <h1 class="card-header">{{flowchartView.flowchart.name}}</h1>
 

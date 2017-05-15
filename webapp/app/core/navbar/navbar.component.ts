@@ -10,7 +10,7 @@ import {User} from '../../models/user.model';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  @Output() onClicked = new EventEmitter();
+  @Output() onLogoClick = new EventEmitter();
   currentUser$: Observable<User>;
 
   constructor(private userService: UserService,
@@ -23,14 +23,15 @@ export class NavbarComponent implements OnInit {
 
   onSignOut() {
     console.log("onSignOut");
-    this.userService.logout().subscribe(() => {
-      console.log("routing to /login");
-      this.router.navigate(['login']);
-    })
+    this.userService.logout()
+      .then(() => {
+        console.log("routing to /login");
+        this.router.navigate(['login']);
+    });
   }
 
-  onClick() {
-    console.log('clicked')
-    this.onClicked.emit();
+  onLogoClicked() {
+    console.log('onLogoClicked');
+    this.onLogoClick.emit();
   }
 }

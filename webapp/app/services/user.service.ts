@@ -5,7 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import {User} from '../models/user.model';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {FlowchartService} from './flowchart/flowchart.service';
+import {FlowchartService} from './flowchart.service';
 
 @Injectable()
 export class UserService {
@@ -44,16 +44,15 @@ export class UserService {
       .flatMap(() => this.verifyUser());
   }
 
-  logout(): Observable<any> {
-    console.log("logout");
+  logout(): Promise<any> {
     return this.http.get('/signout').map(response => {
-      console.log(`${UserService.getCurrentUser().email} has logged out.`);
+      console.log(`User has logged out.`);
       localStorage.removeItem('currentUser');
       this.flowchartService.clearData();
       this.currentUserSource.next(null);
     // TODO Emit an event, or somehow clear the flowchart object in the app component.
       return response.text();
-    })
+    }).toPromise();
   }
 
   private handleError(error: any): Promise<any> {

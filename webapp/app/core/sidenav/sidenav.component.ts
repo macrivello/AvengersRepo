@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Flowchart } from '../../models/flowchart.model';
-import { FlowchartService } from '../../services/flowchart/flowchart.service'
+import { FlowchartService } from '../../services/flowchart.service'
 
 @Component({
   selector: 'app-sidenav',
@@ -19,12 +19,13 @@ export class SideNavComponent implements OnInit {
 
   onFlowchartSelected(id : number)
   {
-    console.log(id);
+    console.log(`onFlowchartSelected: ${id}`);
     this.flowchartSelected.emit();
     this.flowchartService.setCurrentFlowchartByIDInMap(id);
   }
 
   onSidebarClose() {
+    console.log('onSideBarClose');
     this.sideNavClose.emit();
   }
 }
