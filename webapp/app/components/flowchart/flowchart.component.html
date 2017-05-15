@@ -1,23 +1,23 @@
-<div class="container-fluid" style="height: 100%;">
-  <div class="centered">
-    <div *ngIf="flowchart; else loading">
-      <h1>{{flowchart.name}} ({{flowchart.id}})</h1>
+<div class="d-flex">
+  <ng-template #loading>
+    <div class="d-flex justify-content-center">
+      <!--<md-spinner></md-spinner>-->
+   </div>
+  </ng-template>
 
-      <div *ngIf="quarters" class = "container">
-        <div class="row some-gutter">
+  <div class="card" *ngIf="(flowchartView$ | async); else loading; let flowchartView;">
 
-          <div *ngFor="let quarter of getQuarters()" class = "col-sm-4">
-            <app-quarter [quarter]="quarter"></app-quarter>
-          </div>
+    <h1 class="card-header">{{flowchartView.flowchart.name}}</h1>
+
+    <div class="card-block text-center">
+      <div class="row">
+        <div *ngFor="let quarter of flowchartView.quarters" >
+          <app-quarter [quarterView]="quarter" (addCourseClicked)="openAddCourseDialog($event)"></app-quarter>
         </div>
       </div>
     </div>
 
-    <ng-template #loading>
-      <div class="d-flex justify-content-center">
-        <md-spinner></md-spinner>
-      </div>
-    </ng-template>
-  </div>
-</div>
 
+  </div>
+
+</div>

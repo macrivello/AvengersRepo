@@ -1,6 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
+import {User} from '../../models/user.model';
 
 @Component({
   selector: 'app-navbar',
@@ -9,13 +11,15 @@ import {Router} from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   @Output() onClicked = new EventEmitter();
+  currentUser$: Observable<User>;
 
   constructor(private userService: UserService,
               private router: Router) {
+
+      this.currentUser$ = this.userService.getCurrentUser();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onSignOut() {
     console.log("onSignOut");

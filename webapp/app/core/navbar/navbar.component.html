@@ -1,23 +1,11 @@
-<div>
-  <nav class="navbar navbar-inverse navbar-toggleable-md polypath-navbar">
-    <div class="jh-logo-container float-left">
-      <a href="/" class="navbar-brand logo float-left" routerLink="/">
-        <span class="logo-img"(click)="onClick()"></span>
+<md-toolbar>
 
-        <span class="navbar-title">PolyPath</span>
-      </a>
-    </div>
-    <div class="navbar-collapse collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/">
-            <div *ngIf="userService.getCurrentUser()">
-              <span class="font-weight-bold text-gray-dark p-3">Hi {{userService.getCurrentUser().firstName}} {{userService.getCurrentUser().lastName}}</span>
-              <button class="btn btn-outline-secondary gray" (click)="onSignOut()">Sign Out</button>
-            </div>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</div>
+  <span class="logo-img"(click)="onClick()"></span>
+  <span class="navbar-title">PolyPath</span>
+
+  <div *ngIf="currentUser$ | async as user" class="pull-right p-3">
+    <span class="text-gray-dark p-3">{{user.firstName}} {{user.lastName}}</span>
+    <button md-button (click)="onSignOut()">Sign Out</button>
+  </div>
+
+</md-toolbar>

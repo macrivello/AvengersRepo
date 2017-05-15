@@ -1,0 +1,20 @@
+<button md-button
+        class="float-right align-top md-small"
+        style="z-index: 1"
+        (click)="onSidebarClose()">
+  X
+</button>
+<div></div>
+<div class="container sidenav">
+  <div class="sidenav-title">
+      <span class="navbar-title">
+        <h4>Flowcharts</h4>
+      </span>
+  </div>
+    <hr>
+    <div class="row justify-content-center p-1"
+         *ngFor="let flowchart of flowcharts"
+         (click)="onFlowchartSelected(flowchart.id)">
+      <button md-raised-button class="sidenav-button">{{flowchart.name}}</button>
+    </div>
+</div>
