@@ -2,9 +2,17 @@
 
 /*TODO: Make CalPoly theme*/
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
-
+@import url('https://fonts.googleapis.com/css?family=Bungee|Open+Sans');
 /*TODO: Add custom font, but be aware of Bootstrap potentially overriding it*/
 
 .mat-button.md-small {
   min-width: 1px;
+}
+
+body, html {
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+.polypath-title {
+  font-family: 'Bungee', cursive !important;
 }

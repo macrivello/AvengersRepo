@@ -1,5 +1,5 @@
 .middle-box {
-  max-width: 400px;
+  max-width: 450px;
   z-index: 100;
   margin: 0 auto;
   padding-top: 40px;
@@ -7,13 +7,12 @@
 
 .logo-name {
   font-size: 80px;
-  font-weight: 800;
   margin-bottom: 20px;
   color: #275a27;
 }
 
-.full-width {
-  width: 100% !important;
+.center {
+  margin: 0 auto;
 }
 
 .animated {

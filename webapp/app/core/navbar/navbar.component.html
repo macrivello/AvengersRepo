@@ -1,7 +1,7 @@
 <md-toolbar>
 
   <span class="logo-img"(click)="onLogoClicked()"></span>
-  <span class="navbar-title">PolyPath</span>
+  <span class="navbar-title polypath-title">PolyPath</span>
 
   <div *ngIf="currentUser$ | async as user" class="pull-right p-3">
     <span class="text-gray-dark p-3">{{user.firstName}} {{user.lastName}}</span>
