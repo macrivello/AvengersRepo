@@ -1,6 +1,6 @@
 <md-toolbar>
 
-  <span class="logo-img"(click)="onClick()"></span>
+  <span class="logo-img"(click)="onLogoClicked()"></span>
   <span class="navbar-title">PolyPath</span>
 
   <div *ngIf="currentUser$ | async as user" class="pull-right p-3">

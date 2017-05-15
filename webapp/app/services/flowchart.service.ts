@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Flowchart} from "../../models/flowchart.model";
-import {FlowchartEntry, FlowchartEntryCompact} from "../../models/flowchart-entry.model"
+import { Flowchart} from "../models/flowchart.model";
+import {FlowchartEntry, FlowchartEntryCompact} from "../models/flowchart-entry.model"
 import { Http } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import {Observable} from 'rxjs/Observable';
-import {QuarterView} from '../../models/quarter-view.model';
+import {QuarterView} from '../models/quarter-view.model';
 import {isNullOrUndefined} from "util";
-import {UserService} from '../user.service';
+import {UserService} from './user.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {FlowchartView} from '../../models/flowchart-view.model';
+import {FlowchartView} from '../models/flowchart-view.model';
 
 @Injectable()
 export class FlowchartService {

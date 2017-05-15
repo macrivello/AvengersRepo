@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import { FlowchartService } from '../../services/flowchart/flowchart.service'
+import {ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { FlowchartService } from '../../services/flowchart.service'
 import {Flowchart} from "../../models/flowchart.model";
 import {isNullOrUndefined} from 'util';
 import {MdDialog} from '@angular/material';
@@ -12,22 +12,16 @@ import {Observable} from 'rxjs/Observable';
 @Component({
   selector: 'app-flowchart',
   templateUrl: './flowchart.component.html',
-  styleUrls: ['./flowchart.component.css']
+  styleUrls: ['./flowchart.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FlowchartComponent implements OnInit, OnDestroy {
-  flowchartView$: Observable<FlowchartView>;
-  flowchart: Flowchart;
+  @Input() flowchartView: FlowchartView;
 
   constructor(private flowchartService: FlowchartService,
               public dialog: MdDialog) {}
 
-  ngOnInit() {
-    console.log("onInit: FlowchartComponent ");
-    this.flowchartView$ = this.flowchartService.getCurrentFlowchart().map((flowchart) => {
-      this.flowchart = flowchart;
-      return FlowchartService.buildFlowchartView(flowchart);
-    });
-  }
+  ngOnInit() {}
 
   ngOnDestroy(){}
 
@@ -42,7 +36,7 @@ export class FlowchartComponent implements OnInit, OnDestroy {
         }
 
         let entry: FlowchartEntryCompact = {
-          flowchart_id: this.flowchart.id,
+          flowchart_id: this.flowchartView.flowchart.id,
           quarter_id: quarter.id,
           course_id: course.id,
         };

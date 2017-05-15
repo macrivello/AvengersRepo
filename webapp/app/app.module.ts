@@ -9,20 +9,21 @@ import { CourseComponent } from './components/course/course.component';
 import { CourseSearchComponent } from './components/course-search/course-search.component';
 import { QuarterComponent } from './components/quarter/quarter.component';
 import { AppComponent } from './app.component';
-import { FlowchartService } from './services/flowchart/flowchart.service';
-import { CourseService } from "./services/course/course.service";
-import { CourseSearchService } from "./services/course-search/course-search.service";
-import { QuarterService } from "./services/quarter/quarter.service";
+import { FlowchartService } from './services/flowchart.service';
+import { CourseService } from "./services/course.service";
+import { CourseSearchService } from "./services/course-search.service";
+import { QuarterService } from "./services/quarter.service";
 import { LoginComponent } from './components/login/login.component';
 import {UserService} from './services/user.service';
 import {LoginService} from './services/login.service';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from './guards/auth.guard';
+import {NavbarService} from './services/navbar.service';
+import {HomeComponent} from './core/home/home.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'flowchart', pathMatch: 'full', canActivate: [AuthGuard] },
-  { path: 'flowchart',  component: FlowchartComponent, canActivate: [AuthGuard] },
-  { path: 'flowchart/:id',  component: FlowchartComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'home', pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'home',  component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: '' } // TODO Or we can display an ErrorComponent since this is technically a 404
 ];
@@ -34,6 +35,7 @@ const routes: Routes = [
     FlowchartComponent,
     LoginComponent,
     QuarterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,14 @@ const routes: Routes = [
   entryComponents: [
     CourseSearchComponent
   ],
-  providers: [UserService, LoginService, FlowchartService, CourseService, CourseSearchService, QuarterService, AuthGuard],
+  providers: [UserService,
+              LoginService,
+              FlowchartService,
+              CourseService,
+              CourseSearchService,
+              QuarterService,
+              NavbarService,
+              AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
