@@ -8,9 +8,7 @@ import { Course }                   from '../../models/course.model';
 
 @Injectable()
 export class CourseSearchService {
-    constructor( private http: Http) {
-
-    }
+    constructor( private http: Http) {}
 
     private courseString(o: Object): string {
       let c: Course = o as Course;

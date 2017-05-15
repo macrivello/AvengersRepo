@@ -3,24 +3,32 @@
   padding: .2em 1em;
 }
 .navbar-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #262626;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #323232;
   display: inline-block;
   vertical-align: middle;
 }
 .logo {
-  padding: 5px 15px;
+  padding: 8px;
 }
 .logo-img {
   height: 45px;
-  width: 70px;
+  width: 90px;
   display: inline-block;
   vertical-align: middle;
-  background: url("../../../assets/grap_cap.png") no-repeat center center;
+  background: url("../../../assets/grad_cap.svg") no-repeat center center;
   background-size: contain;
+  margin-top: 10px;
+  margin-right: -10px;
 }
 
 .gray {
   color: #262626;
+}
+
+.fill-remaining-space {
+  /*This fills the remaining space, by using flexbox.*/
+  /*Every toolbar row uses a flexbox row layout.*/
+  flex: 1 1 auto;
 }
