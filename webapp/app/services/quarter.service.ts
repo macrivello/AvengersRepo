@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Quarter} from "../../models/quarter.model";
+import { Quarter} from "../models/quarter.model";
 import { Http } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import {toPromise} from "rxjs/operator/toPromise";

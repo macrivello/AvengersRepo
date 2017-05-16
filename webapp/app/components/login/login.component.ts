@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
+import {isNullOrUndefined} from 'util';
 
 @Component({
   selector: 'app-login',
@@ -19,13 +20,7 @@ export class LoginComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router) { }
 
-  ngOnInit() {
-    this.userService.logout().subscribe(() => {
-      // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-      console.log("signed out, navigate to root");
-      this.router.navigate(['/']);
-    });
-  }
+  ngOnInit() {}
 
   onSubmit() {
     this.userService.login(this.data.username, this.data.password).subscribe(() => {
