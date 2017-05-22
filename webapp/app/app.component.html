@@ -1,9 +1,15 @@
 <md-sidenav-container fullscreen>
-  <app-navbar (onLogoClick)="onSideNavToggle()"></app-navbar>
+  <app-navbar [user]="currentUser$ | async"
+              (onLogoClick)="onSideNavToggle()"
+              (onSignOut)="onUserSignOut()">
+  </app-navbar>
   <md-sidenav #sidenav>
     <app-sidenav (flowchartSelected)="sidenav.close()"
                  (sideNavClose)="sidenav.close()"
-                 [flowcharts]="allFlowcharts$ | async">
+                 (newFlowchart)="onNewFlowchart()"
+                 [currentUser]="currentUser$ | async"
+                 [flowcharts]="allFlowcharts$ | async"
+                 [selectedFlowchartId]="selectedFlowchartId$ | async">
     </app-sidenav>
   </md-sidenav>
 

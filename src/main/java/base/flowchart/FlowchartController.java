@@ -2,9 +2,7 @@ package base.flowchart;
 
 import base.security.user.CurrentUser;
 import base.user.User;
-import javassist.tools.web.BadHttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,11 +30,8 @@ public class FlowchartController {
     }
 
     @RequestMapping(method= RequestMethod.POST, value="flowcharts")
-    public void addFlowchart(@CurrentUser User user) {
-        if (user != null) {
-            // create new empty flowchart for current user
-            flowchartService.addFlowchart(user);
-        }
+    public Flowchart addFlowchart(@CurrentUser User user) {
+        return flowchartService.addFlowchart(user);
     }
 
     @RequestMapping(method=RequestMethod.PUT, value="flowcharts/{id}")

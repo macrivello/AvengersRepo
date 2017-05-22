@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
@@ -7,27 +7,21 @@ import {User} from '../../models/user.model';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent implements OnInit {
   @Output() onLogoClick = new EventEmitter();
-  currentUser$: Observable<User>;
+  @Output() onSignOut = new EventEmitter();
+  @Input() user: User;
 
-  constructor(private userService: UserService,
-              private router: Router) {
-
-      this.currentUser$ = this.userService.getCurrentUser();
-  }
+  constructor() {}
 
   ngOnInit() {}
 
-  onSignOut() {
+  onSignOutClicked() {
     console.log("onSignOut");
-    this.userService.logout()
-      .then(() => {
-        console.log("routing to /login");
-        this.router.navigate(['login']);
-    });
+    this.onSignOut.emit();
   }
 
   onLogoClicked() {
