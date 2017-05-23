@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
     this.userService.getCurrentUser()
       .subscribe((user) => {
         if (!isNullOrUndefined(user)) { // valid user
-          this.flowchartService.updateAllFlowcharts();
+          this.flowchartService.fetchAndUpdateAllFlowcharts();
         }
       });
   }
