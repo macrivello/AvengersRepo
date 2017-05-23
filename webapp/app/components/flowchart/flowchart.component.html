@@ -8,9 +8,20 @@
   <div class="card" *ngIf="flowchartView && flowchartView.flowchart; else empty">
 
     <div class="card-header d-flex">
-      <h1 class="justify-content-lg-start mr-auto">{{flowchartView.flowchart.name}}</h1>
+      <form [hidden]="!editTitleMode">
+        <input #flowchartTitleInput
+               autofocus
+               required minlength="1"
+                class="justify-content-lg-start mr-auto"
+               value={{flowchartView.flowchart.name}}
+               placeholder="name"
+               (blur)="onFlowchartEdit(false)"
+               (keyup)="onFlowchartNameEdit($event)">
+      </form>
+      <h4 [hidden]="editTitleMode">{{flowchartView.flowchart.name}}</h4>
+
       <div class="justify-content-lg-end ml-auto">
-        <button md-button class="md-small" (click)="onFlowchartEdit()">
+        <button md-button class="md-small" (click)="onFlowchartEdit(true)">
           <i class="fa fa-edit fa-2x fa-fw"></i>
         </button>
         <button md-button class="md-small" (click)="onFlowchartDelete(flowchartView.flowchart.id)">

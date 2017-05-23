@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/")
@@ -35,8 +36,8 @@ public class FlowchartController {
     }
 
     @RequestMapping(method=RequestMethod.PUT, value="flowcharts/{id}")
-    public void updateFlowchart(@PathVariable Long id, @RequestBody Flowchart flowchart) {
-        flowchartService.updateFlowchart(id, flowchart);
+    public void updateFlowchart(@PathVariable Long id, @RequestBody Map<String, String> flowchartAttributes) {
+        flowchartService.updateFlowchart(id, flowchartAttributes);
     }
 
     @RequestMapping(method=RequestMethod.DELETE, value="flowcharts/{id}")
