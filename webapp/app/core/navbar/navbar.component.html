@@ -3,9 +3,9 @@
   <span class="logo-img"(click)="onLogoClicked()"></span>
   <span class="navbar-title">PolyPath</span>
 
-  <div *ngIf="currentUser$ | async as user" class="pull-right p-3">
+  <div *ngIf="user" class="pull-right p-3">
     <span class="text-gray-dark p-3">{{user.firstName}} {{user.lastName}}</span>
-    <button md-button (click)="onSignOut()">Sign Out</button>
+    <button md-button (click)="onSignOutClicked()">Sign Out</button>
   </div>
 
 </md-toolbar>

@@ -2,14 +2,19 @@ package base.flowchart;
 
 import base.user.User;
 import base.user.UserRepository;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class FlowchartService {
+  private final Log logger = LogFactory.getLog(this.getClass());
 
     @Autowired
     private FlowchartRepository flowchartRepository;
@@ -47,29 +52,31 @@ public class FlowchartService {
         flowchartRepository.save(flowchart);
     }
 
-    public void addFlowchart(User user)
+    public Flowchart addFlowchart(User user)
     {
         Flowchart newFlowchart = new Flowchart();
+        newFlowchart.setName("New Flowchart"); //TODO We should have a better default
         newFlowchart.setUser(user);
-        flowchartRepository.save(newFlowchart);
+        return flowchartRepository.save(newFlowchart);
     }
 
-    public void updateFlowchart(Long id, Flowchart flowchart)
+    // TODO only allow Admins or Owners to make this call
+
+    // Only the flowchart name and entry set can be updated
+    public void updateFlowchart(Long id, Map<String,String> flowchartAttributes)
     {
         Flowchart temp = flowchartRepository.findOne(id);
-        if(flowchart == null) {
-            return;
+        if(temp == null) {
+          logger.debug("Unable to find flowchart in DB: " + id);
+          return; // TODO return 404?
         }
-        else {
-            //Flowchart
-            temp.setId(flowchart.getId());
-            //TODO: just set User from current request
-            temp.getUser().setId(flowchart.getUser().getId());
-//            temp.getUser().setNumber(flowchart.getUser().getNumber());
-//            temp.getUser().setLname(flowchart.getUser().getLname());
-//            temp.getUser().setFname(flowchart.getUser().getFname());
-            //Save
-            flowchartRepository.save(temp);
+
+        final String name = flowchartAttributes.get("name");
+        if (!StringUtils.isEmpty(name)) {
+          logger.debug(String.format("Updating flowchart %d name to %s.", id, name));
+          temp.setName(name);
+
+          flowchartRepository.save(temp);
         }
     }
 

@@ -13,12 +13,11 @@ import {FlowchartView} from '../models/flowchart-view.model';
 @Injectable()
 export class FlowchartService {
 
-  private currentFlowchartID: number;
+  private activeFlowchartId: number;
   private flowchartsMap = new Map<number, Flowchart>();
 
   private flowchartSource = new BehaviorSubject<Flowchart>(new Flowchart());
   private flowchart$ = this.flowchartSource.asObservable();
-
 
   private flowchartsSource = new BehaviorSubject<Flowchart[]> ([]);
   private flowcharts$ = this.flowchartsSource.asObservable();
@@ -34,16 +33,6 @@ export class FlowchartService {
     })
   }
 
-  private buildFlowchartMap(flowcharts: Flowchart[]): Map<number, Flowchart> {
-    let flowchartMap = new Map();
-    for (let flowchart of flowcharts)
-    {
-      flowchartMap.set(flowchart.id, flowchart);
-    }
-
-    return flowchartMap;
-  }
-
   getCurrentFlowchart() : Observable<Flowchart>
   {
     return this.flowchart$;
@@ -57,13 +46,12 @@ export class FlowchartService {
   {
     //TODO
     //Does not check if the key is in the map
-    this.currentFlowchartID = id;
-    this.flowchartSource.next(this.flowchartsMap.get(this.currentFlowchartID));
+    this.activeFlowchartId = id;
+    this.flowchartSource.next(this.flowchartsMap.get(this.activeFlowchartId));
   }
 
-  getCurrentFlowchartFromMap() : Observable<Flowchart>
-  {
-    return Observable.of(this.flowchartsMap.get(this.currentFlowchartID));
+  getCurrentFlowchartId(): Observable<number> {
+    return this.flowchartSource.map((flowchart) => isNullOrUndefined(flowchart) ? -1 : flowchart.id);
   }
 
   getFlowchart(id : number): Observable<Flowchart> {
@@ -73,22 +61,88 @@ export class FlowchartService {
       });
   }
 
-  getFirstFlowchart(): Observable<Flowchart> {
-    return this.getFlowcharts()
-      .first()
-      .flatMap((flowcharts) => {
-      return this.getFlowchart(flowcharts[0].id);
-      });
+  /**
+   * This the event stream originates from a POST to /api/flowcharts to create a new Flowchart for
+   * the user. Returns an Observable of Flowcharts. For each emitted flowchart, the flowchart is
+   * added to the Map of the users flowcharts. An array containing the new flowchart is emitted in
+   * the flowcharts$ observable for subscribers to get updated array.
+   * @returns {Observable<T>}
+   */
+  createFlowchart(): Observable<Flowchart> {
+    return this.http.post("api/flowcharts", {})
+      .map((response) => {
+        let flowchart = response.json() as Flowchart;
+        console.log(`Flowchart created. ID: ${flowchart.id}`);
+        return flowchart;
+      })
+      .do((flowchart) => {
+        console.log(`Adding flowchart ${flowchart.id} to flowchart map`);
+        this.flowchartsMap.set(flowchart.id, flowchart);
+
+        // update list of flowcharts
+        console.log(`Emitting updated list of flowcharts`);
+        this.emitAllFlowcharts();
+      }).catch((e) => `Error creating flowchart. ${e}`);
+  }
+
+  // NOTE: This only updated the flowchart name for now
+  updateFlowchart(id: number, flowchart: Flowchart): Promise<Flowchart> {
+    const attributes = {"name" : flowchart.name};
+
+    return this.http.put(`/api/flowcharts/${id}`, attributes)
+      .toPromise()
+      .then(() => {
+        console.log(`flowchart updated: ${id}`);
+        this.flowchartsMap.set(flowchart.id, flowchart); // update flowchartMap
+        this.emitAllFlowcharts(); // emit updated flowcharts so that name change can be reflected across app
+        return flowchart;
+      })
+      .catch(this.handleError)
+  }
+
+  private emitAllFlowcharts() {
+    this.flowchartsSource.next(Array.from(this.flowchartsMap.values()));
+  }
+
+  deleteFlowchart(id: number): Promise<any> {
+    return this.http.delete(`/api/flowcharts/${id}`)
+      .do(() => {
+        console.log(`Flowchart deleted: ${id}`);
+
+        console.log(`Removing flowchart ${id} from flowchart map`);
+        this.flowchartsMap.delete(id);
+
+        // update list of flowcharts
+        console.log(`Emitting updated list of flowcharts`);
+        this.emitAllFlowcharts();
+
+        // set another flowchart as active and emit event
+        if(this.activeFlowchartId === id) {
+          let flowchart = this.flowchartsMap.values().next().value;
+            if (!isNullOrUndefined(flowchart)){
+              this.activeFlowchartId = flowchart.id;
+              this.flowchartSource.next(flowchart);
+            } else {
+              this.activeFlowchartId = -1;
+              this.flowchartSource.next(null);
+            }
+        }
+      })
+      .toPromise()
+      .catch((e) => {
+        console.log(`Error deleting flowchart ${id}. ${e}`);
+        return e;
+      })
   }
 
   deleteEntry(entry: FlowchartEntry): void {
-    console.log(`Deleting Entry ${entry.id} from flowchart ${this.currentFlowchartID}. User: ${UserService.getCurrentUser().email}` );
+    console.log(`Deleting Entry ${entry.id} from flowchart ${this.activeFlowchartId}. User: ${UserService.getCurrentUser().email}` );
     this.http.delete(`api/entries/${entry.id}`)
       .catch(this.handleError)
       .toPromise()
       .then(() => {
         console.log(`Deleted entry ${entry.id}. Updating Flowchart.`)
-        this.updateFlowchart();
+        this.fetchAndUpdateActiveFlowchart();
       });
     }
 
@@ -99,7 +153,7 @@ export class FlowchartService {
       .toPromise()
       .then(() => {
         console.log(`Adding Entry ${JSON.stringify(entry)}. User: ${UserService.getCurrentUser().email}` );
-        this.updateFlowchart();
+        this.fetchAndUpdateActiveFlowchart();
     });
   }
 
@@ -115,14 +169,14 @@ export class FlowchartService {
   }
 
   // TODO: Make this more clear
-  updateFlowchart() {
-    console.log('updateFlowchart');
-    if (isNullOrUndefined(this.currentFlowchartID)){
+  fetchAndUpdateActiveFlowchart() {
+    console.log('fetchAndUpdateActiveFlowchart');
+    if (isNullOrUndefined(this.activeFlowchartId)){
       this.flowchartSource.next(null); // return null flowchart
       return;
     }
 
-    this.getFlowchart(this.currentFlowchartID)
+    this.getFlowchart(this.activeFlowchartId)
       .toPromise()
       .then((flowchart) => {
         this.flowchartsMap.set(flowchart.id, flowchart); //update local map
@@ -131,28 +185,39 @@ export class FlowchartService {
   }
 
   // TODO: Make this more clear
-  updateAllFlowcharts() {
-    console.log("updateAllFlowcharts");
+  fetchAndUpdateAllFlowcharts() {
+    console.log("fetchAndUpdateAllFlowcharts");
     this.getFlowcharts()
       .toPromise()
       .then((flowcharts) => {
+        console.log(`Found ${flowcharts.length} flowcharts`);
         this.flowchartsMap = this.buildFlowchartMap(flowcharts);
 
-        if(isNullOrUndefined(this.currentFlowchartID) && flowcharts.length > 0){
-          this.currentFlowchartID = flowcharts[0].id;
+        if(isNullOrUndefined(this.activeFlowchartId) && flowcharts.length > 0){
+          this.activeFlowchartId = flowcharts[0].id;
         }
 
-        this.flowchartSource.next(this.flowchartsMap.get(this.currentFlowchartID));
-        this.flowchartsSource.next(flowcharts);
+        this.flowchartSource.next(this.flowchartsMap.get(this.activeFlowchartId));
+        this.emitAllFlowcharts();
       });
   }
 
   clearData() {
     console.log("clearing local flowchart data");
-    this.currentFlowchartID = null;
+    this.activeFlowchartId = null;
     this.flowchartsMap.clear();
     this.flowchartSource.next(null);
-    this.flowchartsSource.next(null);
+    this.emitAllFlowcharts();
+  }
+
+  private buildFlowchartMap(flowcharts: Flowchart[]): Map<number, Flowchart> {
+    let flowchartMap = new Map();
+    for (let flowchart of flowcharts)
+    {
+      flowchartMap.set(flowchart.id, flowchart);
+    }
+
+    return flowchartMap;
   }
 
   // This is a utility method

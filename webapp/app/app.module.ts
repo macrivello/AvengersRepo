@@ -49,9 +49,9 @@ const routes: Routes = [
   entryComponents: [
     CourseSearchComponent
   ],
-  providers: [UserService,
+  providers: [FlowchartService,
               LoginService,
-              FlowchartService,
+              UserService,
               CourseService,
               CourseSearchService,
               QuarterService,

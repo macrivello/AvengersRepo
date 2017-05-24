@@ -7,6 +7,7 @@ import {Observable} from 'rxjs/Observable';
 import {MdSidenav} from '@angular/material';
 import {isNullOrUndefined} from 'util';
 import {NavbarService} from './services/navbar.service';
+import {User} from './models/user.model';
 
 @Component({
   selector: 'app-root',
@@ -16,12 +17,15 @@ import {NavbarService} from './services/navbar.service';
 export class AppComponent implements OnInit {
   @ViewChild('sidenav') sideNavComponent: MdSidenav;
   allFlowcharts$: Observable<Flowchart[]>;
+  selectedFlowchartId$: Observable<number>;
+  currentUser$: Observable<User>;
 
-  constructor(private userService: UserService,
-              private flowchartService: FlowchartService,
-              private navbarService: NavbarService,
+  constructor(private flowchartService: FlowchartService,
+              private userService: UserService,
               private router: Router) {
     this.allFlowcharts$ = this.flowchartService.getAllFlowcharts();
+    this.selectedFlowchartId$ = this.flowchartService.getCurrentFlowchartId();
+    this.currentUser$ = this.userService.getCurrentUser();
   }
 
   ngOnInit(): void {
@@ -29,7 +33,7 @@ export class AppComponent implements OnInit {
     this.userService.getCurrentUser()
       .subscribe((user) => {
         if (!isNullOrUndefined(user)) { // valid user
-          this.flowchartService.updateAllFlowcharts();
+          this.flowchartService.fetchAndUpdateAllFlowcharts();
         }
       });
   }
@@ -37,6 +41,23 @@ export class AppComponent implements OnInit {
   onSideNavToggle(){
     console.log('onSideNavToggle');
     this.sideNavComponent.toggle();
-    // this.navbarService.onSideNavToggle();
+  }
+
+  onUserSignOut(){
+    console.log('onUserSignOut');
+    this.userService.logout()
+      .then(() => {
+        console.log("routing to /login");
+        this.router.navigate(['login']);
+      });
+  }
+
+  onNewFlowchart() {
+    console.log("onNewFlowchart");
+    this.flowchartService.createFlowchart()
+      .subscribe((flowchart) => {
+          this.flowchartService.setCurrentFlowchartByIDInMap(flowchart.id);
+          this.sideNavComponent.close();
+      });
   }
 }
