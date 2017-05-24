@@ -81,8 +81,27 @@ export class FlowchartService {
 
         // update list of flowcharts
         console.log(`Emitting updated list of flowcharts`);
-        this.flowchartsSource.next(Array.from(this.flowchartsMap.values()));
+        this.emitAllFlowcharts();
       }).catch((e) => `Error creating flowchart. ${e}`);
+  }
+
+  // NOTE: This only updated the flowchart name for now
+  updateFlowchart(id: number, flowchart: Flowchart): Promise<Flowchart> {
+    const attributes = {"name" : flowchart.name};
+
+    return this.http.put(`/api/flowcharts/${id}`, attributes)
+      .toPromise()
+      .then(() => {
+        console.log(`flowchart updated: ${id}`);
+        this.flowchartsMap.set(flowchart.id, flowchart); // update flowchartMap
+        this.emitAllFlowcharts(); // emit updated flowcharts so that name change can be reflected across app
+        return flowchart;
+      })
+      .catch(this.handleError)
+  }
+
+  private emitAllFlowcharts() {
+    this.flowchartsSource.next(Array.from(this.flowchartsMap.values()));
   }
 
   deleteFlowchart(id: number): Promise<any> {
@@ -95,7 +114,7 @@ export class FlowchartService {
 
         // update list of flowcharts
         console.log(`Emitting updated list of flowcharts`);
-        this.flowchartsSource.next(Array.from(this.flowchartsMap.values()));
+        this.emitAllFlowcharts();
 
         // set another flowchart as active and emit event
         if(this.activeFlowchartId === id) {
@@ -179,7 +198,7 @@ export class FlowchartService {
         }
 
         this.flowchartSource.next(this.flowchartsMap.get(this.activeFlowchartId));
-        this.flowchartsSource.next(flowcharts);
+        this.emitAllFlowcharts();
       });
   }
 
@@ -188,7 +207,7 @@ export class FlowchartService {
     this.activeFlowchartId = null;
     this.flowchartsMap.clear();
     this.flowchartSource.next(null);
-    this.flowchartsSource.next(null);
+    this.emitAllFlowcharts();
   }
 
   private buildFlowchartMap(flowcharts: Flowchart[]): Map<number, Flowchart> {
