@@ -47,11 +47,12 @@ public class FlowchartService {
         flowchartRepository.save(flowchart);
     }
 
-    public void addFlowchart(User user)
+    public Flowchart addFlowchart(User user)
     {
         Flowchart newFlowchart = new Flowchart();
+        newFlowchart.setName("New Flowchart"); //TODO We should have a better default
         newFlowchart.setUser(user);
-        flowchartRepository.save(newFlowchart);
+        return flowchartRepository.save(newFlowchart);
     }
 
     public void updateFlowchart(Long id, Flowchart flowchart)

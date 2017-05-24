@@ -10,6 +10,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { SideNavComponent } from './sidenav/sidenav.component';
 import {CourseSearchComponent} from "../components/course-search/course-search.component";
+import {MdButtonToggleModule} from '@angular/material';
+
 
 
 @NgModule({
@@ -18,13 +20,15 @@ import {CourseSearchComponent} from "../components/course-search/course-search.c
     MdSidenavModule,
     MdButtonModule,
     MdDialogModule,
+    MdButtonToggleModule
   ],
   exports: [
+    SideNavComponent,
     NavbarComponent,
     SpinnerComponent,
-    SideNavComponent,
     MdSidenavModule,
     MdButtonModule,
+    MdButtonToggleModule,
     CourseSearchComponent,
   ],
   declarations: [

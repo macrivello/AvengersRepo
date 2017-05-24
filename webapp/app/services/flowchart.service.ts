@@ -19,7 +19,6 @@ export class FlowchartService {
   private flowchartSource = new BehaviorSubject<Flowchart>(new Flowchart());
   private flowchart$ = this.flowchartSource.asObservable();
 
-
   private flowchartsSource = new BehaviorSubject<Flowchart[]> ([]);
   private flowcharts$ = this.flowchartsSource.asObservable();
 
@@ -32,16 +31,6 @@ export class FlowchartService {
       .map(response => {
         return response.json() as Flowchart[];
     })
-  }
-
-  private buildFlowchartMap(flowcharts: Flowchart[]): Map<number, Flowchart> {
-    let flowchartMap = new Map();
-    for (let flowchart of flowcharts)
-    {
-      flowchartMap.set(flowchart.id, flowchart);
-    }
-
-    return flowchartMap;
   }
 
   getCurrentFlowchart() : Observable<Flowchart>
@@ -66,6 +55,10 @@ export class FlowchartService {
     return Observable.of(this.flowchartsMap.get(this.currentFlowchartID));
   }
 
+  getCurrentFlowchartId(): Observable<number> {
+    return this.flowchartSource.map((flowchart) => isNullOrUndefined(flowchart) ? -1 : flowchart.id);
+  }
+
   getFlowchart(id : number): Observable<Flowchart> {
     return this.http.get(`api/flowcharts/${id}`)
       .map(response => {
@@ -73,11 +66,20 @@ export class FlowchartService {
       });
   }
 
-  getFirstFlowchart(): Observable<Flowchart> {
-    return this.getFlowcharts()
-      .first()
-      .flatMap((flowcharts) => {
-      return this.getFlowchart(flowcharts[0].id);
+  createFlowchart(): Observable<Flowchart> {
+    return this.http.post("api/flowcharts", {})
+      .map((response) => {
+        let flowchart = response.json() as Flowchart;
+        console.log(`Flowchart created. ID: ${flowchart.id}`);
+        return flowchart;
+      })
+      .do((flowchart) => {
+        console.log(`Adding flowchart ${flowchart.id} to flowchart map`);
+        this.flowchartsMap.set(flowchart.id, flowchart);
+
+        // update list of flowcharts
+        console.log(`Emitting updated list of flowcharts`);
+        this.flowchartsSource.next(Array.from(this.flowchartsMap.values()));
       });
   }
 
@@ -136,6 +138,7 @@ export class FlowchartService {
     this.getFlowcharts()
       .toPromise()
       .then((flowcharts) => {
+        console.log(`Found ${flowcharts.length} flowcharts`);
         this.flowchartsMap = this.buildFlowchartMap(flowcharts);
 
         if(isNullOrUndefined(this.currentFlowchartID) && flowcharts.length > 0){
@@ -153,6 +156,16 @@ export class FlowchartService {
     this.flowchartsMap.clear();
     this.flowchartSource.next(null);
     this.flowchartsSource.next(null);
+  }
+
+  private buildFlowchartMap(flowcharts: Flowchart[]): Map<number, Flowchart> {
+    let flowchartMap = new Map();
+    for (let flowchart of flowcharts)
+    {
+      flowchartMap.set(flowchart.id, flowchart);
+    }
+
+    return flowchartMap;
   }
 
   // This is a utility method

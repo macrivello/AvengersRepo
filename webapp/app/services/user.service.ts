@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import {FlowchartService} from './flowchart.service';
+import {forwardRef, Inject, Injectable} from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/toPromise';
 import {User} from '../models/user.model';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {FlowchartService} from './flowchart.service';
 
 @Injectable()
 export class UserService {
@@ -13,7 +13,8 @@ export class UserService {
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: Http,
-              private flowchartService: FlowchartService) {}
+              // http://stackoverflow.com/questions/37997824/angular-2-di-error-exception-cant-resolve-all-parameters
+              @Inject(forwardRef(() => FlowchartService)) private flowchartService: FlowchartService) {}
 
   static getCurrentUser(): User {
     return JSON.parse(localStorage.getItem('currentUser')) as User;
