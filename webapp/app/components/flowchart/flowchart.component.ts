@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import { FlowchartService } from '../../services/flowchart.service'
 import {Flowchart} from "../../models/flowchart.model";
 import {isNullOrUndefined} from 'util';
@@ -17,6 +17,7 @@ import {Observable} from 'rxjs/Observable';
 })
 export class FlowchartComponent implements OnInit, OnDestroy {
   @Input() flowchartView: FlowchartView;
+  @Output() onDeleteFlowchart = new EventEmitter();
 
   constructor(private flowchartService: FlowchartService,
               public dialog: MdDialog) {}
@@ -45,4 +46,13 @@ export class FlowchartComponent implements OnInit, OnDestroy {
     });
   }
 
+  onFlowchartEdit() {
+    console.log("onFlowchartEdit");
+  }
+
+  onFlowchartDelete(flowchartId: number) {
+    console.log("onFlowchartDelete");
+    this.onDeleteFlowchart.emit(flowchartId);
+    this.flowchartService.deleteFlowchart(flowchartId);
+  }
 }
