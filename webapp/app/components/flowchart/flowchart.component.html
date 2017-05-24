@@ -8,26 +8,38 @@
   <div class="card" *ngIf="flowchartView && flowchartView.flowchart; else empty">
 
     <div class="card-header d-flex">
-      <form [hidden]="!editTitleMode">
-        <input #flowchartTitleInput
-               autofocus
-               required minlength="1"
-                class="justify-content-lg-start mr-auto"
-               value={{flowchartView.flowchart.name}}
-               placeholder="name"
-               (blur)="onFlowchartEdit(false)"
-               (keyup)="onFlowchartNameEdit($event)">
-      </form>
-      <h4 [hidden]="editTitleMode">{{flowchartView.flowchart.name}}</h4>
-
-      <div class="justify-content-lg-end ml-auto">
-        <button md-button class="md-small" (click)="onFlowchartEdit(true)">
-          <i class="fa fa-edit fa-2x fa-fw"></i>
-        </button>
-        <button md-button class="md-small" (click)="onFlowchartDelete(flowchartView.flowchart.id)">
-          <i class="fa fa-trash fa-2x fa-fw"></i>
-        </button>
+      <div class="d-flex justify-content-lg-start mr-auto">
+          <h4 [hidden]="editTitleMode">{{flowchartView.flowchart.name}}</h4>
+          <form [hidden]="!editTitleMode">
+            <input #flowchartTitleInput
+                   autofocus
+                   required minlength="1"
+                   class="justify-content-lg-start mr-auto"
+                   value={{flowchartView.flowchart.name}}
+                   placeholder="name"
+                   (blur)="onFlowchartEdit(false)"
+                   (keyup)="onFlowchartNameEdit($event)">
+          </form>
+          <a (click)="onFlowchartEdit(true)">
+            <i class="fa fa-pencil fa-1x fa-fw"></i>
+          </a>
       </div>
+
+        <div class="d-flex justify-content-lg-end ml-auto">
+          <button md-button class="md-small" (click)="onFlowchartDelete(flowchartView.flowchart.id)">
+            <i class="fa fa-trash fa-1x fa-fw"></i>
+          </button>
+
+          <div ngbDropdown>
+            <button md-button ngbDropdownToggle class="md-small" id="addDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-plus fa-1x fa-fw"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="addDropdown">
+              <a class="dropdown-item" (click)="onAddQuarter(flowchartView.flowchart.id)">Add Quarter</a>
+              <a class="dropdown-item" (click)="onAddYear(flowchartView.flowchart.id)">Add Year</a>
+            </div>
+          </div>
+        </div>
     </div>
 
     <div class="card-block text-center">

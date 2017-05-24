@@ -11,6 +11,7 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
 import { SideNavComponent } from './sidenav/sidenav.component';
 import {CourseSearchComponent} from "../components/course-search/course-search.component";
 import {MdButtonToggleModule} from '@angular/material';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -20,7 +21,8 @@ import {MdButtonToggleModule} from '@angular/material';
     MdSidenavModule,
     MdButtonModule,
     MdDialogModule,
-    MdButtonToggleModule
+    MdButtonToggleModule,
+    NgbModule
   ],
   exports: [
     SideNavComponent,

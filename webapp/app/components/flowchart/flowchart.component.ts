@@ -92,4 +92,12 @@ export class FlowchartComponent implements OnInit, OnDestroy, OnChanges {
     this.onDeleteFlowchart.emit(flowchartId);
     this.flowchartService.deleteFlowchart(flowchartId);
   }
+
+  onAddQuarter(flowchartId: number) {
+    console.log("onAddQuarter");
+  }
+
+  onAddYear(flowchartId: number) {
+    console.log("onAddYear");
+  }
 }
