@@ -30,7 +30,7 @@ public class Course implements Serializable {
 	private Department department;
 
 	public Course() {
-		
+
 	}
 
 	public Course(int number, String title, Department department) {
@@ -92,6 +92,10 @@ public class Course implements Serializable {
 
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+
+	public String toString() {
+	  return getDepartment().getPrefix() + " " + getNumber() + " " + getTitle();
 	}
 }
 
