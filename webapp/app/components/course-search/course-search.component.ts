@@ -55,7 +55,4 @@ export class CourseSearchComponent implements OnInit {
             });
     }
 
-    onCourseSelected(course: Course){
-
-    }
 }
