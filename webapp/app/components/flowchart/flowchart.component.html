@@ -9,7 +9,10 @@
 
     <div class="card-header d-flex">
       <div class="d-flex justify-content-lg-start mr-auto">
-          <h4 [hidden]="editTitleMode">{{flowchartView.flowchart.name}}</h4>
+          <h4 [hidden]="editTitleMode"
+              (click)="onFlowchartEdit(true)">
+            {{flowchartView.flowchart.name}}
+          </h4>
           <form [hidden]="!editTitleMode">
             <input #flowchartTitleInput
                    autofocus
@@ -20,9 +23,6 @@
                    (blur)="onFlowchartEdit(false)"
                    (keyup)="onFlowchartNameEdit($event)">
           </form>
-          <a (click)="onFlowchartEdit(true)">
-            <i class="fa fa-pencil fa-1x fa-fw"></i>
-          </a>
       </div>
 
         <div class="d-flex justify-content-lg-end ml-auto">
