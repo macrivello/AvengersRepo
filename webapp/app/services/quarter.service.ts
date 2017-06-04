@@ -13,7 +13,6 @@ export class QuarterService {
   constructor(private http : Http) {}
 
   initQuarterData() {
-    console.log('init quarter data');
     this.quarters = new Map<number, Quarter>(JSON.parse(localStorage.getItem(this.QUARTER_DATA_KEY)));
 
     if (isNullOrUndefined(this.quarters)  || Object.keys(this.quarters).length === 0) {

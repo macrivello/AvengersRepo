@@ -31,7 +31,6 @@ export class HomeComponent implements OnInit, OnDestroy{
         if (isNullOrUndefined(flowchart)){
           return null;
         }
-        console.log(`HomeComponent - CurrentFlowchart: ${flowchart.id}`);
         return this.flowchartService.buildFlowchartView(flowchart);
       }).catch((err) => {
         console.log(`Error building flowchartView: ${err}`);

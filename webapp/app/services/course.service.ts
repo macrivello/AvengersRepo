@@ -39,7 +39,6 @@ export class CourseService {
     return this.http.get(`api/courses/${id}`)
       .toPromise()
       .then(response => {
-        //console.log(response.json());
         return response.json() as Course;}
       )
       .catch(this.handleError);

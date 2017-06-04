@@ -8,8 +8,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (localStorage.getItem('currentUser')) {
-      // logged in so return truemv
-      console.log('Auth Guard: Allow');
+      // logged in so return true
       return true;
     }
 
