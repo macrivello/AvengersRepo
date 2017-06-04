@@ -84,7 +84,26 @@ public class DatabaseLoader implements CommandLineRunner {
         testQuarters.add(new Quarter(Term.WINTER, 2020));
         testQuarters.add(new Quarter(Term.SPRING, 2020));
         testQuarters.add(new Quarter(Term.SUMMER, 2020));
+        testQuarters.add(new Quarter(Term.FALL, 2020));
+        testQuarters.add(new Quarter(Term.WINTER, 2021));
+        testQuarters.add(new Quarter(Term.SPRING, 2021));
+        testQuarters.add(new Quarter(Term.SUMMER, 2021));
+        testQuarters.add(new Quarter(Term.FALL, 2021));
+        testQuarters.add(new Quarter(Term.WINTER, 2022));
+        testQuarters.add(new Quarter(Term.SPRING, 2022));
+        testQuarters.add(new Quarter(Term.SUMMER, 2022));
+        testQuarters.add(new Quarter(Term.FALL, 2022));
+        testQuarters.add(new Quarter(Term.WINTER, 2023));
+        testQuarters.add(new Quarter(Term.SPRING, 2023));
+        testQuarters.add(new Quarter(Term.SUMMER, 2023));
+        testQuarters.add(new Quarter(Term.FALL, 2023));
+        testQuarters.add(new Quarter(Term.WINTER, 2024));
+        testQuarters.add(new Quarter(Term.SPRING, 2024));
+        testQuarters.add(new Quarter(Term.SUMMER, 2024));
         testQuarters.forEach(quarter -> quarterService.addQuarter(quarter));
+
+        Quarter startQuarter = quarterService.getStartOfCurrentYear();
+        Quarter endQuarter = quarterService.nextQuarter(startQuarter, 4 * 4);
 
         // Add users
         ArrayList<User> testUsers = new ArrayList<>();
@@ -105,10 +124,10 @@ public class DatabaseLoader implements CommandLineRunner {
         User jonathan = userService.getUser("jpautz@calpoly.edu");
         User staff = userService.getUser("staff@calpoly.edu");
         ArrayList<Flowchart> testFlowcharts = new ArrayList<>();
-        testFlowcharts.add(new Flowchart(michael, "My Flowchart"));
-        testFlowcharts.add(new Flowchart(jonathan, "My Flowchart"));
-        testFlowcharts.add(new Flowchart(jonathan, "My Flowchart 2"));
-        testFlowcharts.add(new Flowchart(staff, "Software Engineering"));
+        testFlowcharts.add(new Flowchart(michael, "My Flowchart", startQuarter, endQuarter));
+        testFlowcharts.add(new Flowchart(jonathan, "My Flowchart", startQuarter, endQuarter));
+        testFlowcharts.add(new Flowchart(jonathan, "My Flowchart 2", startQuarter, endQuarter));
+        testFlowcharts.add(new Flowchart(staff, "Software Engineering", startQuarter, endQuarter));
         testFlowcharts.forEach(flowchart -> flowchartService.addFlowchart(flowchart));
 
         // Add courses
@@ -242,7 +261,7 @@ public class DatabaseLoader implements CommandLineRunner {
         testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry II"), staffFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
         testEntries.add(new Entry(courseService.getCourseByTitle("Calculus III"), staffFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
         testEntries.add(new Entry(courseService.getCourseByTitle("Bioengineering Fundamentals"), staffFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
-        
+
         testEntries.forEach(entry -> entryService.addEntry(entry));
     }
 }

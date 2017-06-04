@@ -27,7 +27,8 @@ export class FlowchartComponent implements OnInit, OnDestroy, OnChanges {
   constructor(private flowchartService: FlowchartService,
               public dialog: MdDialog) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   ngOnDestroy(){}
 
@@ -93,11 +94,11 @@ export class FlowchartComponent implements OnInit, OnDestroy, OnChanges {
     this.flowchartService.deleteFlowchart(flowchartId);
   }
 
-  onAddQuarter(flowchartId: number) {
+  onAddQuarter() {
     console.log("onAddQuarter");
   }
 
-  onAddYear(flowchartId: number) {
+  onAddYear() {
     console.log("onAddYear");
   }
 }

@@ -8,6 +8,9 @@ import {MdSidenav} from '@angular/material';
 import {isNullOrUndefined} from 'util';
 import {NavbarService} from './services/navbar.service';
 import {User} from './models/user.model';
+import {QuarterService} from './services/quarter.service';
+import {Quarter} from './models/quarter.model';
+import {CourseService} from './services/course.service';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +25,8 @@ export class AppComponent implements OnInit {
 
   constructor(private flowchartService: FlowchartService,
               private userService: UserService,
+              private quarterService: QuarterService,
+              private courseService: CourseService,
               private router: Router) {
     this.allFlowcharts$ = this.flowchartService.getAllFlowcharts();
     this.selectedFlowchartId$ = this.flowchartService.getCurrentFlowchartId();
@@ -36,6 +41,9 @@ export class AppComponent implements OnInit {
           this.flowchartService.fetchAndUpdateAllFlowcharts();
         }
       });
+
+    this.quarterService.initQuarterData();
+    this.courseService.initCourseData();
   }
 
   onSideNavToggle(){

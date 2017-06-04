@@ -31,6 +31,8 @@
               <i class="fa fa-gear fa-1x fa-fw"></i>
             </button>
             <div class="dropdown-menu" aria-labelledby="editDropdown">
+              <a class="dropdown-item" (click)="onFlowchartEdit(true)">Rename</a>
+              <div class="dropdown-divider"></div>
               <a class="dropdown-item" (click)="onAddQuarter(flowchartView.flowchart.id)">Add Quarter</a>
               <a class="dropdown-item" (click)="onAddYear(flowchartView.flowchart.id)">Add Year</a>
               <div class="dropdown-divider"></div>
