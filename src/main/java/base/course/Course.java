@@ -32,9 +32,7 @@ public class Course implements Serializable {
 	@JoinColumn(name = "department_id")
 	private Department department;
 
-	public Course() {
-
-	}
+	public Course() {}
 
 	public Course(String number, String title, String description, Department department) {
 		this.number = number;
@@ -90,6 +88,10 @@ public class Course implements Serializable {
 
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+
+	public String toString() {
+	  return getDepartment().getPrefix() + " " + getNumber() + " " + getTitle();
 	}
 }
 
