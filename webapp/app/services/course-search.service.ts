@@ -10,14 +10,9 @@ import { Course }                   from '../models/course.model';
 export class CourseSearchService {
     constructor( private http: Http) {}
 
-    private courseString(o: Object): string {
-      let c: Course = o as Course;
-      return c.department.prefix + " " + c.number + " " + c.title;
-    }
-
     search(term: string): Observable<Course[]> {
       return this.http
-        .get("/api/courses")
-        .map(response => response.json().filter(c => this.courseString(c).toLowerCase().indexOf(term.toLowerCase()) >= 0) as Course[]);
+        .get(`/api/courses?term=${term}`)
+        .map(response => response.json() as Course[]);
     }
 }
