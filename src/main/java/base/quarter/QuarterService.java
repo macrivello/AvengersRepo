@@ -1,5 +1,6 @@
 package base.quarter;
 
+import base.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class QuarterService {
                 return q;
             }
         }
-        return null;
+        throw new IllegalArgumentException("No quarter available for : " + termYear);
     }
 
     public void addQuarter(Quarter quarter)
@@ -64,5 +65,19 @@ public class QuarterService {
     {
         quarterRepository.deleteAll();
     }
-    
+
+    public Quarter getStartOfCurrentYear(){
+      return getQuarterByTermAndYear(Application.CURRENT_YEAR_AND_TERM);
+    }
+
+    public Quarter nextQuarter(Quarter startQuarter, int numberOfQuartersInTheFuture) {
+      int startingYear = startQuarter.getYear();
+      Term startingTerm = startQuarter.getTerm();
+
+      int years = numberOfQuartersInTheFuture / 4;
+      int additionalQuarters = numberOfQuartersInTheFuture % 4;
+
+      Term endTerm = Term.fromValue((startingTerm.getValue() + additionalQuarters) % 4);
+      return getQuarterByTermAndYear(endTerm.name() + (startingYear + years));
+    }
 }

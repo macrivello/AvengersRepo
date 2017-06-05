@@ -6,6 +6,7 @@ import {FlowchartService} from '../../services/flowchart.service';
 import {NavbarService} from '../../services/navbar.service';
 import {Subscription} from 'rxjs/Subscription';
 import {FlowchartView} from '../../models/flowchart-view.model';
+import {isNullOrUndefined} from 'util';
 
 @Component({
   selector: 'app-home',
@@ -21,13 +22,21 @@ export class HomeComponent implements OnInit, OnDestroy{
               private navbarService: NavbarService) {
 
     this.navBarEvent$ = this.navbarService.getNavbarEvent$();
-    this.currentFlowchartView$ = this.flowchartService.getCurrentFlowchart().map((flowchart) => {
-      return FlowchartService.buildFlowchartView(flowchart);
-    });
   }
 
 
   ngOnInit(): void {
+    this.currentFlowchartView$ = this.flowchartService.getCurrentFlowchart()
+      .map((flowchart) => {
+        if (isNullOrUndefined(flowchart)){
+          return null;
+        }
+        return this.flowchartService.buildFlowchartView(flowchart);
+      }).catch((err) => {
+        console.log(`Error building flowchartView: ${err}`);
+        return Observable.throw(new Error(err.status));
+      });
+
     // toggle sidenav on navbar event.
     this.navBarEventSubscription = this.navBarEvent$.map(() => {
       //navbar events
