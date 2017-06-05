@@ -15,8 +15,11 @@ public class Course implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private int number;
+	private String number;
 	private String title;
+
+	@Column(length = 1024)
+	private String description;
 
 	@JsonIgnore // dont need to serialize entries
 	@JsonIgnoreProperties("course")
@@ -30,19 +33,13 @@ public class Course implements Serializable {
 	private Department department;
 
 	public Course() {
-		
+
 	}
 
-	public Course(int number, String title, Department department) {
+	public Course(String number, String title, String description, Department department) {
 		this.number = number;
 		this.title = title;
-		this.department = department;
-	}
-
-	public Course(Long id, int number, String title, Department department) {
-		this.id = id;
-		this.number = number;
-		this.title = title;
+		this.description = description;
 		this.department = department;
 	}
 
@@ -50,7 +47,8 @@ public class Course implements Serializable {
 		this.id = course.id;
 		this.number = course.number;
 		this.title = course.title;
-		this.entries = course.entries;
+    this.description = course.description;
+    this.entries = course.entries;
 		this.department = course.department;
 	}
 
@@ -62,11 +60,11 @@ public class Course implements Serializable {
 		this.id = id;
 	}
 
-	public int getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
