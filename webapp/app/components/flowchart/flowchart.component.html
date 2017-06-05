@@ -1,11 +1,11 @@
-<div class="container-fluid d-flex">
+<div class="container-fluid flowchart-container">
   <ng-template #empty>
     <div class="d-flex justify-content-center">
       You have no flowcharts.
    </div>
   </ng-template>
 
-  <div class="card" *ngIf="flowchartView && flowchartView.flowchart; else empty">
+  <div class="card flowchart" *ngIf="flowchartView && flowchartView.flowchart; else empty">
 
     <div class="card-header d-flex">
       <div class="d-flex justify-content-lg-start mr-auto">
@@ -42,12 +42,12 @@
         </div>
     </div>
 
-    <div class="card-block text-center">
-      <div class="row">
-        <div *ngFor="let quarter of flowchartView.quarters" >
-          <app-quarter [quarterView]="quarter" (addCourseClicked)="openAddCourseDialog($event)"></app-quarter>
+    <div class="card-block text-center quarter-container">
+        <div *ngFor="let quarter of flowchartView.quarters; let i = index" >
+          <div class="quarter">
+            <app-quarter [quarterView]="quarter" (addCourseClicked)="openAddCourseDialog($event)"></app-quarter>
+          </div>
         </div>
-      </div>
     </div>
 
   </div>
