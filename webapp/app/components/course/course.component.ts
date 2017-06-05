@@ -21,4 +21,5 @@ export class CourseComponent implements OnInit {
     console.log(`OnCourseRemove: ${entry.id}`);
     this.flowchartService.deleteEntry(entry);
   }
+
 }
