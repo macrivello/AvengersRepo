@@ -46,7 +46,7 @@ const routes: Routes = [
     FormsModule,
     CoreModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, {useHash: true})
   ],
   entryComponents: [
     CourseSearchComponent
