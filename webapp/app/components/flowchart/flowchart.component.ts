@@ -11,6 +11,7 @@ import {CourseSearchComponent} from '../course-search/course-search.component';
 import {FlowchartEntryCompact} from '../../models/flowchart-entry.model';
 import {FlowchartView} from '../../models/flowchart-view.model';
 import {Observable} from 'rxjs/Observable';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-flowchart',
@@ -34,6 +35,10 @@ export class FlowchartComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges() {
     this.editTitleMode = false;
+  }
+
+  isCurrentUserAdmin() {
+    return UserService.isCurrentUserAdmin();
   }
 
   openAddCourseDialog(quarter: Quarter) {
