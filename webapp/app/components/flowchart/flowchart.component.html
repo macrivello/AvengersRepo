@@ -8,7 +8,7 @@
   <div class="card flowchart" *ngIf="flowchartView && flowchartView.flowchart; else empty">
 
     <div class="card-header d-flex">
-      <div class="d-flex justify-content-lg-start mr-auto">
+      <div class="d-flex justify-content-lg-start mr-auto pt-1 pl-2">
           <h4 [hidden]="editTitleMode"
               (click)="onFlowchartEdit(true)">
             {{flowchartView.flowchart.name}}
