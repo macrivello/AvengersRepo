@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 import java.util.List;
+import java.util.stream.StreamSupport;
+
 @Service
 public class CourseService {
-	
+
 	@Autowired
 	private CourseRepository courseRepository;
 
@@ -16,7 +19,13 @@ public class CourseService {
 		courseRepository.findAll().forEach(courses::add);
 		return courses;
 	}
-	
+
+	public List<Course> getCoursesBySearchTerm(String term) {
+	  return StreamSupport.stream(courseRepository.findAll().spliterator(), true)
+      .filter(c -> c.toString().toLowerCase().contains(term.toLowerCase()))
+      .collect(Collectors.toList());
+  }
+
 	public Course getCourse(Long id) {
 		return courseRepository.findOne(id);
 	}
@@ -25,12 +34,12 @@ public class CourseService {
 	{
 		return courseRepository.findCourseByTitle(title);
 	}
-	
+
 	public void addCourse(Course course)
 	{
 		courseRepository.save(course);
 	}
-	
+
 	public void updateCourse(Long id, Course course)
 	{
 		Course temp = courseRepository.findOne(id);
@@ -46,7 +55,7 @@ public class CourseService {
 			courseRepository.save(temp);
 		}
 	}
-	
+
 	public void deleteCourse(Long id)
 	{
 		courseRepository.delete(id);

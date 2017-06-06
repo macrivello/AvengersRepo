@@ -19,13 +19,13 @@ public class CourseController {
 	private DepartmentService departmentService;
 
 	@RequestMapping("courses")
-	public List<Course> getAllCourses(@RequestParam(value="dept", required = false) String dept) {
-		if (!StringUtils.isEmpty(dept)) {
-			Department department = departmentService.getDepartmentByName(dept.toUpperCase());
-			return department != null ? department.getCourses() : Collections.emptyList();
+	public List<Course> getAllCourses(@RequestParam(value="term", required = false) String term) {
+		if (!StringUtils.isEmpty(term)) {
+			return courseService.getCoursesBySearchTerm(term);
 		}
-
-		return courseService.getAllCourses();
+    else {
+      return courseService.getAllCourses();
+    }
 	}
 
 	@RequestMapping("courses/{id}")

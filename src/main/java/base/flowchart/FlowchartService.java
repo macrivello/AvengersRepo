@@ -1,5 +1,7 @@
 package base.flowchart;
 
+import base.quarter.Quarter;
+import base.quarter.QuarterService;
 import base.user.User;
 import base.user.UserRepository;
 import org.apache.commons.logging.Log;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +21,10 @@ public class FlowchartService {
 
     @Autowired
     private FlowchartRepository flowchartRepository;
+
+    @Autowired
+    private QuarterService quarterService;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -57,6 +64,13 @@ public class FlowchartService {
         Flowchart newFlowchart = new Flowchart();
         newFlowchart.setName("New Flowchart"); //TODO We should have a better default
         newFlowchart.setUser(user);
+
+        // TODO we should allow the user to pass in the starting quarter
+        Quarter quarter = quarterService.getStartOfCurrentYear();
+        newFlowchart.setFirstQuarter(quarter);
+        // Add 4 years by default
+        newFlowchart.setLastQuarter(quarterService.nextQuarter(quarter, 4 * 4));
+        newFlowchart.setEntries(Collections.emptyList());
         return flowchartRepository.save(newFlowchart);
     }
 

@@ -6,6 +6,8 @@ import 'rxjs/add/operator/toPromise';
 import {User} from '../models/user.model';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {isNullOrUndefined} from 'util';
+import {RoleType} from '../models/role-type';
 
 @Injectable()
 export class UserService {
@@ -18,6 +20,23 @@ export class UserService {
 
   static getCurrentUser(): User {
     return JSON.parse(localStorage.getItem('currentUser')) as User;
+  }
+
+  static isCurrentUserAdmin(): boolean {
+    if (isNullOrUndefined(UserService.getCurrentUser())) {
+      return false;
+    }
+
+    // comparing enums in typescript is a pain
+    let user = UserService.getCurrentUser();
+    let roles = user.roles;
+
+    for (var i = 0; i < roles.length; i++) {
+      if (roles[i].toString() === "CATALOG_ADMIN") {
+        return true;
+      }
+    }
+    return false;
   }
 
   getCurrentUser(): Observable<User> {

@@ -20,7 +20,12 @@ export class LoginComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userService.logout()
+      .then(() => {
+        console.log("User signed out");
+      });
+  }
 
   onSubmit() {
     this.userService.login(this.data.username, this.data.password).subscribe(() => {
