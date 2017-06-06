@@ -10,29 +10,32 @@
         <h4>PolyPath</h4>
       </span>
     </div>
-  <div *ngIf="currentUser">
-    <hr>
-      <div class="row justify-content-center p-1">
-        <button md-raised-button
-                class="sidenav-button"
-                (click)="onNewFlowchart()">
-          Create New Flowchart
-        </button>
-      </div>
+  <div *ngIf="currentUser" >
     <hr>
     <div class="sidenav-title">
       <span class="navbar-title">
-        <h4>Flowcharts</h4>
+        <h5 class="pl-1">Flowcharts</h5>
       </span>
     </div>
-    <div *ngFor="let flowchart of flowcharts"
-         class="row justify-content-center p-1">
-      <!--TODO: set selected state on active button 'flowchart.id === selectedFlowchartId' -->
-        <button   md-raised-button
+    <div class="row justify-content-center">
+      <div class="btn-group-vertical mt-2 mb-2">
+        <!--TODO: set selected state on active button 'flowchart.id === selectedFlowchartId' -->
+          <button *ngFor="let flowchart of flowcharts"
+                  md-raised-button
                   class="sidenav-button"
+                  [class.activeButton]="selectedFlowchartId === flowchart.id"
                   (click)="onFlowchartSelected(flowchart.id)">
-          {{flowchart.name}}
-        </button>
+            {{flowchart.name}}
+          </button>
+      </div>
+    </div>
+    <hr>
+    <div class="row justify-content-center p-1">
+      <button md-raised-button
+              class="sidenav-button md-small"
+              (click)="onNewFlowchart()">
+        Create New Flowchart
+      </button>
     </div>
   </div>
 </div>
