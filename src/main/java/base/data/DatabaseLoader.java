@@ -16,8 +16,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -44,7 +44,7 @@ public class DatabaseLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
       ObjectMapper objectMapper = new ObjectMapper();
-      List<CatalogCourse> catalogCourseList = objectMapper.readValue(new ClassPathResource("data/courses.json").getFile(), new TypeReference<List<CatalogCourse>>(){});
+      List<CatalogCourse> catalogCourseList = objectMapper.readValue(ResourceUtils.getURL("src/main/resources/data/courses.json").openStream(), new TypeReference<List<CatalogCourse>>(){});
 
       for (CatalogCourse catalogCourse : catalogCourseList){
         //check if department exists, if not create it
