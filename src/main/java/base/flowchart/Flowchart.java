@@ -4,6 +4,7 @@ import base.entry.Entry;
 import base.quarter.Quarter;
 import base.user.User;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -38,6 +39,9 @@ public class Flowchart {
 
     @OneToOne
     private Quarter lastQuarter;
+
+    @JsonIgnore
+    private boolean isOfficial = false;
 
     public Flowchart(){}
 
@@ -104,4 +108,12 @@ public class Flowchart {
     public void setLastQuarter(Quarter lastQuarter) {
       this.lastQuarter = lastQuarter;
     }
+
+  public boolean isOfficial() {
+    return isOfficial;
+  }
+
+  public void setOfficial(boolean official) {
+    isOfficial = official;
+  }
 }

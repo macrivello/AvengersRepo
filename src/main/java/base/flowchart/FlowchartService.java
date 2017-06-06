@@ -104,4 +104,13 @@ public class FlowchartService {
         flowchartRepository.deleteAll();
     }
 
+    public void publishFlowchart(Long id) {
+      Flowchart flowchart = flowchartRepository.findOne(id);
+      flowchart.setOfficial(true);
+      flowchartRepository.save(flowchart);
+    }
+
+    public List<Flowchart> getOfficialFlowcharts() {
+      return flowchartRepository.findByIsOfficial(true);
+    }
 }

@@ -37,7 +37,7 @@
               <a class="dropdown-item" (click)="onAddYear(flowchartView.flowchart.id)">Add Year</a>
               <div class="dropdown-divider"></div>
               <div *ngIf="isCurrentUserAdmin()">
-                <a class="dropdown-item">Publish Flowchart</a>
+                <a class="dropdown-item" (click)="onPublishFlowchart(flowchartView.flowchart.id)">Publish Flowchart</a>
                 <div class="dropdown-divider"></div>
               </div>
               <a class="dropdown-item" (click)="onFlowchartDelete(flowchartView.flowchart.id)"><i class="fa fa-trash fa-1x fa-fw"></i>Delete</a>

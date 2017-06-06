@@ -39,6 +39,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .authorizeRequests()
           .antMatchers(HttpMethod.GET, "/api/courses/**").permitAll() // to allow for course search
           .antMatchers(HttpMethod.GET, "/api/quarters/**").permitAll() // to allow for quarters data
+          .antMatchers(HttpMethod.GET, "/api/flowcharts/official").permitAll() // to allow for quarters data
+          .antMatchers("/api/flowcharts/**/publish").hasRole("CATALOG_ADMIN")
           .antMatchers("/api/**").authenticated()  // We only need to protect the api routes
           .anyRequest().permitAll();
 

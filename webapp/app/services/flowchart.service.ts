@@ -274,4 +274,10 @@ export class FlowchartService {
     console.log(`buildFlowchartView`);
     return {flowchart: flowchart, quarters: this.parseQuarters(flowchart)};
   }
+
+  publishFlowchart(flowchartId: number): Promise<any> {
+    return this.http.get(`api/flowcharts/${flowchartId}/publish`)
+      .toPromise()
+      .catch(this.handleError);
+  }
 }

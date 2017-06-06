@@ -45,4 +45,13 @@ public class FlowchartController {
         flowchartService.deleteFlowchart(id);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "flowcharts/{id}/publish")
+    public void publishFlowchart(@PathVariable Long id) {
+      flowchartService.publishFlowchart(id);
+    }
+
+    @RequestMapping("flowcharts/official")
+    public List<Flowchart> getOfficialFlowcharts(){
+      return flowchartService.getOfficialFlowcharts();
+    }
 }
