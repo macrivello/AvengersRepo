@@ -30,12 +30,16 @@
             <button md-button ngbDropdownToggle class="md-small" id="editDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-gear fa-1x fa-fw"></i>
             </button>
-            <div class="dropdown-menu" aria-labelledby="editDropdown">
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="editDropdown">
               <a class="dropdown-item" (click)="onFlowchartEdit(true)">Rename</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" (click)="onAddQuarter(flowchartView.flowchart.id)">Add Quarter</a>
               <a class="dropdown-item" (click)="onAddYear(flowchartView.flowchart.id)">Add Year</a>
               <div class="dropdown-divider"></div>
+              <div *ngIf="isCurrentUserAdmin()">
+                <a class="dropdown-item">Publish Flowchart</a>
+                <div class="dropdown-divider"></div>
+              </div>
               <a class="dropdown-item" (click)="onFlowchartDelete(flowchartView.flowchart.id)"><i class="fa fa-trash fa-1x fa-fw"></i>Delete</a>
             </div>
           </div>
