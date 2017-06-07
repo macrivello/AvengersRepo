@@ -162,15 +162,19 @@ export class FlowchartService {
       .catch(this.handleError)
       .toPromise()
       .then(() => {
-        console.log(`Adding Entry ${JSON.stringify(entry)}. User: ${UserService.getCurrentUser().email}` );
+        console.log(`Added Entry ${JSON.stringify(entry)}. User: ${UserService.getCurrentUser().email}` );
         this.fetchAndUpdateActiveFlowchart();
     });
   }
 
-  updateEntry(id: number, entry: FlowchartEntry): Observable<void> {
+  updateEntry(id: number, entry: FlowchartEntryCompact): Promise<void> {
+    console.log(`Updating Entry ${JSON.stringify(entry)}. User: ${UserService.getCurrentUser().email}` );
     return this.http.put(`api/entries/${id}`, entry)
-      .map(() => console.log(`Updated entry ${id}`))
-      .catch(this.handleError);
+      .toPromise()
+      .then(() => {
+        console.log(`Updated Entry ${JSON.stringify(entry)}. User: ${UserService.getCurrentUser().email}` );
+        this.fetchAndUpdateActiveFlowchart();
+      });
   }
 
   private handleError(error: any): Promise<any> {

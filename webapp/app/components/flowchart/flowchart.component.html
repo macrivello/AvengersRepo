@@ -52,7 +52,10 @@
     <div class="card-block text-center quarter-container">
         <div *ngFor="let quarter of flowchartView.quarters;" >
           <div class="quarter">
-            <app-quarter [quarterView]="quarter" (addCourseClicked)="openAddCourseDialog($event)"></app-quarter>
+            <app-quarter [quarterView]="quarter"
+                         (addCourseClicked)="openAddCourseDialog($event)"
+                          (onCourseDropped)="onUpdateEntry($event)">
+            </app-quarter>
           </div>
         </div>
     </div>

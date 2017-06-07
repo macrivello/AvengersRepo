@@ -4,15 +4,23 @@
   <!--<div class="col-lg-12">-->
   <!--<div class="d-flex">-->
     <div class="card m-1">
-      <div class="card-block" style="min-height: 65vh; position: relative;">
+      <div dnd-droppable
+           (onDropSuccess)="onDropSuccess($event)"
+           (onDragEnter)="onDragEnter($event)"
+           (onDragOver)="onDragOver($event)"
+           (onDragLeave)="onDragLeave($event)"
+           class="card-block" style="min-height: 65vh; position: relative;">
+
 
         <div class="card-title">
           <h5>{{quarter.term}} {{quarter.year}}</h5>
           <hr>
         </div>
 
-        <div class="card-text">
-          <app-course *ngFor="let entry of quarterView.entries" [entry]="entry"></app-course>
+        <div class="card-text h-100">
+          <div dnd-draggable [dragData]="entry" *ngFor="let entry of quarterView.entries" >
+            <app-course [entry]="entry"></app-course>
+          </div>
         </div>
       </div>
       <div class="card-footer" >
