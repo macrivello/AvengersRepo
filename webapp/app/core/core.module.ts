@@ -1,6 +1,6 @@
 import {NgModule, Optional, SkipSelf} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MdButtonModule, MdDialog, MdDialogModule, MdSidenavModule} from '@angular/material';
+import {MdButtonModule, MdDialog, MdDialogModule, MdSelectModule, MdSidenavModule} from '@angular/material';
 
 
 import { LoggerService } from './logger.service';
@@ -30,6 +30,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     MdAutocompleteModule,
     MdInputModule,
     ReactiveFormsModule,
+    MdSelectModule,
     NgbModule
   ],
   exports: [
@@ -41,6 +42,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     MdButtonToggleModule,
     CourseSearchComponent,
     MdAutocompleteModule,
+    MdSelectModule,
     ReactiveFormsModule,
     MdInputModule
   ],

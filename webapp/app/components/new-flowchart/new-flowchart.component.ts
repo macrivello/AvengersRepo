@@ -14,27 +14,13 @@ import {MdDialogRef} from '@angular/material';
   styleUrls: ['./new-flowchart.component.css']
 })
 export class NewFlowchartComponent implements OnInit {
-  flowchartCtrl: FormControl;
-  filteredFlowcharts: any;
   flowcharts: FlowchartCompact[];
   loading: boolean;
 
-  selectedFlowchart: FlowchartCompact;
+  selectedFlowchartId: number;
 
   constructor(public dialogRef: MdDialogRef<NewFlowchartComponent>,
-              private flowchartService: FlowchartService,
-              private flowchartSearchService: FlowchartSearchService) {
-    this.flowchartCtrl = new FormControl();
-    this.filteredFlowcharts = this.flowchartCtrl.valueChanges
-      .startWith(null)
-      .map(name => this.filterFlowcharts(name));
-
-    // TODO this is hacky. Having trouble getting id from selected flowchart in autocomplete
-    this.flowchartCtrl.valueChanges.subscribe(value => {
-      if (typeof value === 'object') {
-        this.selectedFlowchart = value;
-      }
-    })
+              private flowchartService: FlowchartService) {
   }
 
   ngOnInit() {
@@ -47,12 +33,4 @@ export class NewFlowchartComponent implements OnInit {
     });
   }
 
-  filterFlowcharts(val: string) {
-    return val ? this.flowcharts.filter(f => new RegExp(`^${val}`, 'gi').test(f.name))
-      : this.flowcharts;
-  }
-
-  flowchartName(flowchart: FlowchartCompact): string {
-    return flowchart ? flowchart.name : "";
-  }
 }
