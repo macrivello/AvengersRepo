@@ -1,6 +1,7 @@
 package base.flowchart;
 
 import base.entry.Entry;
+import base.entry.EntryService;
 import base.quarter.Quarter;
 import base.quarter.QuarterService;
 import base.user.User;
@@ -9,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -25,6 +27,9 @@ public class FlowchartService {
 
     @Autowired
     private QuarterService quarterService;
+
+    @Autowired
+    private EntryService entryService;
 
     @Autowired
     private UserRepository userRepository;
@@ -60,6 +65,7 @@ public class FlowchartService {
         flowchartRepository.save(flowchart);
     }
 
+    @Transactional
     public Flowchart addFlowchart(User user, String name, String templateFlowchartId)
     {
         Long id = null;
@@ -87,8 +93,12 @@ public class FlowchartService {
             // copy entries
             List<Entry> entries = new ArrayList<>();
             templateFlowchart.getEntries().forEach(entry -> {
-              entries.add(new Entry(entry.getCourse(), newFlowchart, entry.getQuarter()));
+              Entry e = new Entry(entry.getCourse(), newFlowchart, entry.getQuarter());
+              entryService.addEntry(e);
+              entries.add(e);
             });
+
+
             newFlowchart.setEntries(entries);
             newFlowchart.setFirstQuarter(templateFlowchart.getFirstQuarter());
             newFlowchart.setLastQuarter(templateFlowchart.getLastQuarter());
