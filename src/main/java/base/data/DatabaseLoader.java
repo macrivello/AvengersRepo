@@ -98,11 +98,13 @@ public class DatabaseLoader implements CommandLineRunner {
 
         // Add users
         ArrayList<User> testUsers = new ArrayList<>();
+        testUsers.add(new User("Gudrun", "Socher", "gsocher@calpoly.edu", "password"));
         testUsers.add(new User("Michael", "Crivello", "macrivel@calpoly.edu", "password1"));
         testUsers.add(new User("Jonathan", "Pautz", "jpautz@calpoly.edu", "password2"));
         testUsers.add(new User("Matt", "Jimenez", "mpjimene@calpoly.edu", "password3"));
         testUsers.add(new User("Bryce", "Vonilten", "bvonilte@calpoly.edu", "password4"));
         testUsers.add(new User("Miguel", "Duran", "mduran@calpoly.edu", "password5"));
+
 
         Set<RoleType> staffRoles = new HashSet<>();
         staffRoles.add(RoleType.CATALOG_ADMIN);
