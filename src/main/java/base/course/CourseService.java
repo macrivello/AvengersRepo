@@ -50,6 +50,7 @@ public class CourseService {
 			temp.setId(course.getId());
 			temp.setNumber(course.getNumber());
 			temp.setTitle(course.getTitle());
+			temp.setUnits(course.getUnits());
 			temp.getDepartment().setId(course.getDepartment().getId());
 			temp.getDepartment().setPrefix(course.getDepartment().getPrefix());
 			courseRepository.save(temp);

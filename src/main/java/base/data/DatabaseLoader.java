@@ -54,37 +54,37 @@ public class DatabaseLoader implements CommandLineRunner {
           departmentService.addDepartment(dept);
         }
         //add course to list
-        courseService.addCourse(new Course(catalogCourse.getSuffix(), catalogCourse.getTitle(), catalogCourse.getDescription(), dept));
+        courseService.addCourse(new Course(catalogCourse.getSuffix(), catalogCourse.getTitle(), catalogCourse.getDescription(), catalogCourse.getUnits(), dept));
       }
 
       Department department = new Department("GE");
       departmentService.addDepartment(department);
-      courseService.addCourse(new Course("A1", "General Education A1", "", department));
-      courseService.addCourse(new Course("A2", "General Education A2", "", department));
-      courseService.addCourse(new Course("A3", "General Education A3", "", department));
+      courseService.addCourse(new Course("A1", "General Education A1", "", "1-4", department));
+      courseService.addCourse(new Course("A2", "General Education A2", "", "1-4", department));
+      courseService.addCourse(new Course("A3", "General Education A3", "", "1-4", department));
 
-      courseService.addCourse(new Course("B1", "General Education B1", "", department));
-      courseService.addCourse(new Course("B2", "General Education B2", "", department));
-      courseService.addCourse(new Course("B3", "General Education B3", "", department));
-      courseService.addCourse(new Course("B4", "General Education B4", "", department));
-      courseService.addCourse(new Course("B5", "General Education B5", "", department));
-      courseService.addCourse(new Course("B6", "General Education B6", "", department));
+      courseService.addCourse(new Course("B1", "General Education B1", "", "1-4", department));
+      courseService.addCourse(new Course("B2", "General Education B2", "", "1-4", department));
+      courseService.addCourse(new Course("B3", "General Education B3", "", "1-4", department));
+      courseService.addCourse(new Course("B4", "General Education B4", "", "1-4", department));
+      courseService.addCourse(new Course("B5", "General Education B5", "", "1-4", department));
+      courseService.addCourse(new Course("B6", "General Education B6", "", "1-4", department));
 
-      courseService.addCourse(new Course("C1", "General Education C1", "", department));
-      courseService.addCourse(new Course("C2", "General Education C2", "", department));
-      courseService.addCourse(new Course("C3", "General Education C3", "", department));
-      courseService.addCourse(new Course("C4", "General Education C4", "", department));
-      courseService.addCourse(new Course("C5", "General Education C5", "", department));
+      courseService.addCourse(new Course("C1", "General Education C1", "", "1-4", department));
+      courseService.addCourse(new Course("C2", "General Education C2", "", "1-4", department));
+      courseService.addCourse(new Course("C3", "General Education C3", "", "1-4", department));
+      courseService.addCourse(new Course("C4", "General Education C4", "", "1-4", department));
+      courseService.addCourse(new Course("C5", "General Education C5", "", "1-4", department));
 
-      courseService.addCourse(new Course("D1", "General Education D1", "", department));
-      courseService.addCourse(new Course("D2", "General Education D2", "", department));
-      courseService.addCourse(new Course("D3", "General Education D3", "", department));
-      courseService.addCourse(new Course("D4", "General Education D4", "", department));
-      courseService.addCourse(new Course("D5", "General Education D5", "", department));
+      courseService.addCourse(new Course("D1", "General Education D1", "", "1-4", department));
+      courseService.addCourse(new Course("D2", "General Education D2", "", "1-4", department));
+      courseService.addCourse(new Course("D3", "General Education D3", "", "1-4", department));
+      courseService.addCourse(new Course("D4", "General Education D4", "", "1-4", department));
+      courseService.addCourse(new Course("D5", "General Education D5", "", "1-4", department));
 
       department = new Department("TECH");
       departmentService.addDepartment(department);
-      courseService.addCourse(new Course("", "Technical Elective", "", department));
+      courseService.addCourse(new Course("", "Technical Elective", "", "1-4", department));
 
 
       // Add Quarters
