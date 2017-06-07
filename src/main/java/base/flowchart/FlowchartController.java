@@ -31,8 +31,10 @@ public class FlowchartController {
     }
 
     @RequestMapping(method= RequestMethod.POST, value="flowcharts")
-    public Flowchart addFlowchart(@CurrentUser User user) {
-        return flowchartService.addFlowchart(user);
+    public Flowchart addFlowchart(@CurrentUser User user, @RequestBody Map<String, String> attributes) {
+        String name = attributes.get("name");
+        String flowchartId = attributes.get("templateId");
+        return flowchartService.addFlowchart(user, name, flowchartId);
     }
 
     @RequestMapping(method=RequestMethod.PUT, value="flowcharts/{id}")
@@ -45,4 +47,13 @@ public class FlowchartController {
         flowchartService.deleteFlowchart(id);
     }
 
+    @RequestMapping(method = RequestMethod.PUT, value = "flowcharts/{id}/publish")
+    public void publishFlowchart(@PathVariable Long id, @RequestBody String markOfficial) {
+      flowchartService.publishFlowchart(id, Boolean.parseBoolean(markOfficial));
+    }
+
+    @RequestMapping("flowcharts/official")
+    public List<FlowchartCompact> getOfficialFlowcharts(){
+      return flowchartService.getOfficialFlowcharts();
+    }
 }

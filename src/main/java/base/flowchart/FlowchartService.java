@@ -1,5 +1,8 @@
 package base.flowchart;
 
+import base.entry.Entry;
+import base.quarter.Quarter;
+import base.quarter.QuarterService;
 import base.user.User;
 import base.user.UserRepository;
 import org.apache.commons.logging.Log;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +22,10 @@ public class FlowchartService {
 
     @Autowired
     private FlowchartRepository flowchartRepository;
+
+    @Autowired
+    private QuarterService quarterService;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -52,11 +60,47 @@ public class FlowchartService {
         flowchartRepository.save(flowchart);
     }
 
-    public Flowchart addFlowchart(User user)
+    public Flowchart addFlowchart(User user, String name, String templateFlowchartId)
     {
+        Long id = null;
+        try {
+          id = Long.parseUnsignedLong(templateFlowchartId);
+        } catch (NumberFormatException ne) {
+          logger.error("Invalid flowchartID: " + templateFlowchartId);
+        }
+
+        Flowchart templateFlowchart = null;
+        if (id != null) {
+          Flowchart temp = flowchartRepository.findOne(id);
+          if (temp != null && temp.isOfficial()) {
+            templateFlowchart = temp;
+          } else {
+            logger.error("Invalid flowchartID: " + templateFlowchartId);
+          }
+        }
+
         Flowchart newFlowchart = new Flowchart();
-        newFlowchart.setName("New Flowchart"); //TODO We should have a better default
+        newFlowchart.setName(StringUtils.isEmpty(name) ? "New Flowchart" : name); //TODO We should have a better default
         newFlowchart.setUser(user);
+
+        if (templateFlowchart != null) {
+            // copy entries
+            List<Entry> entries = new ArrayList<>();
+            templateFlowchart.getEntries().forEach(entry -> {
+              entries.add(new Entry(entry.getCourse(), newFlowchart, entry.getQuarter()));
+            });
+            newFlowchart.setEntries(entries);
+            newFlowchart.setFirstQuarter(templateFlowchart.getFirstQuarter());
+            newFlowchart.setLastQuarter(templateFlowchart.getLastQuarter());
+        } else {
+          // TODO we should allow the user to pass in the starting quarter
+          Quarter quarter = quarterService.getStartOfCurrentYear();
+          newFlowchart.setFirstQuarter(quarter);
+          // Add 4 years by default
+          newFlowchart.setLastQuarter(quarterService.nextQuarter(quarter, 4 * 4));
+          newFlowchart.setEntries(Collections.emptyList());
+        }
+
         return flowchartRepository.save(newFlowchart);
     }
 
@@ -90,4 +134,17 @@ public class FlowchartService {
         flowchartRepository.deleteAll();
     }
 
+    public void publishFlowchart(Long id, boolean official) {
+      Flowchart flowchart = flowchartRepository.findOne(id);
+      flowchart.setOfficial(official);
+      flowchartRepository.save(flowchart);
+    }
+
+    public List<FlowchartCompact> getOfficialFlowcharts() {
+      List<FlowchartCompact> flowcharts = new ArrayList<>();
+      flowchartRepository.findByIsOfficial(true).forEach(f -> {
+        flowcharts.add(new FlowchartCompact(f.getId(), f.getName()));
+      });
+      return flowcharts;
+    }
 }

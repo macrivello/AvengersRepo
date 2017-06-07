@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Flowchart} from "../models/flowchart.model";
+import {Flowchart, FlowchartCompact} from "../models/flowchart.model";
 import {FlowchartEntry, FlowchartEntryCompact} from "../models/flowchart-entry.model"
 import { Http } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
@@ -9,6 +9,7 @@ import {isNullOrUndefined} from "util";
 import {UserService} from './user.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {FlowchartView} from '../models/flowchart-view.model';
+import {QuarterService} from './quarter.service';
 
 @Injectable()
 export class FlowchartService {
@@ -23,7 +24,8 @@ export class FlowchartService {
   private flowcharts$ = this.flowchartsSource.asObservable();
 
 
-  constructor(private http : Http){}
+  constructor(private http : Http,
+              private quarterService: QuarterService) {}
 
   // TODO: Make this more clear
   getFlowcharts(): Observable<Flowchart[]> {
@@ -40,6 +42,13 @@ export class FlowchartService {
 
   getAllFlowcharts(): Observable<Flowchart[]> {
     return this.flowcharts$;
+  }
+
+  getAllOfficialFlowcharts(): Promise<FlowchartCompact[]> {
+    return this.http.get("api/flowcharts/official")
+      .map(response => response.json() as FlowchartCompact[])
+      .toPromise()
+      .catch(this.handleError);
   }
 
   setCurrentFlowchartByIDInMap(id : number)
@@ -68,8 +77,9 @@ export class FlowchartService {
    * the flowcharts$ observable for subscribers to get updated array.
    * @returns {Observable<T>}
    */
-  createFlowchart(): Observable<Flowchart> {
-    return this.http.post("api/flowcharts", {})
+  createFlowchart(name: string, templateId: number): Observable<Flowchart> {
+    console.log(`Created new flowchart ${name}. Template: ${templateId}`);
+    return this.http.post("api/flowcharts", {name: name, templateId: templateId})
       .map((response) => {
         let flowchart = response.json() as Flowchart;
         console.log(`Flowchart created. ID: ${flowchart.id}`);
@@ -221,15 +231,34 @@ export class FlowchartService {
   }
 
   // This is a utility method
-  static parseQuarters(flowchart: Flowchart): QuarterView[] {
+  parseQuarters(flowchart: Flowchart): QuarterView[] {
     if (isNullOrUndefined(flowchart)
-      || isNullOrUndefined(flowchart.entries)
-      || flowchart.entries.length === 0) {
+      || isNullOrUndefined(flowchart.firstQuarter)
+      || isNullOrUndefined(flowchart.lastQuarter)
+      || isNullOrUndefined(flowchart.entries)) {
 
       return [];
     }
 
     let quarters = new Map();
+
+    // TODO fill in quarter gaps.
+    for (let i = flowchart.firstQuarter.id; i < flowchart.lastQuarter.id; i++) {
+      let quarterView = new QuarterView();
+
+      if (i == flowchart.firstQuarter.id) {
+        quarterView.quarter = flowchart.firstQuarter;
+        quarters.set(flowchart.firstQuarter.id, quarterView);
+      } else  if (i == flowchart.lastQuarter.id) {
+        quarterView.quarter = flowchart.lastQuarter;
+        quarters.set(flowchart.lastQuarter.id, quarterView);
+      } else {
+        let quarter = this.quarterService.quarters.get(i);
+        quarterView.quarter = quarter;
+        quarters.set(i, quarterView)
+      }
+    }
+
     for (let entry of flowchart.entries){
       const quarterId = entry.quarter.id;
 
@@ -249,7 +278,14 @@ export class FlowchartService {
   }
 
   // This is a utility method
-  static buildFlowchartView(flowchart: Flowchart): FlowchartView {
-    return {flowchart: flowchart, quarters: FlowchartService.parseQuarters(flowchart)};
+  buildFlowchartView(flowchart: Flowchart): FlowchartView {
+    console.log(`buildFlowchartView`);
+    return {flowchart: flowchart, quarters: this.parseQuarters(flowchart)};
+  }
+
+  publishFlowchart(flowchartId: number, official: boolean): Promise<any> {
+    return this.http.put(`api/flowcharts/${flowchartId}/publish`, official)
+      .toPromise()
+      .catch(this.handleError);
   }
 }

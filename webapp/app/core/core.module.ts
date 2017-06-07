@@ -11,6 +11,12 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
 import { SideNavComponent } from './sidenav/sidenav.component';
 import {CourseSearchComponent} from "../components/course-search/course-search.component";
 import {MdButtonToggleModule} from '@angular/material';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {MdAutocompleteModule} from '@angular/material';
+import {MdInputModule} from '@angular/material';
+import {ReactiveFormsModule} from '@angular/forms';
+
+
 
 
 
@@ -20,7 +26,11 @@ import {MdButtonToggleModule} from '@angular/material';
     MdSidenavModule,
     MdButtonModule,
     MdDialogModule,
-    MdButtonToggleModule
+    MdButtonToggleModule,
+    MdAutocompleteModule,
+    MdInputModule,
+    ReactiveFormsModule,
+    NgbModule
   ],
   exports: [
     SideNavComponent,
@@ -30,6 +40,9 @@ import {MdButtonToggleModule} from '@angular/material';
     MdButtonModule,
     MdButtonToggleModule,
     CourseSearchComponent,
+    MdAutocompleteModule,
+    ReactiveFormsModule,
+    MdInputModule
   ],
   declarations: [
     NavbarComponent,

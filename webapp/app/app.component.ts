@@ -4,10 +4,16 @@ import {UserService} from './services/user.service';
 import {Flowchart} from './models/flowchart.model';
 import {FlowchartService} from './services/flowchart.service';
 import {Observable} from 'rxjs/Observable';
-import {MdSidenav} from '@angular/material';
+import {MdDialog, MdSidenav} from '@angular/material';
 import {isNullOrUndefined} from 'util';
 import {NavbarService} from './services/navbar.service';
 import {User} from './models/user.model';
+import {QuarterService} from './services/quarter.service';
+import {Quarter} from './models/quarter.model';
+import {CourseService} from './services/course.service';
+import {CourseSearchService} from './services/course-search.service';
+import {FlowchartSearchService} from './services/flowchart-search.service';
+import {NewFlowchartComponent} from './components/new-flowchart/new-flowchart.component';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +28,13 @@ export class AppComponent implements OnInit {
 
   constructor(private flowchartService: FlowchartService,
               private userService: UserService,
+              private quarterService: QuarterService,
+              private courseService: CourseService,
+              private courseSearchService: CourseSearchService,
+              private flowchartSearchService: FlowchartSearchService,
+              public dialog: MdDialog,
               private router: Router) {
+
     this.allFlowcharts$ = this.flowchartService.getAllFlowcharts();
     this.selectedFlowchartId$ = this.flowchartService.getCurrentFlowchartId();
     this.currentUser$ = this.userService.getCurrentUser();
@@ -37,6 +49,10 @@ export class AppComponent implements OnInit {
           this.flowchartService.fetchAndUpdateAllFlowcharts();
         }
       });
+
+    this.quarterService.initQuarterData();
+    this.courseSearchService.initCourseData();
+    this.flowchartSearchService.initOfficialFlowchartsData();
   }
 
   onSideNavToggle(){
@@ -56,10 +72,19 @@ export class AppComponent implements OnInit {
 
   onNewFlowchart() {
     console.log("onNewFlowchart");
-    this.flowchartService.createFlowchart()
-      .subscribe((flowchart) => {
-          this.flowchartService.setCurrentFlowchartByIDInMap(flowchart.id);
-          this.sideNavComponent.close();
+    let dialogRef = this.dialog.open(NewFlowchartComponent);
+
+    dialogRef.afterClosed()
+      .subscribe(data => {
+        console.log(data);
+        if (isNullOrUndefined(data)) {
+          return;
+        }
+        this.flowchartService.createFlowchart(data.name, data.flowchartId)
+          .subscribe((flowchart) => {
+            this.flowchartService.setCurrentFlowchartByIDInMap(flowchart.id);
+            this.sideNavComponent.close();
+          });
       });
   }
 }

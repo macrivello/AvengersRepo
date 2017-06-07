@@ -1,22 +1,22 @@
-<div *ngIf="quarter;">
+<div *ngIf="quarter;" style="justify-content: center">
 
   <!--TODO theres probably a good use of flex box here-->
   <!--<div class="col-lg-12">-->
   <!--<div class="d-flex">-->
-    <div class="card m-3">
-      <div class="card-block">
+    <div class="card m-1">
+      <div class="card-block" style="min-height: 65vh; position: relative;">
 
         <div class="card-title">
-          <h2>{{quarter.term}} {{quarter.year}}</h2>
+          <h5>{{quarter.term}} {{quarter.year}}</h5>
+          <hr>
         </div>
 
         <div class="card-text">
           <app-course *ngFor="let entry of quarterView.entries" [entry]="entry"></app-course>
         </div>
-
-        <div class="mt-3">
-          <button md-button (click)="onAddCourseClicked(quarter)"><i class="fa fa-plus-square-o fa-2x" aria-hidden="true"></i></button>
-        </div>
+      </div>
+      <div class="card-footer" >
+        <button md-button (click)="onAddCourseClicked(quarter)"><i class="fa fa-plus-square-o fa-2x" aria-hidden="true"></i></button>
       </div>
     </div>
 </div>

@@ -11,6 +11,7 @@ import {CourseSearchComponent} from '../course-search/course-search.component';
 import {FlowchartEntryCompact} from '../../models/flowchart-entry.model';
 import {FlowchartView} from '../../models/flowchart-view.model';
 import {Observable} from 'rxjs/Observable';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-flowchart',
@@ -27,12 +28,17 @@ export class FlowchartComponent implements OnInit, OnDestroy, OnChanges {
   constructor(private flowchartService: FlowchartService,
               public dialog: MdDialog) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   ngOnDestroy(){}
 
   ngOnChanges() {
     this.editTitleMode = false;
+  }
+
+  isCurrentUserAdmin() {
+    return UserService.isCurrentUserAdmin();
   }
 
   openAddCourseDialog(quarter: Quarter) {
@@ -91,5 +97,22 @@ export class FlowchartComponent implements OnInit, OnDestroy, OnChanges {
     console.log("onFlowchartDelete");
     this.onDeleteFlowchart.emit(flowchartId);
     this.flowchartService.deleteFlowchart(flowchartId);
+  }
+
+  onAddQuarter() {
+    console.log("onAddQuarter");
+  }
+
+  onAddYear() {
+    console.log("onAddYear");
+  }
+
+  onPublishFlowchart(flowchartId: number, markOfficial: boolean) {
+    console.log("onPublishFlowchart");
+    this.flowchartService.publishFlowchart(flowchartId, markOfficial)
+      .then(() => {
+        console.log(`flowchart ${flowchartId} published: ${markOfficial}. Updating flowchart.`);
+        this.flowchartService.fetchAndUpdateActiveFlowchart();
+      });
   }
 }
