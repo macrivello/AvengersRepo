@@ -21,6 +21,8 @@ import {AuthGuard} from './guards/auth.guard';
 import {NavbarService} from './services/navbar.service';
 import {HomeComponent} from './core/home/home.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NewFlowchartComponent } from './components/new-flowchart/new-flowchart.component';
+import {FlowchartSearchService} from './services/flowchart-search.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full', canActivate: [AuthGuard] },
@@ -36,7 +38,8 @@ const routes: Routes = [
     FlowchartComponent,
     LoginComponent,
     QuarterComponent,
-    HomeComponent
+    HomeComponent,
+    NewFlowchartComponent
   ],
   imports: [
     BrowserModule,
@@ -46,12 +49,14 @@ const routes: Routes = [
     FormsModule,
     CoreModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, {useHash: true})
   ],
   entryComponents: [
-    CourseSearchComponent
+    CourseSearchComponent,
+    NewFlowchartComponent
   ],
   providers: [FlowchartService,
+              FlowchartSearchService,
               LoginService,
               UserService,
               CourseService,

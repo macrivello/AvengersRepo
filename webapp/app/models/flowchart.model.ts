@@ -8,5 +8,10 @@ export class Flowchart {
   firstQuarter: Quarter;
   lastQuarter: Quarter;
   entries: FlowchartEntry[];
+  isOfficial: boolean;
 }
 
+export class FlowchartCompact {
+  id: number;
+  name: string;
+}

@@ -8,25 +8,8 @@ import {isEmpty} from 'rxjs/operator/isEmpty';
 
 @Injectable()
 export class CourseService {
-  COURSE_DATA_KEY= "COURSE_DATA";
-  courses: Map<number, Course>;
 
   constructor(private http : Http) { }
-
-  initCourseData() {
-    this.courses = new Map<number, Course>(JSON.parse(localStorage.getItem(this.COURSE_DATA_KEY)));
-
-    if (isNullOrUndefined(this.courses) || Object.keys(this.courses).length === 0) {
-      this.getCourses().then((courses) => {
-        let coursesMap = new Map();
-        for (let course of courses) {
-          coursesMap.set(course.id, course);
-        }
-        localStorage.setItem(this.COURSE_DATA_KEY, JSON.stringify(Array.from(coursesMap.entries())));
-        this.courses = coursesMap;
-      });
-    }
-  }
 
   getCourses(): Promise<Course[]> {
     return this.http.get("api/courses")

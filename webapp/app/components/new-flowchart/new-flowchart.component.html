@@ -1,0 +1,16 @@
+<md-input-container class="w-100">
+  <input #name [hidden]="loading" mdInput placeholder="Flowchart Name">
+</md-input-container>
+
+<md-input-container class="w-100">
+  <md-spinner *ngIf="loading"></md-spinner>
+  <input #flowchart [hidden]="loading" mdInput placeholder="Major Flowchart" [mdAutocomplete]="auto" [formControl]="flowchartCtrl">
+</md-input-container>
+
+<button class="align-content-center" md-raised-button (click)="dialogRef.close({name: name.value, flowchartId: selectedFlowchart ? selectedFlowchart.id : null})">New Flowchart</button>
+
+<md-autocomplete #auto="mdAutocomplete" [displayWith]="flowchartName">
+  <md-option *ngFor="let flowchart of filteredFlowcharts | async" [value]="flowchart">
+    {{ flowchart.name }}
+  </md-option>
+</md-autocomplete>

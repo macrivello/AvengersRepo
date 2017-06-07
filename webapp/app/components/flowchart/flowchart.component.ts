@@ -107,9 +107,12 @@ export class FlowchartComponent implements OnInit, OnDestroy, OnChanges {
     console.log("onAddYear");
   }
 
-  onPublishFlowchart(flowchartId: number) {
+  onPublishFlowchart(flowchartId: number, markOfficial: boolean) {
     console.log("onPublishFlowchart");
-    this.flowchartService.publishFlowchart(flowchartId)
-      .then(() => console.log(`flowchart ${flowchartId} published`));
+    this.flowchartService.publishFlowchart(flowchartId, markOfficial)
+      .then(() => {
+        console.log(`flowchart ${flowchartId} published: ${markOfficial}. Updating flowchart.`);
+        this.flowchartService.fetchAndUpdateActiveFlowchart();
+      });
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Flowchart} from "../models/flowchart.model";
+import {Flowchart, FlowchartCompact} from "../models/flowchart.model";
 import {FlowchartEntry, FlowchartEntryCompact} from "../models/flowchart-entry.model"
 import { Http } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
@@ -44,6 +44,13 @@ export class FlowchartService {
     return this.flowcharts$;
   }
 
+  getAllOfficialFlowcharts(): Promise<FlowchartCompact[]> {
+    return this.http.get("api/flowcharts/official")
+      .map(response => response.json() as FlowchartCompact[])
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   setCurrentFlowchartByIDInMap(id : number)
   {
     //TODO
@@ -70,8 +77,9 @@ export class FlowchartService {
    * the flowcharts$ observable for subscribers to get updated array.
    * @returns {Observable<T>}
    */
-  createFlowchart(): Observable<Flowchart> {
-    return this.http.post("api/flowcharts", {})
+  createFlowchart(name: string, templateId: number): Observable<Flowchart> {
+    console.log(`Created new flowchart ${name}. Template: ${templateId}`);
+    return this.http.post("api/flowcharts", {name: name, templateId: templateId})
       .map((response) => {
         let flowchart = response.json() as Flowchart;
         console.log(`Flowchart created. ID: ${flowchart.id}`);
@@ -275,8 +283,8 @@ export class FlowchartService {
     return {flowchart: flowchart, quarters: this.parseQuarters(flowchart)};
   }
 
-  publishFlowchart(flowchartId: number): Promise<any> {
-    return this.http.get(`api/flowcharts/${flowchartId}/publish`)
+  publishFlowchart(flowchartId: number, official: boolean): Promise<any> {
+    return this.http.put(`api/flowcharts/${flowchartId}/publish`, official)
       .toPromise()
       .catch(this.handleError);
   }
