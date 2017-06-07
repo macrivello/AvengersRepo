@@ -115,4 +115,16 @@ export class FlowchartComponent implements OnInit, OnDestroy, OnChanges {
         this.flowchartService.fetchAndUpdateActiveFlowchart();
       });
   }
+
+  onUpdateEntry(event: any){
+    console.log('onUpdateEntry', event);
+    let entry = new FlowchartEntryCompact(this.flowchartView.flowchart.id, event.entry.course.id, event.newQuarterId);
+    this.flowchartService.updateEntry(event.entry.id, entry)
+      .then(() => {
+        // remove loading indicator
+      })
+      .catch(() => {
+        // remove loading indicator
+      })
+  }
 }

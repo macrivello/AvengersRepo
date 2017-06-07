@@ -23,6 +23,7 @@ import {HomeComponent} from './core/home/home.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NewFlowchartComponent } from './components/new-flowchart/new-flowchart.component';
 import {FlowchartSearchService} from './services/flowchart-search.service';
+import {DndModule} from 'ng2-dnd';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full', canActivate: [AuthGuard] },
@@ -49,7 +50,8 @@ const routes: Routes = [
     FormsModule,
     CoreModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot(routes, {useHash: true})
+    RouterModule.forRoot(routes, {useHash: true}),
+    DndModule.forRoot()
   ],
   entryComponents: [
     CourseSearchComponent,
