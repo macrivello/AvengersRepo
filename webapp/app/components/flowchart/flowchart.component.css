@@ -56,3 +56,9 @@ h4 {
 .dropdown {
   color: #fffff4;
 }
+
+.pt-2 {
+  font-family: 'Bitter', serif;
+  text-align: center;
+  color: #FFFFFF;
+}
