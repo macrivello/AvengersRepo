@@ -2,9 +2,8 @@
   padding: .2em 1em;
 }
 .navbar-title {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #323232;
+  font-family: 'Oswald', sans-serif;
+  font-size: 16pt;
   display: inline-block;
   vertical-align: middle;
 }
@@ -47,10 +46,10 @@
   font-size: 15pt;
 }
 
-md-button {
+.md-button {
   font-family: serif;
+  font-family: 'Oswald', sans-serif;
   font-size: 15pt;
-  font-weight: 500;
 }
 
 .fa-2x {
