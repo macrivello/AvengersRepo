@@ -8,16 +8,16 @@
   <div class="card flowchart" *ngIf="flowchartView && flowchartView.flowchart; else empty">
 
     <div class="card-header d-flex">
-      <div class="d-flex justify-content-lg-start mr-auto pt-1 pl-2">
-          <h4 [hidden]="editTitleMode"
+      <div class="d-flex justify-content-center">
+          <h3 [hidden]="editTitleMode"
               (click)="onFlowchartEdit(true)">
             {{flowchartView.flowchart.name}}
-          </h4>
+          </h3>
           <form [hidden]="!editTitleMode">
             <input #flowchartTitleInput
                    autofocus
                    required minlength="1"
-                   class="justify-content-lg-start mr-auto"
+                   class="justify-content-lg-center"
                    value={{flowchartView.flowchart.name}}
                    placeholder="name"
                    (blur)="onFlowchartEdit(false)"
@@ -30,7 +30,7 @@
 
           <div ngbDropdown>
             <button md-button ngbDropdownToggle class="md-small" id="editDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-gear fa-1x fa-fw"></i>
+              <i class="fa fa-gear fa-2x fa-fw"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="editDropdown">
               <a class="dropdown-item" (click)="onFlowchartEdit(true)">Rename</a>
