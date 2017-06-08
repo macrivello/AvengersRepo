@@ -43,51 +43,55 @@ public class DatabaseLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-      ObjectMapper objectMapper = new ObjectMapper();
-      List<CatalogCourse> catalogCourseList = objectMapper.readValue(ResourceUtils.getURL("src/main/resources/data/courses.json").openStream(), new TypeReference<List<CatalogCourse>>(){});
+      if(userService.getUser("jpautz@calpoly.edu") == null)
+      {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<CatalogCourse> catalogCourseList = objectMapper.readValue(ResourceUtils.getURL("src/main/resources/data/courses.json").openStream(), new TypeReference<List<CatalogCourse>>(){});
 
-      for (CatalogCourse catalogCourse : catalogCourseList){
-        //check if department exists, if not create it
-        Department dept = departmentService.getDepartmentByName(catalogCourse.getPrefix());
-        if (dept == null) {
-          dept = new Department(catalogCourse.getPrefix());
-          departmentService.addDepartment(dept);
+        for (CatalogCourse catalogCourse : catalogCourseList){
+          //check if department exists, if not create it
+          Department dept = departmentService.getDepartmentByName(catalogCourse.getPrefix());
+          if (dept == null) {
+            dept = new Department(catalogCourse.getPrefix());
+            departmentService.addDepartment(dept);
+          }
+          //add course to list
+          courseService.addCourse(new Course(catalogCourse.getSuffix(), catalogCourse.getTitle(), catalogCourse.getDescription(), catalogCourse.getUnits(), dept));
         }
-        //add course to list
-        courseService.addCourse(new Course(catalogCourse.getSuffix(), catalogCourse.getTitle(), catalogCourse.getDescription(), catalogCourse.getUnits(), dept));
-      }
 
-      Department department = new Department("GE");
-      departmentService.addDepartment(department);
-      courseService.addCourse(new Course("A1", "General Education A1", "", "1-4", department));
-      courseService.addCourse(new Course("A2", "General Education A2", "", "1-4", department));
-      courseService.addCourse(new Course("A3", "General Education A3", "", "1-4", department));
+        //Add GEs
+        Department department = new Department("GE");
+        departmentService.addDepartment(department);
+        courseService.addCourse(new Course("A1", "General Education A1", "", "1-4", department));
+        courseService.addCourse(new Course("A2", "General Education A2", "", "1-4", department));
+        courseService.addCourse(new Course("A3", "General Education A3", "", "1-4", department));
 
-      courseService.addCourse(new Course("B1", "General Education B1", "", "1-4", department));
-      courseService.addCourse(new Course("B2", "General Education B2", "", "1-4", department));
-      courseService.addCourse(new Course("B3", "General Education B3", "", "1-4", department));
-      courseService.addCourse(new Course("B4", "General Education B4", "", "1-4", department));
-      courseService.addCourse(new Course("B5", "General Education B5", "", "1-4", department));
-      courseService.addCourse(new Course("B6", "General Education B6", "", "1-4", department));
+        courseService.addCourse(new Course("B1", "General Education B1", "", "1-4", department));
+        courseService.addCourse(new Course("B2", "General Education B2", "", "1-4", department));
+        courseService.addCourse(new Course("B3", "General Education B3", "", "1-4", department));
+        courseService.addCourse(new Course("B4", "General Education B4", "", "1-4", department));
+        courseService.addCourse(new Course("B5", "General Education B5", "", "1-4", department));
+        courseService.addCourse(new Course("B6", "General Education B6", "", "1-4", department));
 
-      courseService.addCourse(new Course("C1", "General Education C1", "", "1-4", department));
-      courseService.addCourse(new Course("C2", "General Education C2", "", "1-4", department));
-      courseService.addCourse(new Course("C3", "General Education C3", "", "1-4", department));
-      courseService.addCourse(new Course("C4", "General Education C4", "", "1-4", department));
-      courseService.addCourse(new Course("C5", "General Education C5", "", "1-4", department));
+        courseService.addCourse(new Course("C1", "General Education C1", "", "1-4", department));
+        courseService.addCourse(new Course("C2", "General Education C2", "", "1-4", department));
+        courseService.addCourse(new Course("C3", "General Education C3", "", "1-4", department));
+        courseService.addCourse(new Course("C4", "General Education C4", "", "1-4", department));
+        courseService.addCourse(new Course("C5", "General Education C5", "", "1-4", department));
 
-      courseService.addCourse(new Course("D1", "General Education D1", "", "1-4", department));
-      courseService.addCourse(new Course("D2", "General Education D2", "", "1-4", department));
-      courseService.addCourse(new Course("D3", "General Education D3", "", "1-4", department));
-      courseService.addCourse(new Course("D4", "General Education D4", "", "1-4", department));
-      courseService.addCourse(new Course("D5", "General Education D5", "", "1-4", department));
+        courseService.addCourse(new Course("D1", "General Education D1", "", "1-4", department));
+        courseService.addCourse(new Course("D2", "General Education D2", "", "1-4", department));
+        courseService.addCourse(new Course("D3", "General Education D3", "", "1-4", department));
+        courseService.addCourse(new Course("D4", "General Education D4", "", "1-4", department));
+        courseService.addCourse(new Course("D5", "General Education D5", "", "1-4", department));
 
-      department = new Department("TECH");
-      departmentService.addDepartment(department);
-      courseService.addCourse(new Course("", "Technical Elective", "", "1-4", department));
+        //Add Tech Elective
+        department = new Department("TECH");
+        departmentService.addDepartment(department);
+        courseService.addCourse(new Course("", "Technical Elective", "", "1-4", department));
 
 
-      // Add Quarters
+        // Add Quarters
         ArrayList<Quarter> testQuarters = new ArrayList<>();
         testQuarters.add(new Quarter(Term.FALL, 2016));
         testQuarters.add(new Quarter(Term.WINTER, 2017));
@@ -135,74 +139,11 @@ public class DatabaseLoader implements CommandLineRunner {
         testUsers.add(new User("Bryce", "Vonilten", "bvonilte@calpoly.edu", "password4"));
         testUsers.add(new User("Miguel", "Duran", "mduran@calpoly.edu", "password5"));
 
-
         Set<RoleType> staffRoles = new HashSet<>();
         staffRoles.add(RoleType.CATALOG_ADMIN);
         testUsers.add(new User("Registrar", "Staff", "staff@calpoly.edu", "staff", staffRoles));
 
         testUsers.forEach(u -> userService.createNewUser(u));
-
-//        // Add flow chart to user
-//        User michael = userService.getUser("macrivel@calpoly.edu");
-//        User jonathan = userService.getUser("jpautz@calpoly.edu");
-//        User staff = userService.getUser("staff@calpoly.edu");
-//        ArrayList<Flowchart> testFlowcharts = new ArrayList<>();
-//        testFlowcharts.add(new Flowchart(michael, "My Flowchart", startQuarter, endQuarter));
-//        testFlowcharts.add(new Flowchart(jonathan, "My Flowchart", startQuarter, endQuarter));
-//        testFlowcharts.add(new Flowchart(jonathan, "My Flowchart 2", startQuarter, endQuarter));
-//        testFlowcharts.add(new Flowchart(staff, "Software Engineering", startQuarter, endQuarter));
-//        testFlowcharts.forEach(flowchart -> flowchartService.addFlowchart(flowchart));
-//
-//        ArrayList<Entry> testEntries = new ArrayList<>();
-//        Flowchart jonathanMyFlow = flowchartService.getFlowchartByName(userService.getUser("jpautz@calpoly.edu"), "My Flowchart");
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Systems Programming"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("FALL2016")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus I"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("FALL2016")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Engineering Economics"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("FALL2016")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Oral Communication"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("FALL2016")));
-//
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Software Engineering I"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus II"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Life Science For Engineers"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry I"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
-//
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Software Engineering II"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry II"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus III"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Bioengineering Fundamentals"), jonathanMyFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
-//
-//        Flowchart jonathanMyFlow2 = flowchartService.getFlowchartByName(userService.getUser("jpautz@calpoly.edu"), "My Flowchart 2");
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus I"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("FALL2016"))); testEntries.add(new Entry(courseService.getCourseByTitle("Calculus I"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("FALL2016")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Engineering Economics"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("FALL2016")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry I"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("FALL2016")));
-//
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Software Engineering I"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("WINTER2017")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus II"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("WINTER2017")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Life Science For Engineers"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("WINTER2017")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Oral Communication"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("WINTER2017")));
-//
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Software Engineering II"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("SPRING2017")));
-//
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Bioengineering Fundamentals"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("SUMMER2017")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus III"), jonathanMyFlow2, quarterService.getQuarterByTermAndYear("SUMMER2017")));
-//
-//
-//        Flowchart staffFlow = flowchartService.getFlowchartByName(userService.getUser("staff@calpoly.edu"), "Software Engineering");
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Systems Programming"), staffFlow, quarterService.getQuarterByTermAndYear("FALL2016")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus I"), staffFlow, quarterService.getQuarterByTermAndYear("FALL2016")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Engineering Economics"), staffFlow, quarterService.getQuarterByTermAndYear("FALL2016")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Oral Communication"), staffFlow, quarterService.getQuarterByTermAndYear("FALL2016")));
-//
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Software Engineering I"), staffFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus II"), staffFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Life Science For Engineers"), staffFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry I"), staffFlow, quarterService.getQuarterByTermAndYear("WINTER2017")));
-//
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Software Engineering II"), staffFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Chemistry II"), staffFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Calculus III"), staffFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
-//        testEntries.add(new Entry(courseService.getCourseByTitle("Bioengineering Fundamentals"), staffFlow, quarterService.getQuarterByTermAndYear("SPRING2017")));
-//
-//        testEntries.forEach(entry -> entryService.addEntry(entry));
-
+      }
     }
 }
