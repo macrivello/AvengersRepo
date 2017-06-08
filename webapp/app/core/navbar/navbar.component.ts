@@ -25,7 +25,8 @@ export class NavbarComponent implements OnInit {
   }
 
   onLogoClicked() {
-    if(this.user) {
+    if(this.user != null)
+    {
       console.log('onLogoClicked');
       this.onLogoClick.emit();
     }
