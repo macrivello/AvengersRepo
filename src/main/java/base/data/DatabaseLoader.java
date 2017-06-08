@@ -44,8 +44,7 @@ public class DatabaseLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
       Long id = Long.valueOf(1);
-      UserService userServ = new UserService();
-      if(userServ.getUser(id) == null)
+      if(userService.getUser(id) == null)
       {
         ObjectMapper objectMapper = new ObjectMapper();
         List<CatalogCourse> catalogCourseList = objectMapper.readValue(ResourceUtils.getURL("src/main/resources/data/courses.json").openStream(), new TypeReference<List<CatalogCourse>>(){});
