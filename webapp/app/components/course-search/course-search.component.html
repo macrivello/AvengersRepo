@@ -25,7 +25,7 @@
 
 <div *ngIf="!loading; else empty" class="w-90">
   <md-input-container class="w-100">
-    <input mdInput placeholder="Add Course" [mdAutocomplete]="auto" [formControl]="courseCtrl" (keyup)="onKeyUp($event)">
+    <input mdInput placeholder="Search For Course" [mdAutocomplete]="auto" [formControl]="courseCtrl" (keyup)="onKeyUp($event)">
   </md-input-container>
 
   <md-autocomplete #auto="mdAutocomplete" [displayWith]="courseName" >
