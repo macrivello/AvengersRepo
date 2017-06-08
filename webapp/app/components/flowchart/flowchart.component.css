@@ -13,6 +13,7 @@
   flex-flow:row;
   width:100%;
   overflow: auto;
+  background-color: #dcdcdc;
 }
 
 .quarter {
@@ -30,4 +31,28 @@
 
 .flowchart{
   height: 80vh;
+  border: 2px solid #000000;
+}
+
+.card-header {
+  #background: #a8bc98;
+  background: #035642;
+}
+
+h4 {
+  text-align: center;
+}
+
+.d-flex h3 {
+  font-family: 'Bitter', serif;
+  text-align: center;
+  color: #FFFFFF;
+
+}
+.fa-2x {
+  color: #fffff4;
+}
+
+.dropdown {
+  color: #fffff4;
 }

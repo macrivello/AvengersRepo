@@ -24,7 +24,9 @@ export class LoginComponent implements OnInit {
     this.userService.logout()
       .then(() => {
         console.log("User signed out");
+
       });
+
   }
 
   onSubmit() {
