@@ -2,7 +2,7 @@
         class="float-right align-top md-small"
         style="z-index: 1"
         (click)="onSidebarClose()">
-  X
+  <i class="fa fa-minus" aria-hidden="true"></i>
 </button>
 <div class="container sidenav">
     <div class="sidenav-title">
@@ -11,7 +11,7 @@
       </span>
     </div>
   <div *ngIf="currentUser" >
-    <hr>
+    <hr style="box-shadow: 0 10px 10px -10px #8c8b8b inset;">
     <div class="sidenav-title">
       <span class="navbar-title">
         <h5 class="pl-1">Flowcharts</h5>
