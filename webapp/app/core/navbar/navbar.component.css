@@ -2,7 +2,7 @@
   padding: .2em 1em;
 }
 .navbar-title {
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Exo 2', sans-serif;
   font-size: 24pt;
   #text-transform: uppercase;
   margin-left: 15px;
@@ -45,8 +45,7 @@
 }
 
 .md-button {
-  font-family: serif;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Exo 2', sans-serif;
   font-size: 15pt;
 }
 

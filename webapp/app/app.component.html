@@ -1,5 +1,6 @@
 <md-sidenav-container fullscreen>
-  <app-navbar [user]="currentUser$ | async"
+  <app-navbar *ngIf="currentUser$ | async"
+              [user]="currentUser$ | async"
               (onLogoClick)="onSideNavToggle()"
               (onSignOut)="onUserSignOut()">
   </app-navbar>
