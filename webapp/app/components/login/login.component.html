@@ -3,7 +3,7 @@
     <div>
       <h1 class="logo-name">PolyPath</h1>
     </div>
-    <form class="m-t" role="form" #loginform="ngForm" (ngSubmit)="onSubmit(loginform.value)">
+    <form class="m-t" role="form" #loginform="ngForm" (ngSubmit)="onSubmit()">
 
       <div class="form-group">
         <input [class.invalid]="invalidCredentials" autofocus type="email" #userRef="ngModel" class="form-control mt-2" placeholder="Username" [(ngModel)]="data.username" name="username">
