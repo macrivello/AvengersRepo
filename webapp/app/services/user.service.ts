@@ -19,6 +19,7 @@ export class UserService {
               @Inject(forwardRef(() => FlowchartService)) private flowchartService: FlowchartService) {}
 
   static getCurrentUser(): User {
+    console.log(JSON.parse(localStorage.getItem('currentUser')));
     return JSON.parse(localStorage.getItem('currentUser')) as User;
   }
 
@@ -43,25 +44,27 @@ export class UserService {
     return this.currentUser$;
   }
 
-  verifyUser(): Observable<User> {
+    verifyUser(): Observable<User> {
     // TODO Catch error if non-500, clear user from local storage
     console.log('Verify User');
     return this.http.get('api/users/me').map(response => {
       const user = response.json() as User;
+      console.log(user.firstName + " " + user.lastName);
 
       localStorage.setItem('currentUser', JSON.stringify(user));
       this.currentUserSource.next(user);
-
+      console.log('Verify user return');
       return user;
-    }).catch((err) => {
+    })
+      .catch((err) => {
       console.log(`Error verifying user: ${err}`);
       return Observable.throw(new Error(err.status));
     });
   }
 
-  login(username: string, password: string): Observable<any> {
+    login(username: string, password: string): Observable<any> {
     return this.http.post('/login', {username: username, password: password})
-      .flatMap(() => this.verifyUser());
+    .switchMap(() => this.verifyUser())
   }
 
   logout(): Promise<any> {

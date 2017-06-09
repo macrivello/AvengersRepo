@@ -24,14 +24,24 @@
 
 .sidenav {
   width: 300px;
+  background-color: rgb(254, 255, 248);
+  height: 100%;
 }
 
 .sidenav-title{
+  font-family: 'Oswald', sans-serif;
   padding-top: 20px;
 }
 
-.sidenav-button {
-  width: 250px;
+h4, h5 {
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+}
+
+.sidenav hr {
+  #height: 5px;
+  border-top: 2px double #003831;
+
 }
 
 .navbar-title {
@@ -41,7 +51,6 @@
 .button-padding {
   margin: 5px 5px 5px 5px;
   position: relative;
-  background-color: #9eb28f;
 }
 
 .courseSearch
@@ -60,6 +69,14 @@
   background-color: transparent;
 }
 
-.activeButton {
-  background-color: lightgray;
+.sidenav-button {
+  width: 250px;
+  border-radius: 10px;
+  background-color: #fff7e0;
 }
+
+.activeButton {
+  background-color: #f7deb5;
+}
+
+

@@ -29,3 +29,17 @@
   padding-bottom: 10px;
   clear: both;
 }
+
+.card-footer {
+  background: #FFE395;
+}
+.card-title {
+
+  font-family: 'Oswald', sans-serif;
+}
+hr {
+  #height: 5px;
+  border-top: 2px double #000000;
+
+}
+
