@@ -6,17 +6,17 @@
     <form class="m-t" role="form" #loginform="ngForm" (ngSubmit)="onSubmit(loginform.value)">
 
       <div class="form-group">
-        <input autofocus type="email" maxlength="30" minlength="1" #userRef="ngModel" required class="form-control" placeholder="Username" [(ngModel)]="data.username" name="username">
+        <input [class.invalid]="invalidCredentials" autofocus type="email" #userRef="ngModel" class="form-control mt-2" placeholder="Username" [(ngModel)]="data.username" name="username">
 
-        <input type="password" maxlength="20" minlength="1" #passRef="ngModel" required class="form-control" placeholder="Password" [(ngModel)]="data.password" name="password">
+        <input [class.invalid]="invalidCredentials" type="password" #passRef="ngModel" class="form-control mt-2" placeholder="Password" [(ngModel)]="data.password" name="password">
 
         <!--Michael, this is what needs to work.-->
-        <div *ngIf="checklogin" class="alert alert-danger">Test </div>
-          <div [hidden]="true">Incorrect log in. Please try again</div>
+        <div *ngIf="invalidCredentials" class="alert alert-danger mt-2">Incorrect Username/Password. Please try again</div>
 
+      <button md-raised-button [disabled]="loading" class="full-width mt-3" type="submit">
+        Login
+      </button>
       </div>
-
-      <button md-raised-button [disabled]="loading || loginform.form.invalid" class="full-width" type="submit">Login</button>
     </form>
   </div>
 </div>

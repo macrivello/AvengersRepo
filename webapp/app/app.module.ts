@@ -20,7 +20,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from './guards/auth.guard';
 import {NavbarService} from './services/navbar.service';
 import {HomeComponent} from './core/home/home.component';
-import {MdDialogModule} from '@angular/material';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full', canActivate: [AuthGuard] },
@@ -45,7 +44,6 @@ const routes: Routes = [
     BrowserAnimationsModule,
     FormsModule,
     CoreModule,
-    MdDialogModule,
     RouterModule.forRoot(routes , {useHash: true} )
   ],
   entryComponents: [

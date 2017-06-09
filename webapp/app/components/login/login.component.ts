@@ -12,7 +12,7 @@ import {Observable} from "rxjs/Observable";
 
 export class LoginComponent implements OnInit {
   loading = false;
-  returnUrl: string;
+  invalidCredentials: boolean;
 
   data = {
     username: "",
@@ -21,30 +21,27 @@ export class LoginComponent implements OnInit {
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
-              private router: Router,
-              public checklogin: boolean) {  }
-
-  signInWarning() {
-    console.log('entered signInWarning');
-    this.checklogin = true;
-}
+              private router: Router) {  }
 
   ngOnInit() {
 
   }
 
   onSubmit() {
+    this.loading = true;
+    this.invalidCredentials = false;
     this.userService.login(this.data.username, this.data.password)
       .catch((error: any) => {
+        this.loading = false;
         if (error.status === 401)
         {
-          this.signInWarning();
-          console.log('It is a 401');
+          this.invalidCredentials = true;
         }
-
         return Observable.throw(new Error(error.status));
       })
       .subscribe(() => {
+        this.loading = false;
+        this.invalidCredentials = false;
         this.router.navigate(['/']);
       }
     )
