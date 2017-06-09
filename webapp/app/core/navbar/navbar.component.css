@@ -2,7 +2,7 @@
   padding: .2em 1em;
 }
 .navbar-title {
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Exo 2', sans-serif;
   font-size: 24pt;
   #text-transform: uppercase;
   margin-left: 15px;
@@ -19,7 +19,8 @@
   display: inline-block;
   vertical-align: middle;
 
-  background: url("../../../assets/PPLogo_NoFill.png") no-repeat center center;
+  /*background: url("../../../assets/PPLogo_NoFill.png") no-repeat center center;*/
+  /*background: url("../../../assets/grad_cap.svg") no-repeat center center;*/
   background-size: cover;
   margin-top: 10px;
 
@@ -44,8 +45,7 @@
 }
 
 .md-button {
-  font-family: serif;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Exo 2', sans-serif;
   font-size: 15pt;
 }
 

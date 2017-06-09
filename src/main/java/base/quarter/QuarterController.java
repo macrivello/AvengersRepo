@@ -1,12 +1,9 @@
 package base.quarter;
 
-import base.course.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.MalformedParametersException;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/")
@@ -41,7 +38,7 @@ public class QuarterController {
     }
 
     @RequestMapping("analytics/quarters/{id}")
-    public List<CourseOccurance> getQuarterAnalytics(@PathVariable Long id)
+    public QuarterAnalytics getQuarterAnalytics(@PathVariable Long id)
     {
       return quarterService.getQuarterAnalytics(id);
     }

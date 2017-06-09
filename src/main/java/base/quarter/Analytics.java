@@ -1,7 +1,5 @@
 package base.quarter;
 
-import base.course.Course;
-import base.flowchart.Flowchart;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import java.util.ArrayList;
@@ -22,6 +20,18 @@ public class Analytics {
     return map;
   }
 }
+
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+class QuarterAnalytics {
+  Quarter quarter;
+  List<CourseOccurance>  occurances;
+
+  public QuarterAnalytics(Quarter quarter, List<CourseOccurance> occurances) {
+    this.quarter = quarter;
+    this.occurances = occurances;
+  }
+}
+
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 class CourseOccurance implements Comparable {
   String courseName;

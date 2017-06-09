@@ -47,3 +47,7 @@ hr {
   min-height: 490px;
   position: relative;
 }
+
+.quarter-content {
+  min-height: 700px;
+}

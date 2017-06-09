@@ -1,5 +1,6 @@
 <md-sidenav-container fullscreen>
-  <app-navbar [user]="currentUser$ | async"
+  <app-navbar *ngIf="currentUser$ | async"
+              [user]="currentUser$ | async"
               (onLogoClick)="onSideNavToggle()"
               (onSignOut)="onUserSignOut()">
   </app-navbar>
@@ -13,7 +14,7 @@
     </app-sidenav>
   </md-sidenav>
 
-  <div class="main-container d-flex mt-1 justify-content-center">
+  <!--<div class="main-container d-flex mt-1 justify-content-center">-->
     <router-outlet></router-outlet>
-  </div>
+  <!--</div>-->
 </md-sidenav-container>
