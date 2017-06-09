@@ -11,4 +11,10 @@ public class FlowchartCompact {
     this.id = id;
     this.name = name;
   }
+
+  public Long getId()
+  {
+    return this.id;
+  }
+
 }

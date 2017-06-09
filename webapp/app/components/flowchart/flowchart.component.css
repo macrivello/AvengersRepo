@@ -6,21 +6,21 @@
 
 .quarter-container {
   display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
+  /*display: -moz-box;
+  display: -ms-flexbox;*/
   flex-flow:row;
   width:100%;
   overflow: auto;
   background-color: #dcdcdc;
+  padding: 0px 10px 0px 10px;
 }
 
 .quarter {
   flex:1;
   -webkit-flex:1;
   text-align:center;
-  min-width:250px;
+  width:180px;
+  min-height: 490px;
 }
 
 .flowchart-container {
@@ -30,7 +30,7 @@
 }
 
 .flowchart{
-  height: 80vh;
+  height: 102vh;
   border: 2px solid #000000;
 }
 
