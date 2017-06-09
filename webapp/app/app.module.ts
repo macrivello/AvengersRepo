@@ -25,6 +25,7 @@ import { NewFlowchartComponent } from './components/new-flowchart/new-flowchart.
 import { FlowchartDeleteComponent } from './components/flowchart-delete/flowchart-delete.component';
 import {FlowchartSearchService} from './services/flowchart-search.service';
 import {DndModule} from 'ng2-dnd';
+import {TruncateModule} from 'ng2-truncate';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full', canActivate: [AuthGuard] },
@@ -53,7 +54,8 @@ const routes: Routes = [
     CoreModule,
     NgbModule.forRoot(),
     RouterModule.forRoot(routes, {useHash: true}),
-    DndModule.forRoot()
+    DndModule.forRoot(),
+    TruncateModule
   ],
   entryComponents: [
     CourseSearchComponent,

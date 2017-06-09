@@ -96,4 +96,8 @@ public class Entry {
     public void setQuarter(Quarter quarter) {
         this.quarter = quarter;
     }
+
+  public String getColor() {
+    return color;
+  }
 }

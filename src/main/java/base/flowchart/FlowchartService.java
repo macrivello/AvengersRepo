@@ -93,7 +93,7 @@ public class FlowchartService {
             // copy entries
             List<Entry> entries = new ArrayList<>();
             templateFlowchart.getEntries().forEach(entry -> {
-              Entry e = new Entry(entry.getCourse(), newFlowchart, entry.getQuarter());
+              Entry e = new Entry(entry.getCourse(), newFlowchart, entry.getQuarter(), entry.getColor());
               entryService.addEntry(e);
               entries.add(e);
             });

@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit, Output} from '@angular/core';
 import {FlowchartEntry, FlowchartEntryCompact} from '../../models/flowchart-entry.model';
 import {FlowchartService} from '../../services/flowchart.service';
+import { TruncateModule } from 'ng2-truncate';
 
 @Component({
   selector: 'app-course',

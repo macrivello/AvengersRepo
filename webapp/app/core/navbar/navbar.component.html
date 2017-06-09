@@ -1,10 +1,10 @@
 <md-toolbar>
   <div class="d-block">
-    <span class="logo-img"(click)="onLogoClicked()"></span>
+    <!--<span class="logo-img"(click)="onLogoClicked()"></span>-->
     <span>
-      <i *ngIf="user" class="fa fa-navicon fa-2x"(click)="onLogoClicked()"aria-hidden="true"></i>
-    </span>
-    <span class="navbar-title">PolyPath</span>
+      <i *ngIf="user" class="fa fa-navicon fa-2x" style="margin-top: 13px;" (click)="onLogoClicked()"aria-hidden="true"></i>
+      </span>
+    <span class="navbar-title mt-1">PolyPath</span>
 
     <div *ngIf="user" class="pull-right p-3">
       <span class="text-gray-dark p-3">{{user.firstName}} {{user.lastName}}</span>

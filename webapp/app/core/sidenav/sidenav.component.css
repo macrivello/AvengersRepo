@@ -72,11 +72,13 @@ h4, h5 {
 .sidenav-button {
   width: 250px;
   border-radius: 10px;
-  background-color: #fff7e0;
+  /*background-color: #fff7e0;*/
 }
 
 .activeButton {
-  background-color: #f7deb5;
+  /*background-color: #f7deb5;*/
+  background-color: #fff7e0;
+
 }
 
 
