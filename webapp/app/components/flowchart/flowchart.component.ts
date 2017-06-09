@@ -54,6 +54,7 @@ export class FlowchartComponent implements OnInit, OnDestroy, OnChanges {
           flowchart_id: this.flowchartView.flowchart.id,
           quarter_id: quarter.id,
           course_id: course.id,
+          color: null
         };
         this.flowchartService.addEntry(entry);
         return;
@@ -124,7 +125,7 @@ export class FlowchartComponent implements OnInit, OnDestroy, OnChanges {
 
   onUpdateEntry(event: any){
     console.log('onUpdateEntry', event);
-    let entry = new FlowchartEntryCompact(this.flowchartView.flowchart.id, event.entry.course.id, event.newQuarterId);
+    let entry = new FlowchartEntryCompact(this.flowchartView.flowchart.id, event.entry.course.id, event.newQuarterId, event.entry.color);
     this.flowchartService.updateEntry(event.entry.id, entry)
       .then(() => {
         // remove loading indicator

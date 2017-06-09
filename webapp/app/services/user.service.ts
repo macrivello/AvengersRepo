@@ -19,7 +19,6 @@ export class UserService {
               @Inject(forwardRef(() => FlowchartService)) private flowchartService: FlowchartService) {}
 
   static getCurrentUser(): User {
-    console.log(JSON.parse(localStorage.getItem('currentUser')));
     return JSON.parse(localStorage.getItem('currentUser')) as User;
   }
 
