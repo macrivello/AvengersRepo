@@ -1,22 +1,60 @@
 package base.quarter;
 
 import base.Application;
+import base.course.Course;
+import base.entry.Entry;
+import base.flowchart.Flowchart;
+import base.flowchart.FlowchartCompact;
+import base.flowchart.FlowchartRepository;
+import base.flowchart.FlowchartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class QuarterService {
 
     @Autowired
     private QuarterRepository quarterRepository;
+    @Autowired
+    private FlowchartService flowchartService;
 
     public List<Quarter> getAllQuarters() {
         List<Quarter> quarters = new ArrayList<>();
         quarterRepository.findAll().forEach(quarters::add);
         return quarters;
+    }
+
+    public List<CourseOccurance> getQuarterAnalytics(Long id)
+    {
+      Analytics analytics = new Analytics(this.getQuarter(id));
+      Flowchart flowchart;
+      List list = new ArrayList<CourseOccurance>();
+      List<FlowchartCompact> offical = flowchartService.getOfficialFlowcharts();
+      if(offical == null)
+        return list;
+      for(FlowchartCompact compact : offical)
+      {
+        flowchart = flowchartService.getFlowchart(compact.getId());
+        for(Entry entry : flowchart.getEntries())
+        {
+          if(entry.getQuarter().getId().longValue() == id.longValue())
+          {
+            if(analytics.getMap().get(entry.getCourse().toString()) == null)
+            {
+              analytics.getMap().put(entry.getCourse().toString(), new CourseOccurance(entry.getCourse().toString(), flowchart.getName()));
+            }
+            else
+            {
+              analytics.getMap().replace(entry.getCourse().toString(), analytics.getMap().get(entry.getCourse().toString()).incrementCourseOccurance(flowchart.getName()));
+            }
+          }
+        }
+      }
+      list = new ArrayList<CourseOccurance>(analytics.getMap().values());
+      Collections.sort(list);
+      return list;
     }
 
     public Quarter getQuarter(Long id) {
