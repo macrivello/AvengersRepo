@@ -2,7 +2,7 @@
   <div class="d-block">
     <span class="logo-img"(click)="onLogoClicked()"></span>
     <span>
-      <i class="fa fa-navicon fa-1x"(click)="onLogoClicked()"aria-hidden="true"></i>
+      <i *ngIf="user" class="fa fa-navicon fa-2x"(click)="onLogoClicked()"aria-hidden="true"></i>
     </span>
     <span class="navbar-title">PolyPath</span>
 
