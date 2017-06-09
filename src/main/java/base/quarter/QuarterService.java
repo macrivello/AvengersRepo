@@ -1,16 +1,16 @@
 package base.quarter;
 
 import base.Application;
-import base.course.Course;
 import base.entry.Entry;
 import base.flowchart.Flowchart;
 import base.flowchart.FlowchartCompact;
-import base.flowchart.FlowchartRepository;
 import base.flowchart.FlowchartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class QuarterService {
@@ -26,14 +26,15 @@ public class QuarterService {
         return quarters;
     }
 
-    public List<CourseOccurance> getQuarterAnalytics(Long id)
+    public QuarterAnalytics getQuarterAnalytics(Long id)
     {
-      Analytics analytics = new Analytics(this.getQuarter(id));
+      Quarter quarter = this.getQuarter(id);
+      Analytics analytics = new Analytics(quarter);
       Flowchart flowchart;
       List list = new ArrayList<CourseOccurance>();
       List<FlowchartCompact> offical = flowchartService.getOfficialFlowcharts();
       if(offical == null)
-        return list;
+        return new QuarterAnalytics(quarter, Collections.EMPTY_LIST);
       for(FlowchartCompact compact : offical)
       {
         flowchart = flowchartService.getFlowchart(compact.getId());
@@ -54,7 +55,7 @@ public class QuarterService {
       }
       list = new ArrayList<CourseOccurance>(analytics.getMap().values());
       Collections.sort(list);
-      return list;
+      return new QuarterAnalytics(quarter, list);
     }
 
     public Quarter getQuarter(Long id) {
