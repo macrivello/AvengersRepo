@@ -40,6 +40,11 @@ export class FlowchartService {
     return this.flowchart$;
   }
 
+  getActiveFlowchartId() : number
+  {
+    return this.activeFlowchartId;
+  }
+
   getAllFlowcharts(): Observable<Flowchart[]> {
     return this.flowcharts$;
   }
