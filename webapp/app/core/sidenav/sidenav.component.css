@@ -24,6 +24,8 @@
 
 .sidenav {
   width: 300px;
+  background-color: rgb(254, 255, 248);
+  height: 100%;
 }
 
 .sidenav-title{
@@ -34,10 +36,6 @@
 h4, h5 {
   text-align: center;
   font-family: 'Oswald', sans-serif;
-}
-
-.sidenav-button {
-  width: 250px;
 }
 
 .sidenav hr {
@@ -53,7 +51,6 @@ h4, h5 {
 .button-padding {
   margin: 5px 5px 5px 5px;
   position: relative;
-  background-color: #9eb28f;
 }
 
 .courseSearch
@@ -72,8 +69,14 @@ h4, h5 {
   background-color: transparent;
 }
 
+.sidenav-button {
+  width: 250px;
+  border-radius: 10px;
+  background-color: #fff7e0;
+}
+
 .activeButton {
-  background-color: lightgray;
+  background-color: #f7deb5;
 }
 
 
