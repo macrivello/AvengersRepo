@@ -3,15 +3,14 @@ import {
   Output, ViewChild
 } from '@angular/core';
 import { FlowchartService } from '../../services/flowchart.service'
-import {Flowchart} from "../../models/flowchart.model";
 import {isNullOrUndefined} from 'util';
 import {MdDialog} from '@angular/material';
 import {Quarter} from '../../models/quarter.model';
 import {CourseSearchComponent} from '../course-search/course-search.component';
 import {FlowchartEntryCompact} from '../../models/flowchart-entry.model';
 import {FlowchartView} from '../../models/flowchart-view.model';
-import {Observable} from 'rxjs/Observable';
 import {UserService} from '../../services/user.service';
+import {FlowchartDeleteComponent} from "../flowchart-delete/flowchart-delete.component";
 
 @Component({
   selector: 'app-flowchart',
@@ -95,8 +94,15 @@ export class FlowchartComponent implements OnInit, OnDestroy, OnChanges {
 
   onFlowchartDelete(flowchartId: number) {
     console.log("onFlowchartDelete");
-    this.onDeleteFlowchart.emit(flowchartId);
-    this.flowchartService.deleteFlowchart(flowchartId);
+    let dialogRef = this.dialog.open(FlowchartDeleteComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === "Yes") {
+        this.onDeleteFlowchart.emit(flowchartId);
+        this.flowchartService.deleteFlowchart(flowchartId).then(() =>
+          console.log(`flowchart ${flowchartId} deleted`)
+        );
+      }
+    });
   }
 
   onAddQuarter() {
@@ -128,3 +134,4 @@ export class FlowchartComponent implements OnInit, OnDestroy, OnChanges {
       })
   }
 }
+

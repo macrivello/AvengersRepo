@@ -22,6 +22,7 @@ import {NavbarService} from './services/navbar.service';
 import {HomeComponent} from './core/home/home.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NewFlowchartComponent } from './components/new-flowchart/new-flowchart.component';
+import { FlowchartDeleteComponent } from './components/flowchart-delete/flowchart-delete.component';
 import {FlowchartSearchService} from './services/flowchart-search.service';
 import {DndModule} from 'ng2-dnd';
 
@@ -40,7 +41,8 @@ const routes: Routes = [
     LoginComponent,
     QuarterComponent,
     HomeComponent,
-    NewFlowchartComponent
+    NewFlowchartComponent,
+    FlowchartDeleteComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,8 @@ const routes: Routes = [
   ],
   entryComponents: [
     CourseSearchComponent,
-    NewFlowchartComponent
+    NewFlowchartComponent,
+    FlowchartDeleteComponent
   ],
   providers: [FlowchartService,
               FlowchartSearchService,
