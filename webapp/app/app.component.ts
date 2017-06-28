@@ -38,7 +38,6 @@ export class AppComponent implements OnInit {
     this.allFlowcharts$ = this.flowchartService.getAllFlowcharts();
     this.selectedFlowchartId$ = this.flowchartService.getCurrentFlowchartId();
     this.currentUser$ = this.userService.getCurrentUser();
-
   }
 
   ngOnInit(): void {
@@ -87,4 +86,5 @@ export class AppComponent implements OnInit {
           });
       });
   }
+
 }

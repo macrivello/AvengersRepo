@@ -5,7 +5,8 @@
               (onSignOut)="onUserSignOut()">
   </app-navbar>
   <md-sidenav #sidenav>
-    <app-sidenav (flowchartSelected)="sidenav.close()"
+    <app-sidenav
+                 (flowchartSelected)="sidenav.close()"
                  (sideNavClose)="sidenav.close()"
                  (newFlowchart)="onNewFlowchart()"
                  [currentUser]="currentUser$ | async"
@@ -15,6 +16,6 @@
   </md-sidenav>
 
   <!--<div class="main-container d-flex mt-1 justify-content-center">-->
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
   <!--</div>-->
 </md-sidenav-container>
