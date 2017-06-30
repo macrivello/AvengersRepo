@@ -1,9 +1,5 @@
 .middle-box {
   max-width: 400px;
-  z-index: 100;
-  margin: 0 auto;
-  padding-top: 40px;
-  margin-top: 10%;
 }
 
 .logo-name {
@@ -18,13 +14,31 @@
   width: 100% !important;
 }
 
-.animated {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
+.login-button {
+  width: 100%;
 }
 
+.invalid {
+  border-left: 5px solid #d60000;
+}
+
+input.ng-valid {
+  /*border-left: 5px solid #007500;*/
+}
+
+.login-container {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+
+.login-content {
+  margin-top: 20%;
+  transition: opacity .5s ease .2s;
+}
+
+
+/*TODO: Move to common animations stylesheet*/
 @-webkit-keyframes fadeIn {
   0% {
     opacity: 0;
@@ -50,10 +64,9 @@
   animation-name: fadeIn;
 }
 
-.invalid {
-  border-left: 5px solid #d60000;
-}
-
-input.ng-valid {
-  /*border-left: 5px solid #007500;*/
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
 }
