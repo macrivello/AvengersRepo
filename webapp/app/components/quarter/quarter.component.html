@@ -1,8 +1,4 @@
-<div *ngIf="quarter;" style="justify-content: center">
-
-  <!--TODO theres probably a good use of flex box here-->
-  <!--<div class="col-lg-12">-->
-  <!--<div class="d-flex">-->
+<div *ngIf="quarter;">
     <div class="card m-1 quarter-content">
       <div dnd-droppable
            (onDropSuccess)="onDropSuccess($event)"
@@ -19,7 +15,7 @@
 
         <div class="card-text h-100">
           <div dnd-draggable [dragData]="entry" *ngFor="let entry of quarterView.entries" >
-            <app-course [entry]="entry"></app-course>
+            <app-course class="course-container" [entry]="entry"></app-course>
           </div>
         </div>
       </div>

@@ -20,9 +20,11 @@ import {FlowchartDeleteComponent} from "../flowchart-delete/flowchart-delete.com
 })
 export class FlowchartComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChild('flowchartTitleInput') flowchartTitleInput;
+  @ViewChild('flowchart-main-content') flowchartContent;
   @Input() flowchartView: FlowchartView;
   @Output() onDeleteFlowchart = new EventEmitter();
-  editTitleMode: boolean = false;
+  editTitleMode = false;
+  multiLine = false;
 
   constructor(private flowchartService: FlowchartService,
               public dialog: MdDialog) {}
@@ -112,6 +114,17 @@ export class FlowchartComponent implements OnInit, OnDestroy, OnChanges {
 
   onAddYear() {
     console.log("onAddYear");
+  }
+
+  onAcademicYearPerRowDisplay() {
+    // flowchart main content - add wrap
+    // quarter - add flex
+    this.multiLine = true;
+  }
+
+  onSingleRowDisplay() {
+    // change flex to no wrap, overflow auto
+    this.multiLine = false;
   }
 
   onPublishFlowchart(flowchartId: number, markOfficial: boolean) {

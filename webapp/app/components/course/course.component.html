@@ -1,4 +1,4 @@
-<div *ngIf="entry" class="d-flex center flex-column roundcorners" [style.background-color]="entry.color ? entry.color : 'white'">
+<div *ngIf="entry" class="course" [style.background-color]="entry.color ? entry.color : 'white'">
     <div    class="pull-left pl-2 icon"
             style="z-index: 1; left: 0; padding-top: 2px; padding-left: 2px"
             (click)="onColorChange()">
@@ -9,15 +9,12 @@
          (click)="onCourseRemove()">
       X
     </div>
-  <div class="text-center" (click)="onClick()">
-    <!-- ({{entry.course.id}}) -->
-    <div >
+    <div class="course-title">
       <b>
       {{entry.course.department.prefix}}
       {{entry.course.number}}
       </b>
       <br>
-      {{entry.course.title | truncate: 30}}
+      {{entry.course.title | truncate: 50}}
     </div>
-  </div>
 </div>

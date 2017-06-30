@@ -28,8 +28,4 @@ export class CourseComponent implements OnInit {
     console.log(`next color: ${this.entry.color}`);
     this.flowchartService.updateEntry(this.entry.id, new FlowchartEntryCompact(this.flowchartService.getActiveFlowchartId(), this.entry.course.id, this.entry.quarter.id, this.entry.color));
   }
-
-  onClick() {
-    console.log(JSON.stringify(this.entry));
-  }
 }

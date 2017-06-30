@@ -1,68 +1,87 @@
-/*Removes horizontal padding from bootstrap col*/
-.some-gutter > [class*='col-'] {
-  padding-right:2px;
-  padding-left:2px;
+/*Styles for the Flowchart Component*/
+
+.flowchart-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 30px;
+}
+
+.flowchart {
+}
+
+.flowchart-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 0 0 3em;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Exo 2', sans-serif;
+  color: white;
+  background: #035642;
+  padding: 5px 10px 5px 10px;
+}
+
+.flowchart-title {
+
+}
+
+.flowchart-menu {
+  display: flex;
+}
+
+.flowchart-display {
+  display: flex;
+  align-content: center;
+}
+
+.flowchart-display button {
+  padding: 0 5px;
+}
+
+.flowchart-main-content {
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  flex-wrap: nowrap;
+  background-color: #dcdcdc;
+  border: 1px solid grey;
 }
 
 .quarter-container {
-  display: -webkit-box;
-  /*display: -moz-box;
-  display: -ms-flexbox;*/
-  flex-flow:row;
-  width:100%;
-  overflow: auto;
-  background-color: #dcdcdc;
-  padding: 10px;
-  min-height: 690px;
+  display: flex;
+  text-align:center;
+  height: 100%;
+  flex: 1 0 250px;
 }
 
 .quarter {
-  flex:1;
-  -webkit-flex:1;
-  text-align:center;
-  width:180px;
-  height: 100%;
+  flex: 1 1 auto;
 }
 
-.flowchart-container {
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  /*width: 95vw;*/
-  /*flex: 1;*/
+.one-line {
+  flex-wrap: nowrap;
+  overflow: auto;
 }
 
-.flowchart{
-  height: 100%;
-  width: 100%;
-  border: 2px solid #000000;
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
-.card-header {
-  #background: #a8bc98;
-  background: #035642;
+.year-per-line-4 {
+  display: block;
+  /* Depends on how many quarters per year*/
+  flex: 1 1 25%;
 }
 
-h4 {
-  text-align: center;
+.year-per-line-3{
+  display: block;
+  /* Depends on how many quarters per year*/
+  flex: 1 1 33%;
 }
 
-.d-flex h3 {
-  font-family: 'Bitter', serif;
-  text-align: center;
-  color: #FFFFFF;
-
-}
-.fa-2x {
-  color: #fffff4;
-}
-
-.dropdown {
-  color: #fffff4;
-}
-
-.pt-2 {
-  font-family: 'Bitter', serif;
-  text-align: center;
-  color: #FFFFFF;
+.year-per-line-2{
+  display: block;
+  /* Depends on how many quarters per year*/
+  flex: 1 1 50%;
 }

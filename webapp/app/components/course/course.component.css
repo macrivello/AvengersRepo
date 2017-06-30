@@ -1,29 +1,21 @@
-.roundcorners {
-  /*clear: both;*/
+.course {
   display: flex;
   padding: 5px;
-  border-radius: 5px;
-  #background: #e6e6e6;
+  border-radius: 3px;
   justify-content: center;
-  border: 2px solid #000000;
-  min-width: 100px;
-  min-height: 100px;
-  box-shadow: 0px 1px 10px #a5a5a5; /*Activate on drop and drag */
-  /*position: relative;*/
+  border: 1px solid #000000;
   margin: 3px;
+
+  min-height: 140px;
+  color:black;
+  font-size: 12px;
+  padding: 5px;
   position: relative;
 }
 
-.text-center {
- color:black;
+.course-title {
   font-size: 12px;
-  padding: 5px;
-}
-
-.button-postioning {
-  position: absolute;
-  top: 0px;
-  right: 0px;
+  padding: 20px;
 }
 
 .classtitle {
@@ -38,7 +30,7 @@
 
 .icon {
   position: absolute;
-  top: 0;
+  top: 2px;
   color: lightgray;
 }
 
